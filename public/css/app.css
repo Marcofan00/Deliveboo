@@ -1,5 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css2?family=Righteous&family=Rubik:wght@300;
 
+400;600&display=swap);@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -10967,5 +10968,70 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+header {
+  padding-top: 48px;
+  display: flex;
+  justify-content: space-between;
+}
+
+header img {
+  color: #009FB7;
+  width: 250.75px;
+  height: 69.2px;
+}
+
+header .fa-cart-arrow-down {
+  font-size: 32px;
+  margin-right: 40px;
+  color: #009FB7;
+}
+
+header #accedi_btn {
+  display: inline-block;
+  background: #009FB7;
+  border-radius: 48px;
+  padding: 12px 32px;
+  width: 209px;
+  height: 62px;
+}
+
+header #accedi_btn a {
+  font-family: "Rubik", sans-serif;
+  font-size: 32px;
+  color: white;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  line-height: 38px;
+  text-align: center;
+}
+
+footer {
+  background-image: url(/storage/img/V-footer.png);
+  height: 462px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#layout {
+  position: relative;
+  min-height: 2500px;
+}
+
+#layout_style_1 {
+  position: absolute;
+  top: 190px;
+  left: 455px;
+  z-index: 2;
+}
+
+#layout_style_2 {
+  position: absolute;
+  top: 986px;
+  left: 0;
 }
 

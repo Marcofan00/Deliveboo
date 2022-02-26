@@ -7,6 +7,8 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Rubik:wght@300;400;600&display=swap');
+
 
 // Variables
 @import 'variables';
@@ -25,3 +27,29 @@
 @import 'partials/jumbotron';
 
 @import 'partials/foods-cards';
+
+
+// hover a
+a:hover{
+    text-decoration: none;
+}
+
+// Layout con "Macchie "
+#layout{
+    position: relative;
+    min-height: 2500px;
+}
+
+// macchia rossa 
+#layout_style_1{
+        position: absolute;
+        top: 190px;
+        left: 455px;
+        z-index: 2;
+}
+// macchia blu 
+#layout_style_2{
+    position: absolute;
+    top: 986px;
+    left: 0;
+}

@@ -14,7 +14,7 @@
             </a>
 
             <div id="accedi_btn">
-                <a  href="{{ route('register_page') }}">Accedi</a>
+                <a  href="{{ route('loginpage') }}">Accedi</a>
             </div>
         </div>
      
