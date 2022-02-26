@@ -12,9 +12,8 @@
 </head>
 <body>
     <div id="app">
-        
         @include('components.header')
-            
+       
         @yield('content')
     
         @if ($errors->any())
@@ -26,5 +25,8 @@
                 </ul>
             </div>
         @endif
-
+ 
         @include('components.footer')
+    </div>
+</body>
+</html>
