@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('buyer_email', 60);
             $table->string('buyer_address');
             $table->string('buyer_phone', 40)->nullable();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->string('transaction_id');
             $table->boolean('transaction_status');
             $table->timestamps();
