@@ -15,7 +15,7 @@ class CreateFoodOrderTable extends Migration
     {
         Schema::create('food_order', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('food_id')->constrained('foods');
+            $table->foreignId('food_id')->constrained('food');
             $table->foreignId('order_id')->constrained('orders');
             $table->integer('food_qty');
             $table->timestamps();
