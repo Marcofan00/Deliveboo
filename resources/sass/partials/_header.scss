@@ -1,0 +1,36 @@
+header{
+    padding-top: 48px;
+    display: flex;
+    justify-content: space-between;
+    // logo 
+    img{
+        color: #009FB7;
+        width: 250.75px;
+        height: 69.2px;
+    }
+    .fa-cart-arrow-down{
+        font-size: 32px;
+        margin-right: 40px;
+        color: #009FB7;
+    }
+    #accedi_btn{
+        display: inline-block;
+        background: #009FB7;
+        border-radius: 48px;
+        padding: 12px 32px;
+        width: 209px;
+        height: 62px;
+
+        // Pulsante accedi link
+        a{
+            font-family: 'Rubik', sans-serif;
+            font-size: 32px;
+            color: white;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            line-height: 38px;
+            text-align: center;
+        }
+    }
+}
