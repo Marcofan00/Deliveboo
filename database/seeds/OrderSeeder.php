@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Order;
+use App\Models\Food;
 
 class OrderSeeder extends Seeder
 {
@@ -52,7 +53,12 @@ class OrderSeeder extends Seeder
                 'buyer_address' => $order['buyer_address'],
                 'transaction_id' => $order['transaction_id'],
                 'transaction_status' => $order['transaction_status']
-            ]);
+            ])->each(function($order) {
+
+                $food = Food::inRandomOrder()->first();
+
+                $order -> foods() -> attach($food, ['food_qty' => 2]);
+            });
         }
     }
 }
