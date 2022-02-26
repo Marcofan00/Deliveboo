@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +16,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'full_name',
+        'email',
+        'password',
+        'restaurant_name',
+        'address',
+        'vat_number',
+        'logo'
     ];
 
     /**
@@ -36,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function categories() {
+        return $this -> belongsToMany('App\Models\Category');
+    }
+
+    public function foods() {
+        return $this -> hasMany('App\Models\Food');
+    }
 }
