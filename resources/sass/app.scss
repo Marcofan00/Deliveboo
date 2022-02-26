@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+// Header and Footer
+@import 'partials/header';
+
+@import 'partials/footer';
+
+
+// Homepage
+@import 'partials/jumbotron';
+
+@import 'partials/foods-cards';
