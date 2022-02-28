@@ -10994,6 +10994,10 @@ header .fa-cart-arrow-down {
   color: #009FB7;
 }
 
+header .fa-cart-arrow-down:hover {
+  transform: scale(2);
+}
+
 header .accedi_btn {
   display: inline-block;
   background: #009FB7;
@@ -11001,6 +11005,15 @@ header .accedi_btn {
   padding: 12px 32px;
   width: 209px;
   height: 62px;
+}
+
+header .accedi_btn:hover {
+  background-color: #f8fafc;
+  border: 2px solid #009FB7;
+}
+
+header .accedi_btn:hover a {
+  color: #009FB7;
 }
 
 header .accedi_btn a {
@@ -11078,8 +11091,9 @@ header #header_component {
     width: 70%;
     height: auto;
     margin-left: 30%;
-    position: relative;
-    top: 30vh;
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 
   header .accedi_mobile {
@@ -11089,14 +11103,15 @@ header #header_component {
     padding: 12px 32px;
     text-align: center;
     display: inline-block;
-    background-color: white;
-    color: #009FB7;
+    color: white;
     border-radius: 3px;
+    border: 2px solid white;
     font-size: 18px;
   }
 
   header .accedi_mobile:hover {
-    background-color: red;
+    background-color: white;
+    color: #009FB7;
   }
 
   header #testo_descrizione {

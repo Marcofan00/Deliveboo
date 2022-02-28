@@ -21,6 +21,9 @@ header{
         font-size: 32px;
         margin-right: 40px;
         color: #009FB7;
+        &:hover{
+            transform: scale(2);
+        }
     }
     .accedi_btn{
         display: inline-block;
@@ -29,6 +32,13 @@ header{
         padding: 12px 32px;
         width: 209px;
         height: 62px;
+        &:hover{
+            background-color: #f8fafc;
+            border: 2px solid #009FB7;
+            a{
+                color: #009FB7;
+            }
+        }
 
         // Pulsante accedi link
         a{
@@ -100,8 +110,9 @@ header{
             width: 70%;
             height: auto;
             margin-left: 30%;
-            position: relative;
-            top: 30vh;
+            position: absolute;
+            bottom: 0;
+            right: 0;
         }
         // pulsante accedi su mobile 
         .accedi_mobile{
@@ -111,12 +122,13 @@ header{
             padding: 12px 32px;
             text-align: center;
             display: inline-block;
-            background-color: white;
-            color: #009FB7;
+            color: white;
             border-radius: 3px;
+            border: 2px solid white;
             font-size: 18px;
             &:hover{
-                background-color: red;
+                background-color: white ;
+                color: #009FB7;
             }
         }
         #testo_descrizione{

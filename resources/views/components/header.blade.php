@@ -1,5 +1,7 @@
 <header class="container">
-    <img src="{{asset('storage/img/Logo.png')}}" alt="">
+    <a href="{{ route('homepage')}}">
+        <img src="{{asset('storage/img/Logo.png')}}" alt="logo_deeboo">
+    </a>
     @auth
     <div>
         <a class="btn btn-danger" href="{{ route('logout') }}">LOGOUT</a>
