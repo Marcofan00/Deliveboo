@@ -21,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/restaurants', 'Api\RestaurantController@getAllRestaurants');
 
 Route::get('/categories', 'Api\CategoryController@getAllCategories');
+
+Route::get('/search', 'Api\RestaurantController@getRestaurantsByCategory');
