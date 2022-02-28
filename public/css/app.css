@@ -10995,10 +10995,10 @@ header .fa-cart-arrow-down {
 }
 
 header .fa-cart-arrow-down:hover {
-  transform: scale(2);
+  transform: scale(1.5);
 }
 
-header .accedi_btn {
+header .accedi_logout_btn {
   display: inline-block;
   background: #009FB7;
   border-radius: 48px;
@@ -11007,16 +11007,16 @@ header .accedi_btn {
   height: 62px;
 }
 
-header .accedi_btn:hover {
+header .accedi_logout_btn:hover {
   background-color: #f8fafc;
   border: 2px solid #009FB7;
 }
 
-header .accedi_btn:hover a {
+header .accedi_logout_btn:hover a {
   color: #009FB7;
 }
 
-header .accedi_btn a {
+header .accedi_logout_btn a {
   font-family: "Rubik", sans-serif;
   font-size: 32px;
   color: white;
@@ -11176,6 +11176,53 @@ footer {
   height: 462px;
   background-size: cover;
   background-repeat: no-repeat;
+  color: white;
+  padding-top: 146px;
+  padding-bottom: 20px;
+}
+
+footer a {
+  color: white;
+  font-family: "Rubik", sans-serif;
+}
+
+footer a:hover {
+  color: white;
+}
+
+footer .info {
+  font-size: 40px;
+  margin-bottom: 32px;
+}
+
+footer #social_logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer #social_logo .social_icon {
+  font-size: 48px;
+  margin-right: 16px;
+}
+
+footer #social_logo .social_icon:hover {
+  transform: rotate(-32deg);
+}
+
+@media all and (max-width: 576px) {
+  footer {
+    padding-top: 50px;
+  }
+
+  footer #social_logo {
+    display: block;
+  }
+
+  footer .logo_footer {
+    text-align: end;
+    margin-top: 32px;
+  }
 }
 
 a:hover {
