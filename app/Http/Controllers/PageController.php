@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Food;
+
 class PageController extends Controller
 {
     public function homepage() {
@@ -26,8 +28,11 @@ class PageController extends Controller
         return view('pages.edit');
     }
 
-    public function resturant() {
-        return view('pages.resturant');
+    public function getRestaurantMenu($id) {
+
+        $restaurantMenu = Food::all()->where('user_id', '=', $id);
+
+        return view('pages.restaurant', ['foods' => $restaurantMenu]);
     }
 
     public function cartPage() {
