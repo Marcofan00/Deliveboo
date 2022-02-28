@@ -11,10 +11,10 @@
                 
 
                  <div v-if="userid">
-                    <a class="btn btn-danger" href="#">LOGOUT</a>
+                    <a class="btn btn-danger" href="/logout">LOGOUT</a>
                 </div>
                 <div v-if="!userid">
-                    <a class="accedi_mobile" href="#">Accedi</a>
+                    <a class="accedi_mobile" href="/login'">Accedi</a>
                 </div>
                 <div>
                     {{testo}}
