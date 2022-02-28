@@ -22,10 +22,11 @@ header{
         margin-right: 40px;
         color: #009FB7;
         &:hover{
-            transform: scale(2);
+            transform: scale(1.5);
         }
     }
-    .accedi_btn{
+    
+    .accedi_logout_btn{
         display: inline-block;
         background: #009FB7;
         border-radius: 48px;
