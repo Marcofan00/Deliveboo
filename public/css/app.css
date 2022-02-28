@@ -11225,6 +11225,68 @@ footer #social_logo .social_icon:hover {
   }
 }
 
+#dashboard {
+  display: flex;
+  height: 100vh;
+  margin: 20px 0;
+}
+
+#dashboard #menu_select {
+  width: 30%;
+  height: 100%;
+  padding: 16px;
+  background-color: #009FB7;
+  color: white;
+}
+
+#dashboard #menu_select .dashboard_action {
+  background-color: white;
+  padding: 8px;
+  color: #009FB7;
+  display: block;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+#dashboard #menu_select .img_restaurant {
+  max-width: 100%;
+  height: auto;
+}
+
+#dashboard #view {
+  width: 70%;
+  padding: 16px;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+#dashboard ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#dashboard ul li {
+  list-style: none;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+#dashboard ul li #action_food {
+  display: flex;
+  justify-content: space-between;
+  background-color: #009FB7;
+  color: white;
+  padding: 0 8px;
+}
+
+#dashboard ul li #action_food a {
+  color: white;
+}
+
+#dashboard ul li #action_food #nascondi {
+  cursor: pointer;
+}
+
 a:hover {
   text-decoration: none;
 }
