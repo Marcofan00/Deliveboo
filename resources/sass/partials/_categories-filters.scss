@@ -1,11 +1,16 @@
 #categories-filters {
     li {
         position: relative;
+        height: 100px;
+        width: 200px;
         display: inline-block;
         margin: 10px;
+        border-radius: 10px;
+        border: 1px solid #000;
+        cursor: pointer;
         img {
-            width: 300px;
-            border-radius: 15px;
+            height: 100%;
+            width: 100%;
         }
         h3 {
             position: absolute;

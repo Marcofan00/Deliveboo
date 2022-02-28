@@ -14,15 +14,17 @@
                     <h3>{{ category.name }}</h3>
                 </li>
             </ul>
+            <button class="btn btn-secondary">Filtra</button>
         </section>
 
         <section id="users">
             <h1>I tuoi piatti preferiti, consegnati da noi.</h1>
             <ul id="users-cards">
-                <li class="user-card">
+                <li class="user-card" v-for="user in users" :key="user.id">
                     <a href="">
-                        <img src="" alt="">
-                        <h3></h3>
+                        <img src="/storage/img/deliverooDefault.png" alt="logo">
+                        <h3>{{ user.restaurant_name }}</h3>
+                        <h5>{{ user.address }}</h5>
                     </a>
                 </li>
             </ul>
@@ -34,13 +36,18 @@
 export default {
     data: function() {
         return {
-            categories: []
+            categories: [],
+            users: []
         };
     },
 
     mounted() {
-        axios.get('http://localhost:8000/api/categories')
-        .then(r => this.categories = r.data.data)
+        axios.get('/api/categories')
+        .then(r => this.categories = r.data)
+        .catch(e => console.error(e));
+
+        axios.get('/api/restaurants')
+        .then(r => this.users = r.data)
         .catch(e => console.error(e));
     }
 }

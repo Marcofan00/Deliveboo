@@ -10,8 +10,12 @@ class RestaurantController extends Controller
 {
     public function getAllRestaurants() {
 
-        $allRestaurants = User::all();
+        $allRestaurants = User::all()->take(12);
 
-        return response()->json(['data' => $allRestaurants]);
+        return response()->json($allRestaurants);
+    }
+
+    public function getRestaurantsByCategory(Request $request) {
+
     }
 }

@@ -10974,6 +10974,7 @@ header {
   padding-top: 48px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
 }
 
 header img {
@@ -10982,13 +10983,22 @@ header img {
   height: 69.2px;
 }
 
+header .fa-bars {
+  display: none;
+  color: #009FB7;
+}
+
 header .fa-cart-arrow-down {
   font-size: 32px;
   margin-right: 40px;
   color: #009FB7;
 }
 
-header #accedi_btn {
+header .fa-cart-arrow-down:hover {
+  transform: scale(2);
+}
+
+header .accedi_btn {
   display: inline-block;
   background: #009FB7;
   border-radius: 48px;
@@ -10997,7 +11007,16 @@ header #accedi_btn {
   height: 62px;
 }
 
-header #accedi_btn a {
+header .accedi_btn:hover {
+  background-color: #f8fafc;
+  border: 2px solid #009FB7;
+}
+
+header .accedi_btn:hover a {
+  color: #009FB7;
+}
+
+header .accedi_btn a {
   font-family: "Rubik", sans-serif;
   font-size: 32px;
   color: white;
@@ -11008,32 +11027,195 @@ header #accedi_btn a {
   text-align: center;
 }
 
+header #dropdown-menu {
+  display: none;
+}
+
+header #header_component {
+  display: none;
+}
+
+@media all and (max-width: 576px) {
+  #Action_user {
+    display: none;
+  }
+
+  #accedi_btn {
+    display: block;
+  }
+
+  header .fa-cart-arrow-down {
+    font-size: 32px;
+    margin-right: 40px;
+    color: white;
+  }
+
+  header .fa-bars {
+    display: block;
+    color: #009FB7;
+    font-size: 32px;
+    cursor: pointer;
+  }
+
+  header #dropdown-menu {
+    -webkit-animation-name: drop-menu;
+            animation-name: drop-menu;
+    -webkit-animation-duration: 400ms;
+            animation-duration: 400ms;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+
+  header #dropdown-menu .close_menu {
+    color: white;
+  }
+
+  header #menu_top {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    margin-bottom: 20px;
+  }
+
+  header #header_component {
+    display: block;
+  }
+
+  header .img_default {
+    width: 70%;
+    height: auto;
+    margin-left: 30%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  header .accedi_mobile {
+    font-family: "Rubik", sans-serif;
+    width: 40%;
+    margin: 0 auto;
+    padding: 12px 32px;
+    text-align: center;
+    display: inline-block;
+    color: white;
+    border-radius: 3px;
+    border: 2px solid white;
+    font-size: 18px;
+  }
+
+  header .accedi_mobile:hover {
+    background-color: white;
+    color: #009FB7;
+  }
+
+  header #testo_descrizione {
+    margin-top: 50px;
+    width: 60%;
+    color: white;
+    font-family: "Righteous", cursive;
+    font-size: 20px;
+  }
+}
+
+@-webkit-keyframes drop-menu {
+  from {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 100vh;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+
+  to {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+}
+
+@keyframes drop-menu {
+  from {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 100vh;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+
+  to {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+}
+
 footer {
   background-image: url(/storage/img/V-footer.png);
   height: 462px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#jumbotron {
+  position: relative;
+  height: 400px;
+  margin-top: 100px;
 }
 
 #jumbotron img {
+  height: 100%;
   display: inline-block;
 }
 
 #jumbotron h1 {
-  display: inline-block;
+  position: absolute;
+  bottom: 200px;
+  right: 15%;
 }
 
 #jumbotron h2 {
-  display: inline-block;
+  position: absolute;
+  bottom: 50px;
+  right: 15%;
+  color: #00a0b7;
 }
 
 #categories-filters li {
   position: relative;
+  height: 100px;
+  width: 200px;
   display: inline-block;
   margin: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  cursor: pointer;
 }
 
 #categories-filters li img {
-  width: 300px;
-  border-radius: 15px;
+  height: 100%;
+  width: 100%;
 }
 
 #categories-filters li h3 {
@@ -11042,21 +11224,30 @@ footer {
   left: 10px;
 }
 
+#users-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
 #users-cards li {
   height: 200px;
   width: 25%;
-  display: inline-block;
   margin: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
 }
 
 #users-cards li img {
-  height: 100%;
+  height: 50%;
   width: 100%;
   border-radius: 15px;
 }
 
 #users-cards li h3 {
   color: #000;
+  padding-left: 10px;
 }
 
 a:hover {
