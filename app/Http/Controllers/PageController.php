@@ -24,20 +24,21 @@ class PageController extends Controller
 
     public function edit() {
         return view('pages.edit');
+    }
 
     public function resturant() {
         return view('pages.resturant');
     }
 
-    public function cart_page() {
+    public function cartPage() {
         return view('pages.cart');
     }
 
-    public function register_page() {
+    public function registerPage() {
         return view('pages.registerpage');
     }
     
-    public function login_page() {
+    public function loginPage() {
         return view('pages.loginpage');
     }
 }
