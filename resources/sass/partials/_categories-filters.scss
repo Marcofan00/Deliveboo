@@ -1,0 +1,16 @@
+#categories-filters {
+    li {
+        position: relative;
+        display: inline-block;
+        margin: 10px;
+        img {
+            width: 300px;
+            border-radius: 15px;
+        }
+        h3 {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+        }
+    }
+}

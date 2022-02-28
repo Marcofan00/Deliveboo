@@ -11013,6 +11013,52 @@ footer {
   height: 462px;
 }
 
+#jumbotron img {
+  display: inline-block;
+}
+
+#jumbotron h1 {
+  display: inline-block;
+}
+
+#jumbotron h2 {
+  display: inline-block;
+}
+
+#categories-filters li {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+#categories-filters li img {
+  width: 300px;
+  border-radius: 15px;
+}
+
+#categories-filters li h3 {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+
+#users-cards li {
+  height: 200px;
+  width: 25%;
+  display: inline-block;
+  margin: 10px;
+}
+
+#users-cards li img {
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+#users-cards li h3 {
+  color: #000;
+}
+
 a:hover {
   text-decoration: none;
 }

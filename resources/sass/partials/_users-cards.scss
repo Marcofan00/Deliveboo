@@ -1,0 +1,16 @@
+#users-cards {
+    li {
+        height: 200px;
+        width: calc(100% / 4);
+        display: inline-block;
+        margin: 10px;
+        img {
+            height: 100%;
+            width: 100%;
+            border-radius: 15px;
+        }
+        h3 {
+            color: #000;
+        }
+    }
+}
