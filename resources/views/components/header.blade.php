@@ -14,7 +14,7 @@
             </a>
 
             <div id="accedi_btn">
-                <a  href="{{ route('loginpage') }}">Accedi</a>
+                <a  href="{{ route('login_page') }}">Accedi</a>
             </div>
         </div>
      
