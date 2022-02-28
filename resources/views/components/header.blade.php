@@ -3,21 +3,29 @@
     @auth
     <div>
         <a class="btn btn-danger" href="{{ route('logout') }}">LOGOUT</a>
-        <a class="btn btn-primary" href="{{ route('create') }}">Carrello</a>
+        <a  href="{{ route('create') }}">
+            <i class="fas fa-cart-arrow-down"></i>
+        </a>
     </div>
     @endauth
 
     @guest
-        <div>
+        <div id="Action_user">
             <a href="">
                 <i class="fas fa-cart-arrow-down"></i>
             </a>
 
-            <div id="accedi_btn">
+            <div class="accedi_btn">
                 <a  href="{{ route('loginpage') }}">Accedi</a>
             </div>
         </div>
-     
 
     @endguest
+    
+    <div id="header_component">
+        <header-component :userid="{{ Auth::check() ? true : 'false' }}">
+        
+        </header-component>
+    </div>
+    
 </header>

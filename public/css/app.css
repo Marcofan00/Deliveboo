@@ -10974,6 +10974,7 @@ header {
   padding-top: 48px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
 }
 
 header img {
@@ -10982,13 +10983,18 @@ header img {
   height: 69.2px;
 }
 
+header .fa-bars {
+  display: none;
+  color: #009FB7;
+}
+
 header .fa-cart-arrow-down {
   font-size: 32px;
   margin-right: 40px;
   color: #009FB7;
 }
 
-header #accedi_btn {
+header .accedi_btn {
   display: inline-block;
   background: #009FB7;
   border-radius: 48px;
@@ -10997,7 +11003,7 @@ header #accedi_btn {
   height: 62px;
 }
 
-header #accedi_btn a {
+header .accedi_btn a {
   font-family: "Rubik", sans-serif;
   font-size: 32px;
   color: white;
@@ -11006,6 +11012,135 @@ header #accedi_btn a {
   height: 100%;
   line-height: 38px;
   text-align: center;
+}
+
+header #dropdown-menu {
+  display: none;
+}
+
+header #header_component {
+  display: none;
+}
+
+@media all and (max-width: 550px) {
+  #Action_user {
+    display: none;
+  }
+
+  #accedi_btn {
+    display: block;
+  }
+
+  header .fa-cart-arrow-down {
+    font-size: 32px;
+    margin-right: 40px;
+    color: white;
+  }
+
+  header .fa-bars {
+    display: block;
+    color: #009FB7;
+    font-size: 32px;
+    cursor: pointer;
+  }
+
+  header #dropdown-menu {
+    -webkit-animation-name: drop-menu;
+            animation-name: drop-menu;
+    -webkit-animation-duration: 400ms;
+            animation-duration: 400ms;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+
+  header #dropdown-menu .close_menu {
+    color: white;
+  }
+
+  header #menu_top {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    margin-bottom: 20px;
+  }
+
+  header #header_component {
+    display: block;
+  }
+
+  header .img_default {
+    width: 70%;
+    height: auto;
+    margin-left: 30%;
+    position: relative;
+    top: 40vh;
+  }
+
+  header .accedi_mobile {
+    font-family: "Rubik", sans-serif;
+    width: 40%;
+    margin: 0 auto;
+    padding: 12px 32px;
+    text-align: center;
+    display: inline-block;
+    background-color: white;
+    color: #009FB7;
+    border-radius: 3px;
+  }
+}
+
+@-webkit-keyframes drop-menu {
+  from {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 100vh;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+
+  to {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+}
+
+@keyframes drop-menu {
+  from {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 100vh;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
+
+  to {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: #009FB7;
+  }
 }
 
 footer {
