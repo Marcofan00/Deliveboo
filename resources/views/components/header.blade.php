@@ -18,8 +18,10 @@
             <a href="{{ route('cart_page') }}">
                 <i class="fas fa-cart-arrow-down"></i>
             </a>
+
             <div class="accedi_logout_btn">
-                <a  href="{{ route('login') }}">Accedi</a>
+                <a  href="{{ route('login_page') }}">Accedi</a>
+                
             </div>
         </div>
 
