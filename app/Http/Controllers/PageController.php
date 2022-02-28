@@ -26,7 +26,7 @@ class PageController extends Controller
         return view('pages.edit');
     }
 
-    public function resturant() {
+    public function restaurant() {
         return view('pages.resturant');
     }
 
