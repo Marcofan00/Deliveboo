@@ -1,4 +1,4 @@
-<header class="container">
+<header class="container container_xxl_">
     {{-- logo  --}}
     <a href="{{ route('homepage')}}">
         <img src="{{asset('storage/img/Logo.png')}}" alt="logo_deeboo">

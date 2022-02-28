@@ -1,5 +1,5 @@
 <footer>
-    <div class="container">
+    <div class="container container_xxl_">
         {{-- Contatti  --}}
         <div class="info">
             <a href="#">Contatti</a>

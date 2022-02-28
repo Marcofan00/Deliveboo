@@ -1969,6 +1969,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     userid: Boolean
@@ -37668,7 +37678,7 @@ var render = function () {
                   _c(
                     "a",
                     {
-                      staticClass: "btn btn-danger",
+                      staticClass: "accedi_mobile",
                       attrs: { href: "/logout" },
                     },
                     [_vm._v("LOGOUT")]
@@ -37680,10 +37690,7 @@ var render = function () {
               ? _c("div", [
                   _c(
                     "a",
-                    {
-                      staticClass: "accedi_mobile",
-                      attrs: { href: "/login'" },
-                    },
+                    { staticClass: "accedi_mobile", attrs: { href: "/login" } },
                     [_vm._v("Accedi")]
                   ),
                 ])
@@ -37699,7 +37706,7 @@ var render = function () {
               staticClass: "img_default",
               attrs: {
                 src: "/storage/img/deliverooDefault.png",
-                alt: "macchia rossa",
+                alt: "DEFAULT_IMG",
               },
             }),
           ]
@@ -37712,7 +37719,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
+    return _c("a", { attrs: { href: "/cart" } }, [
       _c("i", { staticClass: "fas fa-cart-arrow-down" }),
     ])
   },
