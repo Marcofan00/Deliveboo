@@ -16,9 +16,8 @@
             <a href="">
                 <i class="fas fa-cart-arrow-down"></i>
             </a>
-
-            <div class="accedi_btn">
-                <a  href="{{ route('loginpage') }}">Accedi</a>
+            <div id="accedi_btn">
+                <a  href="{{ route('login_page') }}">Accedi</a>
             </div>
         </div>
 
