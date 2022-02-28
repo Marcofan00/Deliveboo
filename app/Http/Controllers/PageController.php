@@ -10,14 +10,6 @@ class PageController extends Controller
         return view('pages.homepage');
     }
 
-    public function registerpage() {
-        return view('pages.registerpage');
-      }
-    
-    public function loginpage() {
-        return view('pages.loginpage');
-    }
-
     public function dashboard() {
         return view('pages.dashboard');
     }
@@ -32,5 +24,20 @@ class PageController extends Controller
 
     public function edit() {
         return view('pages.edit');
+
+    public function resturant() {
+        return view('pages.resturant');
+    }
+
+    public function cart_page() {
+        return view('pages.cart');
+    }
+
+    public function register_page() {
+        return view('pages.registerpage');
+    }
+    
+    public function login_page() {
+        return view('pages.loginpage');
     }
 }
