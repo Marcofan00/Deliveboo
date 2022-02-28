@@ -11022,7 +11022,7 @@ header #header_component {
   display: none;
 }
 
-@media all and (max-width: 550px) {
+@media all and (max-width: 576px) {
   #Action_user {
     display: none;
   }
@@ -11079,7 +11079,7 @@ header #header_component {
     height: auto;
     margin-left: 30%;
     position: relative;
-    top: 40vh;
+    top: 30vh;
   }
 
   header .accedi_mobile {
@@ -11092,6 +11092,19 @@ header #header_component {
     background-color: white;
     color: #009FB7;
     border-radius: 3px;
+    font-size: 18px;
+  }
+
+  header .accedi_mobile:hover {
+    background-color: red;
+  }
+
+  header #testo_descrizione {
+    margin-top: 50px;
+    width: 60%;
+    color: white;
+    font-family: "Righteous", cursive;
+    font-size: 20px;
   }
 }
 

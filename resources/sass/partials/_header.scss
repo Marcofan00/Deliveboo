@@ -51,7 +51,7 @@ header{
 
 }
 
-@media all and (max-width:550px){
+@media all and (max-width:576px){
     #Action_user{
         display: none;
     }
@@ -95,13 +95,15 @@ header{
         #header_component{
             display: block;
         }
+        // immagine default 
         .img_default{
             width: 70%;
             height: auto;
             margin-left: 30%;
             position: relative;
-            top: 40vh;
+            top: 30vh;
         }
+        // pulsante accedi su mobile 
         .accedi_mobile{
             font-family: 'Rubik', sans-serif;
             width: 40%;
@@ -112,10 +114,30 @@ header{
             background-color: white;
             color: #009FB7;
             border-radius: 3px;
+            font-size: 18px;
+            &:hover{
+                background-color: red;
+            }
         }
+        #testo_descrizione{
+            margin-top: 50px;
+            width: 60%;
+            color: white;
+            font-family: 'Righteous', cursive;
+            font-size: 20px;
+        }
+        
+      
     }
     
+   
+    
 }
+
+
+
+    
+
 @keyframes drop-menu {
     from {
         display: block;
