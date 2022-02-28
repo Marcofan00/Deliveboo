@@ -11146,6 +11146,8 @@ header #header_component {
 footer {
   background-image: url(/storage/img/V-footer.png);
   height: 462px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 a:hover {
