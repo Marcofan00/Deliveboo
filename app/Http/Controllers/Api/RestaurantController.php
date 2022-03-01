@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
 use App\Models\Food;
+use App\Models\Order;
 
 class RestaurantController extends Controller
 {
@@ -86,5 +87,18 @@ class RestaurantController extends Controller
         }
 
 
+    }
+
+    public function getRestaurantOrdersById($id) {
+
+        $userFoods = Food::all()->where('user_id', '=', $id);
+
+        $orders = $userFoods->map(function($food) {
+            return $food->orders->toArray();
+        });
+
+        $result = $orders->collapse()->values()->unique('id');
+
+        return response()->json($result);
     }
 }
