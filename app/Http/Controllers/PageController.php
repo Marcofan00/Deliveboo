@@ -30,9 +30,8 @@ class PageController extends Controller
 
     public function getRestaurantMenu($id) {
 
-        $restaurantMenu = Food::all()->where('user_id', '=', $id);
-
-        return view('pages.restaurant', ['foods' => $restaurantMenu]);
+        return view('pages.restaurant', ['userId' => $id]);
+        
     }
 
     public function cartPage() {
