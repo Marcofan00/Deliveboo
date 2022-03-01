@@ -28,7 +28,7 @@
     @endguest
     
     <div id="header_component">
-        <header-component :userid="{{ Auth::check() ? true : 'false' }}">
+        <header-component>
         
         </header-component>
     </div>
