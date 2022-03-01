@@ -4,4 +4,45 @@ footer{
     height: 462px;
     background-size: cover;
     background-repeat: no-repeat;
+    color: white;
+    padding-top: 146px;
+    padding-bottom: 20px;
+    a{
+        color: white;
+        font-family: 'Rubik', sans-serif;
+        &:hover{
+            color: white;
+        }
+    }
+    .info{
+        font-size: 40px;
+        margin-bottom: 32px;
+    }
+    #social_logo{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .social_icon{
+            font-size: 48px;
+            margin-right: 16px;
+            &:hover{
+                transform: rotate(-32deg)
+            }
+        }
+    }
+}
+
+
+
+@media all and ( max-width:576px){
+    footer {
+        padding-top: 50px;
+        #social_logo{
+            display: block;
+        }
+        .logo_footer{
+            text-align: end;
+            margin-top: 32px;
+        }
+    }
 }

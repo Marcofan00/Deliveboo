@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\models\User;
 
 use App\Models\Food;
 
@@ -28,10 +30,10 @@ class PageController extends Controller
         return view('pages.edit');
     }
 
+
     public function getRestaurantMenu($id) {
 
         return view('pages.restaurant', ['userId' => $id]);
-        
     }
 
     public function cartPage() {
