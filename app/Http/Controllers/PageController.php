@@ -28,10 +28,10 @@ class PageController extends Controller
         return view('pages.edit');
     }
 
+
     public function getRestaurantMenu($id) {
 
         return view('pages.restaurant', ['userId' => $id]);
-        
     }
 
     public function cartPage() {

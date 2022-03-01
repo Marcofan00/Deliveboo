@@ -1,27 +1,37 @@
 <template>
     <div>
+
+        <!-- hamburger menu  -->
          <i @click="mobilecheck()" class="fas fa-bars" ></i>
+
+        <!-- dropdown menu ( mobile version se click su hamburge menu)  -->
         <div v-if="mobile_check" id="dropdown-menu" class="container">
                 <div id="menu_top">
-                    <a href="#">
+                    <!-- carrello  -->
+                    <a href="/cart">
                         <i class="fas fa-cart-arrow-down"></i>
                     </a>
                     <i @click="mobilecheck()" class="fas fa-bars close_menu" ></i>
                 </div>
                 
-
+                <!-- Logout BTN -->
                  <div v-if="userid">
-                    <a class="btn btn-danger" href="/logout">LOGOUT</a>
+                    <a class="accedi_mobile" href="/logout">LOGOUT</a>
                 </div>
+
+                <!-- ACCEDI BTN  -->
                 <div v-if="!userid">
-                    <a class="accedi_mobile" href="/login'">Accedi</a>
+                    <a class="accedi_mobile" href="/login">Accedi</a>
                 </div>
+
+                <!-- TESTO  -->
                 <div id="testo_descrizione">
                     {{testo}}
                 </div>
 
-                <img class="img_default" src="/storage/img/deliverooDefault.png" alt="macchia rossa">
+                <img class="img_default" src="/storage/img/deliverooDefault.png" alt="DEFAULT_IMG">
         </div>
+
     </div>
    
 </template>
