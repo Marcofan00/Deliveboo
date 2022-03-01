@@ -49,6 +49,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:60', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -56,8 +57,9 @@ class RegisterController extends Controller
             'restaurant_name' => ['required', 'string'],
             'address' => ['required', 'string'],
             'vat_number' => ['required', 'max:16'],
-            'logo' => ['image']
+            'logo' => ['nullable', 'image']
         ]);
+
     }
 
     /**
@@ -68,6 +70,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (!array_key_exists('logo', $data)) {
+            $data['logo'] = '';
+        }
+
         $newUserData = [
             'full_name' => $data['full_name'],
             'email' => $data['email'],
@@ -81,7 +87,7 @@ class RegisterController extends Controller
 
             $imageFile = $data['logo'];
 
-            $fileName = rand(100000, 999999) . '_' . time().'.'.$request->logo->extension();
+            $fileName = rand(100000, 999999) . '_' . time().'.'.$data['logo']->extension();
 
             $imageFile -> storeAs('img', $fileName, 'public');
 
@@ -89,9 +95,11 @@ class RegisterController extends Controller
 
             return User::create($newUserData);
 
+        } else {
+            return User::create($newUserData);
         }
 
-        return User::create($newUserData);
+        
 
         
 
