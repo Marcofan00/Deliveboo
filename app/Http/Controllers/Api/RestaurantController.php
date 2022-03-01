@@ -27,26 +27,64 @@ class RestaurantController extends Controller
 
     public function createNewFood(Request $request) {
 
-        $newFood = $request->all();
+        $data = $request->all();
 
-        $validatedData = Validator::make($newFood, [
-            'user_id' => ['required', 'numeric'],
-            'name' => ['required', 'string', 'max:60'],
-            'description_ingredients' => ['required', 'string'],
-            'price' => ['required', 'numeric'],
-            'visible' => ['required', 'boolean'],
-            'food_img' => ['image']
-        ]);
+        if (User::find($data['user_id'])) {
 
-        $imageFile = $newFood['food_img'];
+            $validatedData = Validator::make($data, [
+                'user_id' => ['required', 'numeric'],
+                'name' => ['required', 'string', 'max:60'],
+                'description_ingredients' => ['required', 'string'],
+                'price' => ['required', 'numeric'],
+                'visible' => ['required', 'boolean'],
+                'food_img' => ['image']
+            ]);
+    
+            $newFood = $validatedData->getData();
+    
+            $imageFile = $newFood['food_img'];
+    
+            $fileName = rand(100000, 999999) . '_' . time().'.'.$newFood['food_img']->extension();
+    
+            $imageFile -> storeAs('img', $fileName, 'public');
+    
+            $newFood['food_img'] = $fileName;
+    
+            return Food::create($newFood);
+        }
 
-        $fileName = rand(100000, 999999) . '_' . time().'.'.$newFood['food_img']->extension();
+    }
 
-        $imageFile -> storeAs('img', $fileName, 'public');
+    public function editFood(Request $request, $id) {
 
-        $newFood['food_img'] = $fileName;
+        $foodToEdit = Food::findOrFail($id);
 
-        return Food::create($newFood);
+        if ($foodToEdit) {
+
+            $data = $request->all();
+
+            $validatedData = Validator::make($data, [
+                'user_id' => ['required', 'numeric'],
+                'name' => ['required', 'string', 'max:60'],
+                'description_ingredients' => ['required', 'string'],
+                'price' => ['required', 'numeric'],
+                'visible' => ['required', 'boolean'],
+                'food_img' => ['image']
+            ]);
+            
+            $dataToUpdate = $validatedData->getData();
+
+            $imageFile = $dataToUpdate['food_img'];
+    
+            $fileName = rand(100000, 999999) . '_' . time().'.'.$dataToUpdate['food_img']->extension();
+    
+            $imageFile -> storeAs('img', $fileName, 'public');
+    
+            $dataToUpdate['food_img'] = $fileName;
+    
+            $foodToEdit -> update($dataToUpdate);
+        }
+
 
     }
 }
