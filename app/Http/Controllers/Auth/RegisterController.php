@@ -73,7 +73,7 @@ class RegisterController extends Controller
         if (!array_key_exists('logo', $data)) {
             $data['logo'] = '';
         }
-
+      
         $newUserData = [
             'full_name' => $data['full_name'],
             'email' => $data['email'],
@@ -86,7 +86,7 @@ class RegisterController extends Controller
         if ($data['logo']) {
 
             $imageFile = $data['logo'];
-
+          
             $fileName = rand(100000, 999999) . '_' . time().'.'.$data['logo']->extension();
 
             $imageFile -> storeAs('img', $fileName, 'public');
@@ -95,18 +95,9 @@ class RegisterController extends Controller
 
             return User::create($newUserData);
 
-        } else {
-            return User::create($newUserData);
         }
-
-        
-
-        
-
-    
-
-        
-        
+      
+      return User::create($newUserData);
 
     }
 }
