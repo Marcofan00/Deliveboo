@@ -15,10 +15,13 @@ class PageController extends Controller
     }
 
     public function dashboard() {
-        return view('pages.dashboard');
+        $check =  Auth::User() -> id;
+        
+        return view('pages.dashboard',compact('check'));
     }
 
     public function statistics() {
+
         return view('pages.statistics');
     }
 

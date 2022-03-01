@@ -18,9 +18,9 @@
             
           </div>
          <div id="view">
-             <!-- <div v-for="food, i in foods" :key="i">
+             <div v-for="food, i in foods" :key="i">
                  {{food.name}}
-             </div> -->
+             </div>
              <div v-if="foods_visibility" id="foods">
                  <h2>
                     I miei piatti
@@ -70,7 +70,11 @@
 
 <script>
     export default {
+        props:{
+            logincheck : Number,
+        },
         data () {
+            
             return {
                 foods_visibility : false,
                 foods : [],
@@ -78,7 +82,8 @@
             }
         },
         created(){
-             axios.get('api/restaurants/5')
+            console.log(this.logincheck);
+             axios.get('api/restaurants/'+ this.logincheck)
             .then(res => {
                 console.log(res.data);
                 this.foods = res.data;
