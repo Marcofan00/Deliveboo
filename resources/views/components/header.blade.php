@@ -28,8 +28,8 @@
     @endguest
     
     <div id="header_component">
-        <header-component>
-        
+        <header-component  :userid="{{Auth::User() ? Auth::User() -> id : 0}}" >
+            
         </header-component>
     </div>
     

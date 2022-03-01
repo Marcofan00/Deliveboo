@@ -15,14 +15,14 @@
                 </div>
                 
                 <!-- Logout BTN -->
-                 <div v-if="userid">
+                 <!-- <div v-if="userid !== 1">
                     <a class="accedi_mobile" href="/logout">LOGOUT</a>
-                </div>
+                </div> -->
 
                 <!-- ACCEDI BTN  -->
-                <div v-if="!userid">
+                <!-- <div v-if="userid === 1">
                     <a class="accedi_mobile" href="/login">Accedi</a>
-                </div>
+                </div> -->
 
                 <!-- TESTO  -->
                 <div id="testo_descrizione">
@@ -39,7 +39,7 @@
 <script>
     export default {
         props: {
-            userid : Boolean,
+            userid : Number,
         },
         data(){
             return  {
@@ -70,7 +70,7 @@
            
         },
         mounted() {
-
+            console.log('checkHeader' + this.userid);
         }
     }
 </script>

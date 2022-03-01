@@ -23,11 +23,11 @@
                     I miei piatti
                 </h2>
             
-                <ul>
-                    <li>
+                <ul v-for="food, i in foods" :key="i">
+                    <li v-if="food.visible">
                         <div id="action_food">
 
-                            <a href="`/food/edit/${food.id}`">
+                            <a :href="`/food/edit/${food.id}`">
                                  <div>
                                     <i class="fas fa-edit"></i> Edit
                                 </div>
@@ -36,7 +36,7 @@
 
                             <div>
                             
-                                 <div id="nascondi" @click="hideCard">
+                                 <div id="nascondi" @click="hideCard(food.id)">
                                    <i class="far fa-eye-slash"></i> Hide  
                                 </div>
                             
@@ -45,134 +45,16 @@
                         <div class="card" style="width: 14rem;">
                             <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <h5 class="card-title">{{food.name}}</h5>
+                                <p class="card-text">{{food.description_ingredients}}</p>
                                 <span>
-                                    Price
+                                    {{food.price}}
                                 </span>
                             </div>
                         </div>
                     </li>
 
-                    <li>
-                        <div id="action_food">
-
-                            <a href="`/food/edit/${food.id}`">
-                                 <div>
-                                    <i class="fas fa-edit"></i> Edit
-                                </div>
-                            </a>
-                           
-
-                            <div>
-                            
-                                 <div id="nascondi" @click="hideCard">
-                                   <i class="far fa-eye-slash"></i> Hide  
-                                </div>
-                            
-                            </div>
-                        </div>
-                        <div class="card" style="width: 14rem;">
-                            <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span>
-                                    Price
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div id="action_food">
-
-                            <a href="`/food/edit/${food.id}`">
-                                 <div>
-                                    <i class="fas fa-edit"></i> Edit
-                                </div>
-                            </a>
-                           
-
-                            <div>
-                            
-                                 <div id="nascondi" @click="hideCard">
-                                   <i class="far fa-eye-slash"></i> Hide  
-                                </div>
-                            
-                            </div>
-                        </div>
-                        <div class="card" style="width: 14rem;">
-                            <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span>
-                                    Price
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div id="action_food">
-
-                            <a href="`/food/edit/${food.id}`">
-                                 <div>
-                                    <i class="fas fa-edit"></i> Edit
-                                </div>
-                            </a>
-                           
-
-                            <div>
-                            
-                                 <div id="nascondi" @click="hideCard">
-                                   <i class="far fa-eye-slash"></i> Hide  
-                                </div>
-                            
-                            </div>
-                        </div>
-                        <div class="card" style="width: 14rem;">
-                            <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span>
-                                    Price
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div id="action_food">
-
-                            <a href="`/food/edit/${food.id}`">
-                                 <div>
-                                    <i class="fas fa-edit"></i> Edit
-                                </div>
-                            </a>
-                           
-
-                            <div>
-                            
-                                 <div id="nascondi" @click="hideCard">
-                                   <i class="far fa-eye-slash"></i> Hide  
-                                </div>
-                            
-                            </div>
-                        </div>
-                        <div class="card" style="width: 14rem;">
-                            <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span>
-                                    Price
-                                </span>
-                            </div>
-                        </div>
-                    </li>
+                    
 
                     
 
@@ -188,6 +70,10 @@
 
 <script>
     export default {
+        props:{
+            logincheck : Number,
+            foods_user_check : Array
+        },
         data () {
             return {
                 foods_visibility : false,
@@ -196,10 +82,16 @@
             }
         },
         created(){
-            console.log('creato');
+            console.log('check'+this.logincheck);
+            // console.log(this.foods_user_check);
+            this.foods_user_check.forEach(obj => {
+                if (obj.user_id === this.logincheck){
+                    this.foods.push(obj)
+                }
+            });
         },
         mounted() {
-            console.log('Component mounted.')
+
         },
         methods : {
             visibility_foods(){
@@ -213,14 +105,14 @@
                 this.orders_visibility =! this.orders_visibility;
 
                 
+            },
+            hideCard(id){
+                this.foods.forEach(food => {
+                    if ( food.id === id){
+                        food.visible = 0;
+                    }
+                });
             }
-            // hideCard(id){
-            //     this.foods.forEach(food => {
-            //         if ( food.id === id){
-            //             food.food_visibility = 0;
-            //         }
-            //     });
-            // }
         }
     }
 </script>

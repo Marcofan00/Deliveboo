@@ -1978,125 +1978,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    logincheck: Number,
+    foods_user_check: Array
+  },
   data: function data() {
     return {
       foods_visibility: false,
@@ -2105,11 +1991,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    console.log('creato');
+    var _this = this;
+
+    console.log('check' + this.logincheck); // console.log(this.foods_user_check);
+
+    this.foods_user_check.forEach(function (obj) {
+      if (obj.user_id === _this.logincheck) {
+        _this.foods.push(obj);
+      }
+    });
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  },
+  mounted: function mounted() {},
   methods: {
     visibility_foods: function visibility_foods() {
       this.orders_visibility = false;
@@ -2118,14 +2010,14 @@ __webpack_require__.r(__webpack_exports__);
     visibility_orders: function visibility_orders() {
       this.foods_visibility = false;
       this.orders_visibility = !this.orders_visibility;
-    } // hideCard(id){
-    //     this.foods.forEach(food => {
-    //         if ( food.id === id){
-    //             food.food_visibility = 0;
-    //         }
-    //     });
-    // }
-
+    },
+    hideCard: function hideCard(id) {
+      this.foods.forEach(function (food) {
+        if (food.id === id) {
+          food.visible = 0;
+        }
+      });
+    }
   }
 });
 
@@ -2213,7 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    userid: Boolean
+    userid: Number
   },
   data: function data() {
     return {
@@ -2239,7 +2131,9 @@ __webpack_require__.r(__webpack_exports__);
       // }
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    console.log('checkHeader' + this.userid);
+  }
 });
 
 /***/ }),
@@ -37866,123 +37760,87 @@ var render = function () {
       _vm._v(" "),
       _c("div", { attrs: { id: "view" } }, [
         _vm.foods_visibility
-          ? _c("div", { attrs: { id: "foods" } }, [
-              _c("h2", [
-                _vm._v("\n                I miei piatti\n            "),
-              ]),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("div", { attrs: { id: "action_food" } }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "div",
-                        {
-                          attrs: { id: "nascondi" },
-                          on: { click: _vm.hideCard },
-                        },
-                        [
-                          _c("i", { staticClass: "far fa-eye-slash" }),
-                          _vm._v(" Hide  \n                            "),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(2),
+          ? _c(
+              "div",
+              { attrs: { id: "foods" } },
+              [
+                _c("h2", [
+                  _vm._v("\n                I miei piatti\n            "),
                 ]),
                 _vm._v(" "),
-                _c("li", [
-                  _c("div", { attrs: { id: "action_food" } }, [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "div",
-                        {
-                          attrs: { id: "nascondi" },
-                          on: { click: _vm.hideCard },
-                        },
-                        [
-                          _c("i", { staticClass: "far fa-eye-slash" }),
-                          _vm._v(" Hide  \n                            "),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(4),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("div", { attrs: { id: "action_food" } }, [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "div",
-                        {
-                          attrs: { id: "nascondi" },
-                          on: { click: _vm.hideCard },
-                        },
-                        [
-                          _c("i", { staticClass: "far fa-eye-slash" }),
-                          _vm._v(" Hide  \n                            "),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(6),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("div", { attrs: { id: "action_food" } }, [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "div",
-                        {
-                          attrs: { id: "nascondi" },
-                          on: { click: _vm.hideCard },
-                        },
-                        [
-                          _c("i", { staticClass: "far fa-eye-slash" }),
-                          _vm._v(" Hide  \n                            "),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(8),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("div", { attrs: { id: "action_food" } }, [
-                    _vm._m(9),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "div",
-                        {
-                          attrs: { id: "nascondi" },
-                          on: { click: _vm.hideCard },
-                        },
-                        [
-                          _c("i", { staticClass: "far fa-eye-slash" }),
-                          _vm._v(" Hide  \n                            "),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(10),
-                ]),
-              ]),
-            ])
+                _vm._l(_vm.foods, function (food, i) {
+                  return _c("ul", { key: i }, [
+                    food.visible
+                      ? _c("li", [
+                          _c("div", { attrs: { id: "action_food" } }, [
+                            _c(
+                              "a",
+                              { attrs: { href: "/food/edit/" + food.id } },
+                              [_vm._m(1, true)]
+                            ),
+                            _vm._v(" "),
+                            _c("div", [
+                              _c(
+                                "div",
+                                {
+                                  attrs: { id: "nascondi" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.hideCard(food.id)
+                                    },
+                                  },
+                                },
+                                [
+                                  _c("i", { staticClass: "far fa-eye-slash" }),
+                                  _vm._v(
+                                    " Hide  \n                            "
+                                  ),
+                                ]
+                              ),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "card",
+                              staticStyle: { width: "14rem" },
+                            },
+                            [
+                              _c("img", {
+                                staticClass: "card-img-top",
+                                attrs: {
+                                  src: "/storage/img/deliverooDefault.png",
+                                  alt: "",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "card-body" }, [
+                                _c("h5", { staticClass: "card-title" }, [
+                                  _vm._v(_vm._s(food.name)),
+                                ]),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "card-text" }, [
+                                  _vm._v(_vm._s(food.description_ingredients)),
+                                ]),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(food.price) +
+                                      "\n                            "
+                                  ),
+                                ]),
+                              ]),
+                            ]
+                          ),
+                        ])
+                      : _vm._e(),
+                  ])
+                }),
+              ],
+              2
+            )
           : _vm._e(),
         _vm._v(" "),
         _vm.orders_visibility
@@ -38009,190 +37867,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "`/food/edit/${food.id}`" } }, [
-      _c("div", [
-        _c("i", { staticClass: "fas fa-edit" }),
-        _vm._v(" Edit\n                            "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card", staticStyle: { width: "14rem" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "/storage/img/deliverooDefault.png", alt: "" },
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("h5", { staticClass: "card-title" }, [_vm._v("Card title")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v(
-            "Some quick example text to build on the card title and make up the bulk of the card's content."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("span", [
-          _vm._v(
-            "\n                                Price\n                            "
-          ),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "`/food/edit/${food.id}`" } }, [
-      _c("div", [
-        _c("i", { staticClass: "fas fa-edit" }),
-        _vm._v(" Edit\n                            "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card", staticStyle: { width: "14rem" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "/storage/img/deliverooDefault.png", alt: "" },
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("h5", { staticClass: "card-title" }, [_vm._v("Card title")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v(
-            "Some quick example text to build on the card title and make up the bulk of the card's content."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("span", [
-          _vm._v(
-            "\n                                Price\n                            "
-          ),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "`/food/edit/${food.id}`" } }, [
-      _c("div", [
-        _c("i", { staticClass: "fas fa-edit" }),
-        _vm._v(" Edit\n                            "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card", staticStyle: { width: "14rem" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "/storage/img/deliverooDefault.png", alt: "" },
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("h5", { staticClass: "card-title" }, [_vm._v("Card title")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v(
-            "Some quick example text to build on the card title and make up the bulk of the card's content."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("span", [
-          _vm._v(
-            "\n                                Price\n                            "
-          ),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "`/food/edit/${food.id}`" } }, [
-      _c("div", [
-        _c("i", { staticClass: "fas fa-edit" }),
-        _vm._v(" Edit\n                            "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card", staticStyle: { width: "14rem" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "/storage/img/deliverooDefault.png", alt: "" },
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("h5", { staticClass: "card-title" }, [_vm._v("Card title")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v(
-            "Some quick example text to build on the card title and make up the bulk of the card's content."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("span", [
-          _vm._v(
-            "\n                                Price\n                            "
-          ),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "`/food/edit/${food.id}`" } }, [
-      _c("div", [
-        _c("i", { staticClass: "fas fa-edit" }),
-        _vm._v(" Edit\n                            "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card", staticStyle: { width: "14rem" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "/storage/img/deliverooDefault.png", alt: "" },
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("h5", { staticClass: "card-title" }, [_vm._v("Card title")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v(
-            "Some quick example text to build on the card title and make up the bulk of the card's content."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("span", [
-          _vm._v(
-            "\n                                Price\n                            "
-          ),
-        ]),
-      ]),
+    return _c("div", [
+      _c("i", { staticClass: "fas fa-edit" }),
+      _vm._v(" Edit\n                            "),
     ])
   },
 ]
@@ -38291,29 +37968,6 @@ var render = function () {
                 },
               }),
             ]),
-            _vm._v(" "),
-            _vm.userid
-              ? _c("div", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "accedi_mobile",
-                      attrs: { href: "/logout" },
-                    },
-                    [_vm._v("LOGOUT")]
-                  ),
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            !_vm.userid
-              ? _c("div", [
-                  _c(
-                    "a",
-                    { staticClass: "accedi_mobile", attrs: { href: "/login" } },
-                    [_vm._v("Accedi")]
-                  ),
-                ])
-              : _vm._e(),
             _vm._v(" "),
             _c("div", { attrs: { id: "testo_descrizione" } }, [
               _vm._v(
