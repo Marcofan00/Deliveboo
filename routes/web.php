@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PageController@homepage') -> name('homepage');
-Route::get('/resturant', 'PageController@restaurant') -> name('resturant_page');
+Route::get('/restaurant/{id}', 'PageController@getRestaurantMenu') -> name('restaurant_page');
 
 Route::get('/cart', 'PageController@cartPage') -> name('cart_page');
 
