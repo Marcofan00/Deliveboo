@@ -25,7 +25,9 @@
 
 <script>
     export default {
-
+        props : {
+            userid : Number,
+        },
         data(){
             return {
                 file : "",
@@ -36,7 +38,7 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            console.log(this.userid)
         },
         methods :{
             getFile(){
@@ -46,11 +48,11 @@
 
                   let data = new FormData();
 
-                    data.append('user_id', 1);
-                    data.append('name', 'Andrea');
-                    data.append('description_ingredients', 'Piatto a base di uova, guanciale e pecorino');
-                    data.append('price', 8.00);
-                    data.append('visible', 1);
+                    data.append('user_id', this.userid);
+                    data.append('name', this.name);
+                    data.append('description_ingredients',this.descriptionIngredients );
+                    data.append('price', this.price);
+                    data.append('visible',this.visible );
                     data.append('food_img', this.file);
 
                 try {

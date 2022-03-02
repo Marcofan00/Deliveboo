@@ -41,7 +41,7 @@
             return {
 
                 file : "",
-                name : "",
+                // name : "",
             }
         },
         computed: {
@@ -104,14 +104,7 @@
             // console.log(this.food_edit.name);
         },
         methods :{
-            sendFood(){
-                console.log(this.food_edit.name);
-                console.log(this.food_edit.description_ingredients);
-                console.log(this.food_edit.price);
-                console.log(this.food_edit.visible);
-                console.log(this.food_edit.price);
-
-            },
+           
             getFile(){
                 this.file = event.target.files[0];
             },
@@ -127,7 +120,7 @@
                     data.append('food_img', this.file);
 
                 try {
-                    let response = await fetch('api/edit/'+this.food_edit.id,{
+                    let response = await fetch('http://localhost:8000/api/dashboard/edit/'+this.food_edit.id,{
                         method : 'POST',
                         body : data
                     })
