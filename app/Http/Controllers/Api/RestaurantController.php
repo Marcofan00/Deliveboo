@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
 use App\Models\Food;
+use App\Models\Order;
+
 
 class RestaurantController extends Controller
 {
@@ -20,9 +22,11 @@ class RestaurantController extends Controller
 
     public function getRestaurantFoodById($id) {
 
-        $food = Food::all()->where('user_id', '=', $id);
+        $user = User::findOrFail($id);
 
-        return response()->json($food);
+        $food = Food::all()->where('user_id', '=', $id)->where('visible', '=', 1);
+
+        return response()->json(['foods' => $food, 'user' => $user]);
     }
 
     public function createNewFood(Request $request) {
@@ -84,7 +88,25 @@ class RestaurantController extends Controller
     
             $foodToEdit -> update($dataToUpdate);
         }
+    }
 
+    public function getRestaurantOrdersById($id) {
 
+        $userFoods = Food::all()->where('user_id', '=', $id);
+
+        $orders = $userFoods->map(function($food) {
+            return $food->orders->toArray();
+        });
+
+        $result = $orders->collapse()->values()->unique('id');
+
+        return response()->json($result);
+    }
+
+    public function getFoodsByUserId($id) {
+
+        $foods = Food::all()->where('user_id', '=', $id);
+
+        return response()->json($foods);
     }
 }
