@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\models\User;
 
+use App\Models\User;
 use App\Models\Food;
 
 class PageController extends Controller
@@ -26,8 +26,9 @@ class PageController extends Controller
         return view('pages.create');
     }
 
-    public function edit() {
-        return view('pages.edit');
+    public function edit($id) {
+
+        return view('pages.edit', ['foodId' => $id]);
     }
 
 
