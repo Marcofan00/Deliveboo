@@ -95,12 +95,6 @@ class RegisterController extends Controller
 
             $newUserData['logo'] = $fileName;
 
-            // $newUser = User::make($newUserData);
-
-            // $newUser -> categories() -> attach($newUserData['categories']);
-
-            // $newUser -> save();
-
         }
       
       $newUser = User::create($newUserData);
