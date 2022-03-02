@@ -22,6 +22,8 @@
 
 @import 'partials/footer';
 
+// dashboard
+@import 'partials/dashboard';
 
 // Homepage
 @import 'partials/jumbotron';
@@ -38,8 +40,6 @@ body {
     position: relative;
     z-index: 2;
 }
-
-
 
 #layout_style_1 {
     position: absolute;
@@ -58,4 +58,10 @@ body {
 // hover a
 a:hover{
     text-decoration: none;
+}
+
+@media all and ( min-width : 1400px){
+   .container_xxl_{
+       max-width: 1380px;
+   }
 }
