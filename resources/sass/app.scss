@@ -31,27 +31,31 @@
 @import 'partials/users-cards';
 
 
+// Restaurant page
+@import 'partials/foods-cards';
+
+body {
+    position: relative;
+    z-index: 2;
+}
+
+
+
+#layout_style_1 {
+    position: absolute;
+    top: 200px;
+    right: 0;
+    z-index: -1;
+}
+
+#layout_style_2 {
+    position: absolute;
+    top: 600px;
+    left: 0;
+    z-index: -2;
+}
+
 // hover a
 a:hover{
     text-decoration: none;
-}
-
-// Layout con "Macchie "
-#layout{
-    position: relative;
-    min-height: 2500px;
-}
-
-// macchia rossa 
-#layout_style_1{
-        position: absolute;
-        top: 190px;
-        left: 455px;
-        z-index: 2;
-}
-// macchia blu 
-#layout_style_2{
-    position: absolute;
-    top: 986px;
-    left: 0;
 }

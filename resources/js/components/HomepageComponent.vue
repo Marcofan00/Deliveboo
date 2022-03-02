@@ -1,5 +1,5 @@
 <template>
-    <div id="container"> 
+    <div class="container"> 
         <section id="jumbotron">
             <img :src="`/storage/img/deliverooDefault.png`" alt="">
             <h1>I piatti che ami, a domicilio.</h1>
@@ -21,7 +21,7 @@
             <h1>I tuoi piatti preferiti, consegnati da noi.</h1>
             <ul id="users-cards">
                 <li class="user-card" v-for="user in users" :key="user.id">
-                    <a href="">
+                    <a :href="`restaurant/` + user.id">
                         <img src="/storage/img/deliverooDefault.png" alt="logo">
                         <h3>{{ user.restaurant_name }}</h3>
                         <h5>{{ user.address }}</h5>

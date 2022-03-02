@@ -10995,10 +10995,10 @@ header .fa-cart-arrow-down {
 }
 
 header .fa-cart-arrow-down:hover {
-  transform: scale(2);
+  transform: scale(1.5);
 }
 
-header .accedi_btn {
+header .accedi_logout_btn {
   display: inline-block;
   background: #009FB7;
   border-radius: 48px;
@@ -11007,16 +11007,16 @@ header .accedi_btn {
   height: 62px;
 }
 
-header .accedi_btn:hover {
+header .accedi_logout_btn:hover {
   background-color: #f8fafc;
   border: 2px solid #009FB7;
 }
 
-header .accedi_btn:hover a {
+header .accedi_logout_btn:hover a {
   color: #009FB7;
 }
 
-header .accedi_btn a {
+header .accedi_logout_btn a {
   font-family: "Rubik", sans-serif;
   font-size: 32px;
   color: white;
@@ -11176,6 +11176,53 @@ footer {
   height: 462px;
   background-size: cover;
   background-repeat: no-repeat;
+  color: white;
+  padding-top: 146px;
+  padding-bottom: 20px;
+}
+
+footer a {
+  color: white;
+  font-family: "Rubik", sans-serif;
+}
+
+footer a:hover {
+  color: white;
+}
+
+footer .info {
+  font-size: 40px;
+  margin-bottom: 32px;
+}
+
+footer #social_logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer #social_logo .social_icon {
+  font-size: 48px;
+  margin-right: 16px;
+}
+
+footer #social_logo .social_icon:hover {
+  transform: rotate(-32deg);
+}
+
+@media all and (max-width: 576px) {
+  footer {
+    padding-top: 50px;
+  }
+
+  footer #social_logo {
+    display: block;
+  }
+
+  footer .logo_footer {
+    text-align: end;
+    margin-top: 32px;
+  }
 }
 
 #jumbotron {
@@ -11207,9 +11254,10 @@ footer {
   height: 100px;
   width: 200px;
   display: inline-block;
-  margin: 10px;
+  margin-right: 10px;
   border-radius: 10px;
   border: 1px solid #000;
+  background-color: #fff;
   cursor: pointer;
 }
 
@@ -11237,6 +11285,7 @@ footer {
   margin: 10px;
   border-radius: 10px;
   border: 1px solid #000;
+  background-color: #fff;
 }
 
 #users-cards li img {
@@ -11247,28 +11296,81 @@ footer {
 
 #users-cards li h3 {
   color: #000;
-  padding-left: 10px;
+  margin-left: 10px;
 }
 
-a:hover {
-  text-decoration: none;
+#users-cards li h5 {
+  margin-left: 10px;
 }
 
-#layout {
+#restaurant {
+  margin-top: 50px;
+}
+
+#restaurant img {
+  width: 500px;
+}
+
+#restaurant h1 {
+  display: inline-block;
+  color: #000;
+}
+
+#foods-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+#foods-cards li {
+  height: 300px;
+  width: 25%;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+
+#foods-cards li img {
+  height: 50%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+#foods-cards li h3 {
+  color: #000;
+  margin-left: 10px;
+}
+
+#foods-cards li p {
+  margin-left: 10px;
+}
+
+#foods-cards li h4 {
+  margin-left: 10px;
+}
+
+body {
   position: relative;
-  min-height: 2500px;
+  z-index: 2;
 }
 
 #layout_style_1 {
   position: absolute;
-  top: 190px;
-  left: 455px;
-  z-index: 2;
+  top: 200px;
+  right: 0;
+  z-index: -1;
 }
 
 #layout_style_2 {
   position: absolute;
-  top: 986px;
+  top: 600px;
   left: 0;
+  z-index: -2;
+}
+
+a:hover {
+  text-decoration: none;
 }
 

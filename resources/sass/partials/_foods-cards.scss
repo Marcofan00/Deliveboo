@@ -1,10 +1,21 @@
-#users-cards {
+#restaurant {
+    margin-top: 50px;
+    img {
+        width: 500px;
+    }
+    h1 {
+        display: inline-block;
+        color: #000;
+    }
+}
+
+#foods-cards {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     list-style-type: none;
     li {
-        height: 200px;
+        height: 300px;
         width: calc(100% / 4);
         margin: 10px;
         border-radius: 10px;
@@ -19,7 +30,10 @@
             color: #000;
             margin-left: 10px;
         }
-        h5 {
+        p {
+            margin-left: 10px;
+        }
+        h4 {
             margin-left: 10px;
         }
     }
