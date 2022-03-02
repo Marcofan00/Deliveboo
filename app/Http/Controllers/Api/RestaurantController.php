@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\User;
 use App\Models\Food;
+use App\Models\Order;
+
 
 class RestaurantController extends Controller
 {
@@ -16,60 +20,91 @@ class RestaurantController extends Controller
         return response()->json($allRestaurants);
     }
 
+    public function getRestaurantFoodById($id) {
+
+        $food = Food::all()->where('user_id', '=', $id);
+
+        return response()->json($food);
+    }
+
+    public function createNewFood(Request $request) {
+
+        $data = $request->all();
+
+        if (User::find($data['user_id'])) {
+
+            $validatedData = Validator::make($data, [
+                'user_id' => ['required', 'numeric'],
+                'name' => ['required', 'string', 'max:60'],
+                'description_ingredients' => ['required', 'string'],
+                'price' => ['required', 'numeric'],
+                'visible' => ['required', 'boolean'],
+                'food_img' => ['image']
+            ]);
+    
+            $newFood = $validatedData->getData();
+    
+            $imageFile = $newFood['food_img'];
+    
+            $fileName = rand(100000, 999999) . '_' . time().'.'.$newFood['food_img']->extension();
+    
+            $imageFile -> storeAs('img', $fileName, 'public');
+    
+            $newFood['food_img'] = $fileName;
+    
+            return Food::create($newFood);
+        }
+
+    }
+
+    public function editFood(Request $request, $id) {
+
+        $foodToEdit = Food::findOrFail($id);
+
+        if ($foodToEdit) {
+
+            $data = $request->all();
+
+            $validatedData = Validator::make($data, [
+                'user_id' => ['required', 'numeric'],
+                'name' => ['required', 'string', 'max:60'],
+                'description_ingredients' => ['required', 'string'],
+                'price' => ['required', 'numeric'],
+                'visible' => ['required', 'boolean'],
+                'food_img' => ['image']
+            ]);
+            
+            $dataToUpdate = $validatedData->getData();
+
+            $imageFile = $dataToUpdate['food_img'];
+    
+            $fileName = rand(100000, 999999) . '_' . time().'.'.$dataToUpdate['food_img']->extension();
+    
+            $imageFile -> storeAs('img', $fileName, 'public');
+    
+            $dataToUpdate['food_img'] = $fileName;
+    
+            $foodToEdit -> update($dataToUpdate);
+        }
+    }
+
+    public function getRestaurantOrdersById($id) {
+
+        $userFoods = Food::all()->where('user_id', '=', $id);
+
+        $orders = $userFoods->map(function($food) {
+            return $food->orders->toArray();
+        });
+
+        $result = $orders->collapse()->values()->unique('id');
+
+        return response()->json($result);
+    }
+
     public function getFoodsByUserId($id) {
 
         $foods = Food::all()->where('user_id', '=', $id);
 
-        dd($foods);
-
-        // return response()->json($foods);
+        return response()->json($foods);
     }
-
-    public function foodStore(Request $request) {
-
-        $data = $request -> validate([
-            'name' => 'required|string|max:60',
-            'description_ingredients' => 'required|text',
-            'price' => 'required|float',
-            'visible' => 'required|boolean',
-            'img_food' => 'required|image'
-        ]);
-
-        $imageFile = $data['img_food'];
-        $imageName = rand(100000, 999999). '_' .time() . '.' . $imageFile -> getClientOriginalExtension();
-
-        $imageFile -> storeAs('/img/', $imageName, 'public');
-        $data['img_food'] = $imageName;
-
-        $resturantFood = Food::create($data);
-
-        return response()->json($resturantFood);
-    }
-
-    public function foodUpdate(Request $request, $id) {
-
-        $data = $request -> validate([
-            'name' => 'required|string|max:60',
-            'description_ingredients' => 'required|text',
-            'price' => 'required|float',
-            'visible' => 'required|boolean',
-            'img_food' => 'required|image'
-        ]);
-
-        $imageFile = $data['img_food'];
-        $imageName = rand(100000, 999999). '_' .time() . '.' . $imageFile -> getClientOriginalExtension();
-        
-        $imageFile -> storeAs('/img/', $imageName, 'public');
-        $data['img_food'] = $imageName;
-        
-        $resturantFood = Food::findOrFail($id);
-
-        $resturantFood -> update($data);
-
-        return response()->json($resturantFood);
-    }
-
-    // public function getRestaurantsByCategory(Request $request) {
-
-    // }
 }

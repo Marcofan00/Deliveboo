@@ -1,23 +1,36 @@
-<header class="container">
-    <img src="{{asset('storage/img/Logo.png')}}" alt="">
+<header class="container container_xxl_">
+    {{-- logo  --}}
+    <a href="{{ route('homepage')}}">
+        <img src="{{asset('storage/img/Logo.png')}}" alt="logo_deeboo">
+    </a>
+
     @auth
     <div>
-        <a class="btn btn-danger" href="{{ route('logout') }}">LOGOUT</a>
-        <a class="btn btn-primary" href="{{ route('create') }}">Carrello</a>
+        <a class="accedi_logout_btn" href="{{ route('logout') }}">LOGOUT</a>
+        <a  href="{{ route('cart_page') }}">
+            <i class="fas fa-cart-arrow-down"></i>
+        </a>
     </div>
     @endauth
 
     @guest
-        <div>
-            <a href="">
+        <div id="Action_user">
+            <a href="{{ route('cart_page') }}">
                 <i class="fas fa-cart-arrow-down"></i>
             </a>
 
-            <div id="accedi_btn">
+            <div class="accedi_logout_btn">
                 <a  href="{{ route('login_page') }}">Accedi</a>
+                
             </div>
         </div>
-     
 
     @endguest
+    
+    <div id="header_component">
+        <header-component>
+        
+        </header-component>
+    </div>
+    
 </header>
