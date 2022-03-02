@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Food;
 use App\Models\Order;
 
+
 class RestaurantController extends Controller
 {
     public function getAllRestaurants() {
@@ -85,8 +86,6 @@ class RestaurantController extends Controller
     
             $foodToEdit -> update($dataToUpdate);
         }
-
-
     }
 
     public function getRestaurantOrdersById($id) {
@@ -100,5 +99,12 @@ class RestaurantController extends Controller
         $result = $orders->collapse()->values()->unique('id');
 
         return response()->json($result);
+    }
+
+    public function getFoodsByUserId($id) {
+
+        $foods = Food::all()->where('user_id', '=', $id);
+
+        return response()->json($foods);
     }
 }

@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/restaurants', 'Api\RestaurantController@getAllRestaurants');
+Route::get('/restaurants/{id}', 'Api\RestaurantController@getFoodsByUserId');
+
+Route::post('/restaurants/foods/store', 'Api\RestaurantController@foodStore');
+Route::post('/restaurants/foods/update/{id}', 'MovieController@foodUpdate');
+
 
 Route::get('/categories', 'Api\CategoryController@getAllCategories');
 
