@@ -71,16 +71,19 @@ class RestaurantController extends Controller
 
             $data = $request->all();
 
+            // dd($data);
+
             $validatedData = Validator::make($data, [
                 'user_id' => ['required', 'numeric'],
                 'name' => ['required', 'string', 'max:60'],
                 'description_ingredients' => ['required', 'string'],
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
-                'food_img' => ['image']
+                'food_img' => ['nullable', 'image']
             ])->validate();
 
             if ($validatedData['food_img']) {
+
                 $imageFile = $validatedData['food_img'];
 
                 $fileName = rand(100000, 999999) . '_' . time().'.'.$validatedData['food_img']->extension();
@@ -90,10 +93,13 @@ class RestaurantController extends Controller
                 $validatedData['food_img'] = $fileName;
 
             } else {
+
                 $validatedData['food_img'] = $foodToEdit['food_img'];
+
             }
-    
+
             $foodToEdit -> update($validatedData);
+    
         }
     }
 
