@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
 use App\Models\Food;
+use App\Models\Order;
+
 
 class RestaurantController extends Controller
 {
+    // gets first 12 available restaurants
     public function getAllRestaurants() {
 
         $allRestaurants = User::all()->take(12);
@@ -18,13 +21,17 @@ class RestaurantController extends Controller
         return response()->json($allRestaurants);
     }
 
+    // gets available food for each restaurant
     public function getRestaurantFoodById($id) {
 
-        $food = Food::all()->where('user_id', '=', $id);
+        $user = User::findOrFail($id);
 
-        return response()->json($food);
+        $food = Food::all()->where('user_id', '=', $id)->where('visible', '=', 1);
+
+        return response()->json(['foods' => $food, 'user' => $user]);
     }
 
+    // create new record in food table
     public function createNewFood(Request $request) {
 
         $data = $request->all();
@@ -55,6 +62,7 @@ class RestaurantController extends Controller
 
     }
 
+    // updates existing record in food table
     public function editFood(Request $request, $id) {
 
         $foodToEdit = Food::findOrFail($id);
@@ -84,7 +92,27 @@ class RestaurantController extends Controller
     
             $foodToEdit -> update($dataToUpdate);
         }
+    }
 
+    // returns restaurants orders
+    public function getRestaurantOrdersById($id) {
 
+        $userFoods = Food::all()->where('user_id', '=', $id);
+
+        $orders = $userFoods->map(function($food) {
+            return $food->orders->toArray();
+        });
+
+        $result = $orders->collapse()->values()->unique('id');
+
+        return response()->json($result);
+    }
+
+    // returns all restaurant's food
+    public function getFoodsByUserId($id) {
+
+        $foods = Food::all()->where('user_id', '=', $id);
+
+        return response()->json($foods);
     }
 }
