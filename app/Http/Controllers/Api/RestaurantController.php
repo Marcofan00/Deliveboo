@@ -46,19 +46,17 @@ class RestaurantController extends Controller
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['image']
-            ]);
+            ])->validate();
     
-            $newFood = $validatedData->getData();
+            $imageFile = $validatedData['food_img'];
     
-            $imageFile = $newFood['food_img'];
-    
-            $fileName = rand(100000, 999999) . '_' . time().'.'.$newFood['food_img']->extension();
+            $fileName = rand(100000, 999999) . '_' . time().'.'.$validatedData['food_img']->extension();
     
             $imageFile -> storeAs('img', $fileName, 'public');
     
-            $newFood['food_img'] = $fileName;
+            $validatedData['food_img'] = $fileName;
     
-            return Food::create($newFood);
+            return Food::create($validatedData);
 
         }
 
@@ -80,26 +78,22 @@ class RestaurantController extends Controller
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['image']
-            ]);
-            
-            $dataToUpdate = $validatedData->getData();
+            ])->validate();
 
-            if ($dataToUpdate['food_img']) {
-                $imageFile = $dataToUpdate['food_img'];
+            if ($validatedData['food_img']) {
+                $imageFile = $validatedData['food_img'];
 
-                $fileName = rand(100000, 999999) . '_' . time().'.'.$dataToUpdate['food_img']->extension();
+                $fileName = rand(100000, 999999) . '_' . time().'.'.$validatedData['food_img']->extension();
         
                 $imageFile -> storeAs('img', $fileName, 'public');
         
-                $dataToUpdate['food_img'] = $fileName;
-
-                $foodToEdit -> update($dataToUpdate);
+                $validatedData['food_img'] = $fileName;
 
             } else {
-                $dataToUpdate['food_img'] = $foodToEdit['food_img'];
+                $validatedData['food_img'] = $foodToEdit['food_img'];
             }
     
-            $foodToEdit -> update($dataToUpdate);
+            $foodToEdit -> update($validatedData);
         }
     }
 
@@ -120,7 +114,7 @@ class RestaurantController extends Controller
     public function foodVisibility($id) {
         
         $food = Food::findOrFail($id);
-        // dd($food['visible'] );
+
         if($food['visible']) { 
             $food['visible'] = 0;
 
