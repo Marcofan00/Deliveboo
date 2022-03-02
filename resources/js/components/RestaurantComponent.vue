@@ -23,7 +23,7 @@
         data: function() {
             return {
                 foods: [],
-                users: []
+                users: ''
             };
         },
 
@@ -33,7 +33,10 @@
 
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)
-            .then(r => { this.foods = r.data.foods; this.users = r.data.users })
+            .then((r) => {
+                this.foods = r.data.foods;
+                this.users = r.data.user;
+            })
             .catch(e => console.error(e));
         }
     }
