@@ -33,7 +33,7 @@
                     <li>
                         <div id="action_food">
 
-                            <a :href="`/food/edit/${food.id}`">
+                            <a :href="`/food/edit/${food.id}`" target="_blank">
                                  <div>
                                     <i class="fas fa-edit"></i> Edit
                                 </div>
