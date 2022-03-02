@@ -2345,7 +2345,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       foods: [],
-      users: []
+      users: ''
     };
   },
   props: {
@@ -2356,7 +2356,7 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get('/api/restaurant/' + this.restaurant).then(function (r) {
       _this.foods = r.data.foods;
-      _this.users = r.data.users;
+      _this.users = r.data.user;
     })["catch"](function (e) {
       return console.error(e);
     });
