@@ -51,7 +51,7 @@
                     data.append('food_img', this.file);
 
                 try {
-                    let response = await fetch('/api/create',{
+                    let response = await fetch('http://localhost:8000/api/dashboard/create',{
                         method : 'POST',
                         body : data
                     })

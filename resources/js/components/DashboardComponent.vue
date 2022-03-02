@@ -86,7 +86,7 @@
         },
         created(){
             console.log(this.logincheck);
-             axios.get('api/restaurants/'+ this.logincheck)
+             axios.get('http://localhost:8000/api/dashboard/restaurant/'+ this.logincheck)
             .then(res => {
                 console.log(res.data);
                 this.foods = res.data;
