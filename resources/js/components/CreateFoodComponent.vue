@@ -30,6 +30,9 @@
             return {
                 file : "",
                 name : "",
+                descriptionIngredients : "",
+                price : "",
+                visible : "",
             }
         },
         mounted() {
@@ -46,7 +49,7 @@
                     data.append('user_id', 1);
                     data.append('name', 'Andrea');
                     data.append('description_ingredients', 'Piatto a base di uova, guanciale e pecorino');
-                    data.append('price', 5.00);
+                    data.append('price', 8.00);
                     data.append('visible', 1);
                     data.append('food_img', this.file);
 
