@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
+use App\Models\Food;
 
 class PageController extends Controller
 {
@@ -11,10 +15,13 @@ class PageController extends Controller
     }
 
     public function dashboard() {
-        return view('pages.dashboard');
+        $check =  Auth::User() -> id;
+        
+        return view('pages.dashboard',compact('check'));
     }
 
     public function statistics() {
+
         return view('pages.statistics');
     }
 
@@ -22,12 +29,18 @@ class PageController extends Controller
         return view('pages.create');
     }
 
-    public function edit() {
-        return view('pages.edit');
+    public function edit($id) {
+
+        $foodEdit = Food::FindOrFail($id);
+        
+        return view('pages.edit',compact('foodEdit'));
+
     }
 
-    public function restaurant() {
-        return view('pages.resturant');
+
+    public function getRestaurantMenu($id) {
+
+        return view('pages.restaurant', ['userId' => $id]);
     }
 
     public function cartPage() {
