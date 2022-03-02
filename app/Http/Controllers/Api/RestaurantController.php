@@ -82,13 +82,20 @@ class RestaurantController extends Controller
             
             $dataToUpdate = $validatedData->getData();
 
-            $imageFile = $dataToUpdate['food_img'];
-    
-            $fileName = rand(100000, 999999) . '_' . time().'.'.$dataToUpdate['food_img']->extension();
-    
-            $imageFile -> storeAs('img', $fileName, 'public');
-    
-            $dataToUpdate['food_img'] = $fileName;
+            if ($dataToUpdate['food_img']) {
+                $imageFile = $dataToUpdate['food_img'];
+
+                $fileName = rand(100000, 999999) . '_' . time().'.'.$dataToUpdate['food_img']->extension();
+        
+                $imageFile -> storeAs('img', $fileName, 'public');
+        
+                $dataToUpdate['food_img'] = $fileName;
+
+                $foodToEdit -> update($dataToUpdate);
+
+            } else {
+                $dataToUpdate['food_img'] = $foodToEdit['food_img'];
+            }
     
             $foodToEdit -> update($dataToUpdate);
         }
