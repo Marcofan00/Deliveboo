@@ -107,4 +107,11 @@ class RestaurantController extends Controller
 
         return response()->json($foods);
     }
+
+    public function foodVisibility($id) {
+
+        $food = Food::findOrFail($id);
+
+        dd($food);
+    }
 }

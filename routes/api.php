@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/restaurants', 'Api\RestaurantController@getAllRestaurants');
 Route::get('/restaurants/{id}', 'Api\RestaurantController@getFoodsByUserId');
 
+Route::get('/restaurants/foods/visible/{id}', 'Api\RestaurantController@foodVisibility');
+
 Route::post('/restaurants/foods/store', 'Api\RestaurantController@foodStore');
 Route::post('/restaurants/foods/update/{id}', 'MovieController@foodUpdate');
 
