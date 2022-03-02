@@ -1,4 +1,4 @@
 @extends('layouts.main-layout')
 @section('content')
-    <dashboard-component> </dashboard-component>
+    <dashboard-component :logincheck="{{$check}}"> </dashboard-component>
 @endsection

@@ -15,10 +15,13 @@ class PageController extends Controller
     }
 
     public function dashboard() {
-        return view('pages.dashboard');
+        $check =  Auth::User() -> id;
+        
+        return view('pages.dashboard',compact('check'));
     }
 
     public function statistics() {
+
         return view('pages.statistics');
     }
 
@@ -28,7 +31,10 @@ class PageController extends Controller
 
     public function edit($id) {
 
-        return view('pages.edit', ['foodId' => $id]);
+        $foodEdit = Food::FindOrFail($id);
+        
+        return view('pages.edit',compact('foodEdit'));
+
     }
 
 
