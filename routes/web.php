@@ -20,4 +20,4 @@ Route::get('/logout', 'Auth\LoginController@logout') -> name('logout');
 Route::get('/dashboard', 'PageController@dashboard') -> name('dashboard');
 Route::get('/statistics', 'PageController@statistics') -> name('statistics');
 Route::get('/food/create', 'PageController@create') -> name('create');
-Route::get('/food/edit', 'PageController@edit') -> name('edit');
+Route::get('/food/edit/{id}', 'PageController@edit') -> name('edit');

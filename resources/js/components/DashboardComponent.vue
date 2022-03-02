@@ -18,19 +18,19 @@
             
           </div>
          <div id="view">
-             <div v-for="food, i in foods" :key="i">
+             <!-- <div v-for="food, i in foods" :key="i">
                  {{food.name}}
-             </div>
+             </div> -->
              <div v-if="foods_visibility" id="foods">
                  <h2>
                     I miei piatti
                 </h2>
             
-                <ul>
+                <ul v-for="food, i in foods" :key="i">
                     <li>
                         <div id="action_food">
 
-                            <a href="`/food/edit/${food.id}`">
+                            <a :href="`/food/edit/${food.id}`">
                                  <div>
                                     <i class="fas fa-edit"></i> Edit
                                 </div>
@@ -39,8 +39,11 @@
 
                             <div>
                             
-                                 <div id="nascondi" @click="hideCard">
+                                 <div v-if="food.visible" id="nascondi" @click="hideCard(food.id)">
                                    <i class="far fa-eye-slash"></i> Hide  
+                                </div>
+                                <div v-else>
+                                    <button>Rendi dinyovo visibile</button>
                                 </div>
                             
                             </div>
@@ -48,10 +51,10 @@
                         <div class="card" style="width: 14rem;">
                             <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <h5 class="card-title">{{food.name}}</h5>
+                                <p class="card-text">{{food.description_ingredients}}</p>
                                 <span>
-                                    Price
+                                    {{food.price}}
                                 </span>
                             </div>
                         </div>
@@ -107,14 +110,11 @@
                 this.orders_visibility =! this.orders_visibility;
 
                 
+            },
+            hideCard(id){
+                
+               
             }
-            // hideCard(id){
-            //     this.foods.forEach(food => {
-            //         if ( food.id === id){
-            //             food.food_visibility = 0;
-            //         }
-            //     });
-            // }
         }
     }
 </script>

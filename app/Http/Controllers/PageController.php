@@ -29,8 +29,11 @@ class PageController extends Controller
         return view('pages.create');
     }
 
-    public function edit() {
-        return view('pages.edit');
+    public function edit($id) {
+
+        $foodEdit = Food::FindOrFail($id);
+        
+        return view('pages.edit',compact('foodEdit'));
     }
 
 
