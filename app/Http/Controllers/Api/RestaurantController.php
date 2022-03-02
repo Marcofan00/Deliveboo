@@ -59,6 +59,7 @@ class RestaurantController extends Controller
             $newFood['food_img'] = $fileName;
     
             return Food::create($newFood);
+
         }
 
     }
@@ -116,11 +117,27 @@ class RestaurantController extends Controller
         return response()->json($result);
     }
 
+    public function foodVisibility($id) {
+        
+        $food = Food::findOrFail($id);
+        // dd($food['visible'] );
+        if($food['visible']) { 
+            $food['visible'] = 0;
+
+        } else {
+            $food['visible'] = 1;
+        }   
+
+
+        $food -> update();
+    }
+
     // returns all restaurant's food
     public function getFoodsByUserId($id) {
 
         $foods = Food::all()->where('user_id', '=', $id);
 
         return response()->json($foods);
+
     }
 }

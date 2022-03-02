@@ -57,7 +57,7 @@
 
                     if (response.ok) {
                         let responseToJson = await response.json();
-
+                        
                         this.categories = responseToJson;
                     }
 
