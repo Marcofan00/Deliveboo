@@ -18,27 +18,19 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/restaurants', 'Api\RestaurantController@getAllRestaurants');
-Route::get('/restaurants/{id}', 'Api\RestaurantController@getFoodsByUserId');
+// public routes
+Route::get('/restaurants', 'Api\RestaurantController@getAllRestaurants'); // gets all available restaurants
+Route::get('restaurant/{id}', 'Api\RestaurantController@getRestaurantFoodById'); // gets all visible restaurant's food
+Route::get('/categories', 'Api\CategoryController@getAllCategories'); // gets all restaurants' categories
+Route::post('/search', 'Api\RestaurantController@getRestaurantsByCategory'); // returns restaurants filtered by category
+    // payment routes
+Route::get('/token', 'Api\BraintreeController@getToken'); // returns braintree token
+Route::post('/checkout', 'Api\BraintreeController@processPayment'); // process payment
 
-Route::get('/restaurants/foods/visible/{id}', 'Api\RestaurantController@foodVisibility');
 
-Route::post('/restaurants/foods/store', 'Api\RestaurantController@foodStore');
-Route::post('/restaurants/foods/update/{id}', 'MovieController@foodUpdate');
-
-
-Route::get('/categories', 'Api\CategoryController@getAllCategories');
-
-Route::get('restaurants/{id}', 'Api\RestaurantController@getRestaurantFoodById');
-
-Route::get('/orders/{id}', 'Api\RestaurantController@getRestaurantOrdersById');
-
-Route::post('/create', 'Api\RestaurantController@createNewFood');
-
-Route::post('/edit/{id}', 'Api\RestaurantController@editFood');
-
-Route::get('/search', 'Api\RestaurantController@getRestaurantsByCategory');
-
-Route::get('/token', 'Api\BraintreeController@getToken');
-
-Route::post('/checkout', 'Api\BraintreeController@processPayment');
+// UR routes
+Route::get('/dashboard/restaurant/{id}', 'Api\RestaurantController@getFoodsByUserId'); // returns all restaurant's food
+Route::get('/dashboard/orders/{id}', 'Api\RestaurantController@getRestaurantOrdersById'); // returns all restaurant's orders
+Route::post('/dashboard/create', 'Api\RestaurantController@createNewFood'); // creates new record in food table
+Route::post('/dashboard/edit/{id}', 'Api\RestaurantController@editFood'); // updates existing record in food table
+Route::post('/dashboard/delete/{id}', 'Api\RestaurantController@foodVisibility');

@@ -108,15 +108,17 @@ class RestaurantController extends Controller
         return response()->json($foods);
     }
 
-    public function foodVisibility(Request $request, $id) {
+    public function foodVisibility($id) {
 
         $food = Food::findOrFail($id);
 
-        if($food) { 
+        if($food['visible']) { 
 
-            $food['visible'] = false;
-
-            $food -> update();
+            $food['visible'] = 0;
         }
+
+        $food['visible'] = 1;
+
+        $food -> update();
     }
 }
