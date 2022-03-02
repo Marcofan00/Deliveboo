@@ -43,7 +43,7 @@
                                    <i class="far fa-eye-slash"></i> Hide  
                                 </div>
                                 <div v-else>
-                                    <button>Rendi dinyovo visibile</button>
+                                    <button @click="MakeVisibleFood(food.id)">Rendi dinyovo visibile</button>
                                 </div>
                             
                             </div>
@@ -114,6 +114,9 @@
             hideCard(id){
                 
                
+            },
+            MakeVisibleFood(id){
+
             }
         }
     }
