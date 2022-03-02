@@ -27,7 +27,7 @@
         </select>  
         <!-- edit  -->
         <input @click="sendFood" type="button" value="edit">
-        <!-- <div @click="prova">clickme</div> -->
+
     </form>
 </div>
     
@@ -42,10 +42,6 @@
             return {
 
                 file : "",
-                nomePiatto : this.food_edit.name,
-                descrizione : this.food_edit.description_ingredients,
-                priceFood : this.food_edit.price,
-                visibleFood : this.food_edit.visible
             }
         },
         computed: {
@@ -54,10 +50,12 @@
                     return this.food_edit.name;
                 },
                 set(value) {
-                    if(value){
-                       return this.nomePiatto = value;
+                    if (value) {
+                        this.food_edit.name = value;
+                        return this.food_edit.name;
                     }
-                    return this.nomePiatto = this.food_edit.name;
+
+                    return this.food_edit.name;
                 }
             },
             descriptionIngredients : {
@@ -66,9 +64,11 @@
                 },
                 set(value) {
                     if (value) {
-                        return this.descrizione = value;
+                        this.food_edit.description_ingredients = value;
+                        return this.food_edit.description_ingredients;
                     }
-                    return this.descrizione = this.food_edit.description_ingredients
+
+                    return this.food_edit.description_ingredients;
                 }
             },
             
@@ -78,7 +78,8 @@
                 },
                 set(value) {
                     if (value) {
-                        return this.priceFood = value;
+                        this.food_edit.price = value;
+                        return this.food_edit.price;
                     }
 
                     return this.food_edit.price;
@@ -90,15 +91,16 @@
                 },
                 set(value) {
                     if (value) {
-                        return this.visibleFood = value;
+                        this.food_edit.visible = value;
+                        return this.food_edit.visible;
                     }
 
+                    return this.food_edit.visible;
                 }
             },
         },
+        
         mounted() {
-
-            // console.log(this.food_edit.name);
         },
         methods :{
            
@@ -107,15 +109,14 @@
             },
             sendFood: async function() {
 
-                    // console.log(this.nameFood);
 
                   let data = new FormData();
 
                     data.append('user_id', this.food_edit.user_id);
-                    data.append('name', this.nomePiatto);
-                    data.append('description_ingredients', this.descrizione);
-                    data.append('price', this.priceFood);
-                    data.append('visible', this.visibleFood);
+                    data.append('name', this.food_edit.name);
+                    data.append('description_ingredients', this.food_edit.description_ingredients);
+                    data.append('price', this.food_edit.price);
+                    data.append('visible', this.food_edit.visible);
                     data.append('food_img', this.file);
 
                 try {
