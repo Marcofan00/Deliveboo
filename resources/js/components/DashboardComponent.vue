@@ -30,7 +30,7 @@
                     <li>
                         <div id="action_food">
 
-                            <a href="`/food/edit/${food.id}`">
+                            <a :href="`/food/edit/${food.id}`">
                                  <div>
                                     <i class="fas fa-edit"></i> Edit
                                 </div>
@@ -83,7 +83,7 @@
         },
         created(){
             console.log(this.logincheck);
-             axios.get('api/restaurants/'+ this.logincheck)
+             axios.get('http://localhost:8000/api/dashboard/restaurant/'+ this.logincheck)
             .then(res => {
                 console.log(res.data);
                 this.foods = res.data;
