@@ -25,6 +25,7 @@
             <option :selected="food_edit.visible" value="0">No</option>
             <option :selected="food_edit.visible" value="1">Si</option>
         </select>  
+        <!-- edit  -->
         <input @click="sendFood" type="button" value="edit">
     </form>
 </div>
