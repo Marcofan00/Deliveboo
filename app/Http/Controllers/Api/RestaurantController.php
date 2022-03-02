@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Food;
 use App\Models\Order;
+use App\Models\Category;
 
 
 class RestaurantController extends Controller
@@ -102,9 +103,7 @@ class RestaurantController extends Controller
         }
     }
 
-
     // returns restaurants orders
-
     public function getRestaurantOrdersById($id) {
 
         $userFoods = Food::all()->where('user_id', '=', $id);
@@ -117,7 +116,6 @@ class RestaurantController extends Controller
 
         return response()->json($result);
     }
-
 
     public function foodVisibility($id) {
         
@@ -133,6 +131,7 @@ class RestaurantController extends Controller
 
         $food -> update();
     }
+
     // returns all restaurant's food
     public function getFoodsByUserId($id) {
 
