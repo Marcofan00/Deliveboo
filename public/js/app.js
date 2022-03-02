@@ -2355,12 +2355,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/api/restaurant/' + this.restaurant).then(function (r) {
-      return _this.foods = r.data;
-    })["catch"](function (e) {
-      return console.error(e);
-    });
-    axios.get('/api/restaurant/' + this.restaurant).then(function (r) {
-      return _this.users = r.data;
+      _this.foods = r.data.foods;
+      _this.users = r.data.users;
     })["catch"](function (e) {
       return console.error(e);
     });

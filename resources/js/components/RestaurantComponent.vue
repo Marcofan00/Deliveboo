@@ -33,11 +33,7 @@
 
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)
-            .then(r => this.foods = r.data)
-            .catch(e => console.error(e));
-
-            axios.get('/api/restaurant/' + this.restaurant)
-            .then(r => this.users = r.data)
+            .then(r => { this.foods = r.data.foods; this.users = r.data.users })
             .catch(e => console.error(e));
         }
     }
