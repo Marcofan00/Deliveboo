@@ -100,7 +100,7 @@
             },
         },
         mounted() {
-            // console.log(this.food_edit);
+            console.log(this.food_edit);
             // console.log(this.food_edit.name);
         },
         methods :{
@@ -110,10 +110,12 @@
             },
             sendFood: async function() {
 
+                    // console.log(this.nameFood);
+
                   let data = new FormData();
 
                     data.append('user_id', this.food_edit.user_id);
-                    data.append('name', this.nameFood);
+                    data.append('name', 'lasagna');
                     data.append('description_ingredients', this.descriptionIngredients);
                     data.append('price', this.price);
                     data.append('visible', this.visible);
