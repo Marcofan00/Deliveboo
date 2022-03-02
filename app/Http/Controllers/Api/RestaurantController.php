@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Food;
 use App\Models\Order;
+use App\Models\Category;
 
 
 class RestaurantController extends Controller

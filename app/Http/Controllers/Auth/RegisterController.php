@@ -70,6 +70,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         if (!array_key_exists('logo', $data)) {
             $data['logo'] = '';
         }
@@ -80,7 +81,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'restaurant_name' => $data['restaurant_name'],
             'address' => $data['address'],
-            'vat_number' => $data['vat_number']
+            'vat_number' => $data['vat_number'],
+            'categories' => $data['categories']
         ];
 
         if ($data['logo']) {
@@ -93,11 +95,23 @@ class RegisterController extends Controller
 
             $newUserData['logo'] = $fileName;
 
-            return User::create($newUserData);
+            // $newUser = User::make($newUserData);
+
+            // $newUser -> categories() -> attach($newUserData['categories']);
+
+            // $newUser -> save();
 
         }
       
-      return User::create($newUserData);
+      $newUser = User::create($newUserData);
+
+      $categories = explode(',', $newUserData['categories']);
+
+      $newUser -> categories() -> sync($categories);
+
+      $newUser -> save();
+
+      return $newUser;
 
     }
 }
