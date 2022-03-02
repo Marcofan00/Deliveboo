@@ -21,9 +21,11 @@ class RestaurantController extends Controller
 
     public function getRestaurantFoodById($id) {
 
-        $food = Food::all()->where('user_id', '=', $id);
+        $user = User::findOrFail($id);
 
-        return response()->json($food);
+        $food = Food::all()->where('user_id', '=', $id)->where('visible', '=', 1);
+
+        return response()->json(['foods' => $food, 'user' => $user]);
     }
 
     public function createNewFood(Request $request) {
