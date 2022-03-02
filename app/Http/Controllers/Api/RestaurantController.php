@@ -101,7 +101,9 @@ class RestaurantController extends Controller
         }
     }
 
+
     // returns restaurants orders
+
     public function getRestaurantOrdersById($id) {
 
         $userFoods = Food::all()->where('user_id', '=', $id);
@@ -115,11 +117,26 @@ class RestaurantController extends Controller
         return response()->json($result);
     }
 
+
+    public function foodVisibility($id) {
+
+        $food = Food::findOrFail($id);
+
+        if($food['visible']) { 
+
+            $food['visible'] = 0;
+        }
+
+        $food['visible'] = 1;
+
+        $food -> update();
+
     // returns all restaurant's food
     public function getFoodsByUserId($id) {
 
         $foods = Food::all()->where('user_id', '=', $id);
 
         return response()->json($foods);
+
     }
 }

@@ -34,6 +34,7 @@ class PageController extends Controller
         $foodEdit = Food::FindOrFail($id);
         
         return view('pages.edit',compact('foodEdit'));
+
     }
 
 
