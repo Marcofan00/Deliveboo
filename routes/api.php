@@ -31,3 +31,7 @@ Route::post('/create', 'Api\RestaurantController@createNewFood');
 Route::post('/edit/{id}', 'Api\RestaurantController@editFood');
 
 Route::get('/search', 'Api\RestaurantController@getRestaurantsByCategory');
+
+Route::get('/token', 'Api\BraintreeController@getToken');
+
+Route::post('/checkout', 'Api\BraintreeController@processPayment');
