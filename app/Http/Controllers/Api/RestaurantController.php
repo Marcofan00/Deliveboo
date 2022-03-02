@@ -13,6 +13,7 @@ use App\Models\Order;
 
 class RestaurantController extends Controller
 {
+    // gets first 12 available restaurants
     public function getAllRestaurants() {
 
         $allRestaurants = User::all()->take(12);
@@ -20,13 +21,17 @@ class RestaurantController extends Controller
         return response()->json($allRestaurants);
     }
 
+    // gets available food for each restaurant
     public function getRestaurantFoodById($id) {
 
-        $food = Food::all()->where('user_id', '=', $id);
+        $user = User::findOrFail($id);
 
-        return response()->json($food);
+        $food = Food::all()->where('user_id', '=', $id)->where('visible', '=', 1);
+
+        return response()->json(['foods' => $food, 'user' => $user]);
     }
 
+    // create new record in food table
     public function createNewFood(Request $request) {
 
         $data = $request->all();
@@ -57,6 +62,7 @@ class RestaurantController extends Controller
 
     }
 
+    // updates existing record in food table
     public function editFood(Request $request, $id) {
 
         $foodToEdit = Food::findOrFail($id);
@@ -76,17 +82,27 @@ class RestaurantController extends Controller
             
             $dataToUpdate = $validatedData->getData();
 
-            $imageFile = $dataToUpdate['food_img'];
-    
-            $fileName = rand(100000, 999999) . '_' . time().'.'.$dataToUpdate['food_img']->extension();
-    
-            $imageFile -> storeAs('img', $fileName, 'public');
-    
-            $dataToUpdate['food_img'] = $fileName;
+            if ($dataToUpdate['food_img']) {
+                $imageFile = $dataToUpdate['food_img'];
+
+                $fileName = rand(100000, 999999) . '_' . time().'.'.$dataToUpdate['food_img']->extension();
+        
+                $imageFile -> storeAs('img', $fileName, 'public');
+        
+                $dataToUpdate['food_img'] = $fileName;
+
+                $foodToEdit -> update($dataToUpdate);
+
+            } else {
+                $dataToUpdate['food_img'] = $foodToEdit['food_img'];
+            }
     
             $foodToEdit -> update($dataToUpdate);
         }
     }
+
+
+    // returns restaurants orders
 
     public function getRestaurantOrdersById($id) {
 
@@ -101,12 +117,6 @@ class RestaurantController extends Controller
         return response()->json($result);
     }
 
-    public function getFoodsByUserId($id) {
-
-        $foods = Food::all()->where('user_id', '=', $id);
-
-        return response()->json($foods);
-    }
 
     public function foodVisibility($id) {
 
@@ -120,5 +130,13 @@ class RestaurantController extends Controller
         $food['visible'] = 1;
 
         $food -> update();
+
+    // returns all restaurant's food
+    public function getFoodsByUserId($id) {
+
+        $foods = Food::all()->where('user_id', '=', $id);
+
+        return response()->json($foods);
+
     }
 }
