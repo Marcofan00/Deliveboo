@@ -12,8 +12,11 @@
 
               <button class="btn dashboard_action" @click="visibility_orders">Visualizza i miei Ordini</button>
 
-              <a href="/food/create">
-                <button class="btn dashboard_action" >Crea Nuovo piatto</button>
+
+
+            <!-- CREA NUOVO PIATTO  -->
+              <a class="btn dashboard_action"  href="/food/create">
+                  Crea Nuovo piatto
               </a>
             
           </div>
@@ -30,7 +33,7 @@
                     <li>
                         <div id="action_food">
 
-                            <a :href="`/food/edit/${food.id}`">
+                            <a :href="`/food/edit/${food.id}`" target="_blank">
                                  <div>
                                     <i class="fas fa-edit"></i> Edit
                                 </div>

@@ -108,8 +108,7 @@
                 this.file = event.target.files[0];
             },
             sendFood: async function() {
-
-
+ 
                   let data = new FormData();
 
                     data.append('user_id', this.food_edit.user_id);

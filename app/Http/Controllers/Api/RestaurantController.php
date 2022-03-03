@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Food;
 use App\Models\Order;
+use App\Models\Category;
 
 
 class RestaurantController extends Controller
@@ -45,19 +46,18 @@ class RestaurantController extends Controller
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['image']
-            ]);
+            ])->validate();
     
-            $newFood = $validatedData->getData();
+            $imageFile = $validatedData['food_img'];
     
-            $imageFile = $newFood['food_img'];
-    
-            $fileName = rand(100000, 999999) . '_' . time().'.'.$newFood['food_img']->extension();
+            $fileName = rand(100000, 999999) . '_' . time().'.'.$validatedData['food_img']->extension();
     
             $imageFile -> storeAs('img', $fileName, 'public');
     
-            $newFood['food_img'] = $fileName;
+            $validatedData['food_img'] = $fileName;
     
-            return Food::create($newFood);
+            return Food::create($validatedData);
+
         }
 
     }
@@ -71,39 +71,39 @@ class RestaurantController extends Controller
 
             $data = $request->all();
 
+            // dd($data);
+
             $validatedData = Validator::make($data, [
                 'user_id' => ['required', 'numeric'],
                 'name' => ['required', 'string', 'max:60'],
                 'description_ingredients' => ['required', 'string'],
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
-                'food_img' => ['image']
-            ]);
-            
-            $dataToUpdate = $validatedData->getData();
+                'food_img' => ['nullable', 'image']
+            ])->validate();
 
-            if ($dataToUpdate['food_img']) {
-                $imageFile = $dataToUpdate['food_img'];
+            if ($validatedData['food_img']) {
 
-                $fileName = rand(100000, 999999) . '_' . time().'.'.$dataToUpdate['food_img']->extension();
+                $imageFile = $validatedData['food_img'];
+
+                $fileName = rand(100000, 999999) . '_' . time().'.'.$validatedData['food_img']->extension();
         
                 $imageFile -> storeAs('img', $fileName, 'public');
         
-                $dataToUpdate['food_img'] = $fileName;
-
-                $foodToEdit -> update($dataToUpdate);
+                $validatedData['food_img'] = $fileName;
 
             } else {
-                $dataToUpdate['food_img'] = $foodToEdit['food_img'];
+
+                $validatedData['food_img'] = $foodToEdit['food_img'];
+
             }
+
+            $foodToEdit -> update($validatedData);
     
-            $foodToEdit -> update($dataToUpdate);
         }
     }
 
-
     // returns restaurants orders
-
     public function getRestaurantOrdersById($id) {
 
         $userFoods = Food::all()->where('user_id', '=', $id);
@@ -117,19 +117,20 @@ class RestaurantController extends Controller
         return response()->json($result);
     }
 
-
     public function foodVisibility($id) {
-
+        
         $food = Food::findOrFail($id);
 
         if($food['visible']) { 
-
             $food['visible'] = 0;
-        }
 
-        $food['visible'] = 1;
+        } else {
+            $food['visible'] = 1;
+        }   
+
 
         $food -> update();
+    }
 
     // returns all restaurant's food
     public function getFoodsByUserId($id) {
