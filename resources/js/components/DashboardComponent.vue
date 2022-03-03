@@ -100,7 +100,7 @@
             
         },
         mounted() {
-
+            // test 
         },
         methods : {
             visibility_foods(){
