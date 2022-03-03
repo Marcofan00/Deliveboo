@@ -11225,26 +11225,215 @@ footer #social_logo .social_icon:hover {
   }
 }
 
-a:hover {
-  text-decoration: none;
+#dashboard {
+  display: flex;
+  height: 100vh;
+  margin: 20px 0;
 }
 
-#layout {
+#dashboard #menu_select {
+  width: 30%;
+  height: 100%;
+  padding: 16px;
+  background-color: #009FB7;
+  color: white;
+}
+
+#dashboard #menu_select .dashboard_action {
+  background-color: white;
+  padding: 8px;
+  color: #009FB7;
+  display: block;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+#dashboard #menu_select .img_restaurant {
+  max-width: 100%;
+  height: auto;
+}
+
+#dashboard #view {
+  width: 70%;
+  padding: 16px;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+#dashboard ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#dashboard ul li {
+  list-style: none;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+#dashboard ul li #action_food {
+  display: flex;
+  justify-content: space-between;
+  background-color: #009FB7;
+  color: white;
+  padding: 0 8px;
+}
+
+#dashboard ul li #action_food a {
+  color: white;
+}
+
+#dashboard ul li #action_food #nascondi {
+  cursor: pointer;
+}
+
+#jumbotron {
   position: relative;
-  min-height: 2500px;
+  height: 400px;
+  margin-top: 100px;
+}
+
+#jumbotron img {
+  height: 100%;
+  display: inline-block;
+}
+
+#jumbotron h1 {
+  position: absolute;
+  bottom: 200px;
+  right: 15%;
+}
+
+#jumbotron h2 {
+  position: absolute;
+  bottom: 50px;
+  right: 15%;
+  color: #00a0b7;
+}
+
+#categories-filters li {
+  position: relative;
+  height: 100px;
+  width: 200px;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+#categories-filters li img {
+  height: 100%;
+  width: 100%;
+}
+
+#categories-filters li h3 {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+
+#users-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+#users-cards li {
+  height: 200px;
+  width: 25%;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+
+#users-cards li img {
+  height: 50%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+#users-cards li h3 {
+  color: #000;
+  margin-left: 10px;
+}
+
+#users-cards li h5 {
+  margin-left: 10px;
+}
+
+#restaurant {
+  margin-top: 50px;
+}
+
+#restaurant img {
+  width: 500px;
+}
+
+#restaurant h1 {
+  display: inline-block;
+  color: #000;
+}
+
+#foods-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+#foods-cards li {
+  height: 300px;
+  width: 25%;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+
+#foods-cards li img {
+  height: 50%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+#foods-cards li h3 {
+  color: #000;
+  margin-left: 10px;
+}
+
+#foods-cards li p {
+  margin-left: 10px;
+}
+
+#foods-cards li h4 {
+  margin-left: 10px;
+}
+
+body {
+  position: relative;
+  z-index: 2;
 }
 
 #layout_style_1 {
   position: absolute;
-  top: 190px;
-  left: 455px;
-  z-index: 2;
+  top: 200px;
+  right: 0;
+  z-index: -1;
 }
 
 #layout_style_2 {
   position: absolute;
-  top: 986px;
+  top: 600px;
   left: 0;
+  z-index: -2;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 @media all and (min-width: 1400px) {

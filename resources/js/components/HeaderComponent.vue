@@ -39,7 +39,7 @@
 <script>
     export default {
         props: {
-            userid : Boolean,
+            userid : Number,
         },
         data(){
             return  {
