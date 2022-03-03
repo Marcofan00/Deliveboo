@@ -58,11 +58,23 @@
                 try {
                     let response = await fetch('http://localhost:8000/api/dashboard/create',{
                         method : 'POST',
-                        body : data
+                        body : data,
+                        
                     })
+                    // const test = await response;
+                    if(response.status === 201){
+                        window.location.href = 'http://localhost:8000/dashboard';
+                    } else {
+                        alert('Errore nella validazione dei dati')
+                    }
+                      
+                    
+                    
                 } catch (err) {
+
                     console.log(err);
                 }
+                
             }
         }
     }
