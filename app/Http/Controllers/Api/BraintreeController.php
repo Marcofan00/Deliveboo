@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+
+use App\Models\Order;
 
 class PaymentController extends Controller
 {
@@ -23,23 +26,35 @@ class PaymentController extends Controller
 
         $clientToken = $gateway->clientToken()->generate();
 
-        return response()->json(['data' => $clientToken]);
+        return response()->json($clientToken);
     }
 
     public function processPayment(Request $request) {
 
-        $clientNonce = $request->paymentMethodId;
+        $validatedData = Validator::make($request->all(), [
+            'bill' => ['required', 'numeric'],
+            'order_date' => ['required', 'date'],
+            'buyer_fullname' => ['required', 'string', 'max:150'],
+            'buyer_email' => ['required', 'email', 'max:60'],
+            'buyer_phone' => ['nullable', 'string', 'max:40', 'min:40'],
+            'note' => ['nullable', 'string'],
+            'cart' => ['required']
+        ])->validate();
 
         $gateway = $this->configGateway();
 
-        $result = $gateway->transaction()->sale([
-            'amount' => '10.00',
+        $clientNonce = $request->paymentMethodId;
+
+        $transaction = $gateway->transaction()->sale([
+            'amount' => $orderData['bill'],
             'paymentMethodNonce' => $clientNonce,
             // 'deviceData' => $deviceDataFromTheClient,
             'options' => [
               'submitForSettlement' => True
             ]
         ]);
+
+        $newOrder = Order::create();
 
         dd($result);
     }
