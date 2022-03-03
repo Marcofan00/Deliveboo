@@ -11287,26 +11287,153 @@ footer #social_logo .social_icon:hover {
   cursor: pointer;
 }
 
-a:hover {
-  text-decoration: none;
+#jumbotron {
+  position: relative;
+  height: 400px;
+  margin-top: 100px;
 }
 
-#layout {
+#jumbotron img {
+  height: 100%;
+  display: inline-block;
+}
+
+#jumbotron h1 {
+  position: absolute;
+  bottom: 200px;
+  right: 15%;
+}
+
+#jumbotron h2 {
+  position: absolute;
+  bottom: 50px;
+  right: 15%;
+  color: #00a0b7;
+}
+
+#categories-filters li {
   position: relative;
-  min-height: 2500px;
+  height: 100px;
+  width: 200px;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+#categories-filters li img {
+  height: 100%;
+  width: 100%;
+}
+
+#categories-filters li h3 {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+
+#users-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+#users-cards li {
+  height: 200px;
+  width: 25%;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+
+#users-cards li img {
+  height: 50%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+#users-cards li h3 {
+  color: #000;
+  margin-left: 10px;
+}
+
+#users-cards li h5 {
+  margin-left: 10px;
+}
+
+#restaurant {
+  margin-top: 50px;
+}
+
+#restaurant img {
+  width: 500px;
+}
+
+#restaurant h1 {
+  display: inline-block;
+  color: #000;
+}
+
+#foods-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+#foods-cards li {
+  height: 300px;
+  width: 25%;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+
+#foods-cards li img {
+  height: 50%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+#foods-cards li h3 {
+  color: #000;
+  margin-left: 10px;
+}
+
+#foods-cards li p {
+  margin-left: 10px;
+}
+
+#foods-cards li h4 {
+  margin-left: 10px;
+}
+
+body {
+  position: relative;
+  z-index: 2;
 }
 
 #layout_style_1 {
   position: absolute;
-  top: 190px;
-  left: 455px;
-  z-index: 2;
+  top: 200px;
+  right: 0;
+  z-index: -1;
 }
 
 #layout_style_2 {
   position: absolute;
-  top: 986px;
+  top: 600px;
   left: 0;
+  z-index: -2;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 @media all and (min-width: 1400px) {
