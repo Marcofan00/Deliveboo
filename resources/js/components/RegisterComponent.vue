@@ -16,7 +16,7 @@
             <input type="text" name="address" v-model="restaurantAddress"><br>
             <label for="vat_number">Partita IVA</label><br>
             <input type="text" name="vat_number" v-model="vatNumber">
-            <div v-for="category in categories">
+            <div v-for="category in categories" :key="category.id">
                 <label for="categories">{{ category.name }}</label>
                 <input type="checkbox" :value="category.id" v-model="categoriesChecked">
             </div>
