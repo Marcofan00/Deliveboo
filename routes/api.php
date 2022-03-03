@@ -32,7 +32,5 @@ Route::post('/checkout', 'Api\BraintreeController@processPayment'); // process p
 Route::get('/dashboard/restaurant/{id}', 'Api\RestaurantController@getFoodsByUserId'); // returns all restaurant's food
 Route::get('/dashboard/orders/{id}', 'Api\RestaurantController@getRestaurantOrdersById'); // returns all restaurant's orders
 Route::post('/dashboard/create', 'Api\RestaurantController@createNewFood'); // creates new record in food table
-
 Route::post('/dashboard/edit/{id}', 'Api\RestaurantController@editFood'); // updates existing record in food table
-
-Route::post('/dashboard/delete/{id}', 'Api\RestaurantController@foodVisibility');
+Route::post('/dashboard/delete/{id}', 'Api\RestaurantController@foodVisibility'); // changes food visibility
