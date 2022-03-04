@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Order;
 
-class PaymentController extends Controller
+class BraintreeController extends Controller
 {
 
     public function configGateway() {
