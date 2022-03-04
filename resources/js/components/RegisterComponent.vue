@@ -1,66 +1,75 @@
 <template>
     <div id="register">
-        <h2>Registrazione</h2>
         <form>
+            <div class="container-flex">
+                <div class="data">
+                    <h3>Dati personali</h3>
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" v-model.trim="email" required :class="errors.emailError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.emailError">{{ errors.emailError }}</div>
 
-            <label for="email">E-mail</label><br>
-            <input type="email" name="email" v-model.trim="email" required :class="errors.emailError ? 'red' : 'green' "><br>
-            <div v-if="errors.emailError">{{ errors.emailError }}</div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" v-model.trim="password" required :class="errors.passwordError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.passwordError">{{ errors.passwordError }}</div>
 
-            <label for="password">Password</label><br>
-            <input type="password" name="password" v-model.trim="password" required><br>
-            <div v-if="errors.passwordError">{{ errors.passwordError }}</div>
+                    <label for="password_confirmation">Conferma Password</label>
+                    <input type="password" name="password_confirmation" v-model.trim="passwordConfirmed" required :class="errors.passwordConfirmError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.passwordConfirmError">{{ errors.passwordConfirmError }}</div>
 
-            <label for="password_confirmation">Conferma Password</label><br>
-            <input type="password" name="password_confirmation" v-model.trim="passwordConfirmed" required><br>
-            <div v-if="errors.passwordConfirmError">{{ errors.passwordConfirmError }}</div>
+                    <label for="firstame">Nome</label>
+                    <input type="text" name="firstname" v-model.trim="firstName" required :class="errors.firstNameError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.firstNameError">{{ errors.firstNameError }}</div>
 
-            <label for="firstame">Nome</label><br>
-            <input type="text" name="firstname" v-model.trim="firstName" required><br>
-            <div v-if="errors.firstNameError">{{ errors.firstNameError }}</div>
+                    <label for="lastname">Cognome</label>
+                    <input type="text" name="lastname" v-model.trim="lastName" required :class="errors.lastNameError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.lastNameError">{{ errors.lastNameError }}</div>
+                </div>
+                <div class="data">
+                    <h3>Dati Ristorante</h3>
+                    <label for="restaurant_name">Nome Ristorante</label>
+                    <input type="text" name="restaurant_name" v-model.trim="restaurantName" required :class="errors.restaurantNameError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.restaurantNameError">{{ errors.restaurantNameError }}</div>
 
-            <label for="lastname">Cognome</label><br>
-            <input type="text" name="lastname" v-model.trim="lastName" required><br>
-            <div v-if="errors.lastNameError">{{ errors.lastNameError }}</div>
+                    <label for="street">Indirizzo Ristorante</label>
+                    <input type="text" name="street" v-model.trim="restaurantAddress" required :class="errors.restaurantAddressError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.restaurantAddressError">{{ errors.restaurantAddressError }}</div>
 
-            <label for="restaurant_name">Nome Ristorante</label><br>
-            <input type="text" name="restaurant_name" v-model.trim="restaurantName" required><br>
-            <div v-if="errors.restaurantNameError">{{ errors.restaurantNameError }}</div>
+                    <label for="streetnumber">Numero Civico</label>
+                    <input type="number" name="streetnumber" v-model.trim="streetNumber" required :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
 
-            <label for="street">Indirizzo Ristorante</label><br>
-            <input type="text" name="street" v-model.trim="restaurantAddress" required><br>
-            <div v-if="errors.restaurantAddressError">{{ errors.restaurantAddressError }}</div>
+                    <label for="postalcode">CAP</label>
+                    <input type="number" name="postalcode" v-model.trim="postalCode" required :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
 
-            <label for="streetnumber">Numero Civico</label><br>
-            <input type="number" name="streetnumber" v-model.trim="streetNumber" required><br>
-            <div v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
+                    <label for="city">Città</label>
+                    <input type="text" name="city" v-model.trim="city" required :class="errors.cityError ? 'red' : 'green' "><br>
+                    <div class="error" v-if="errors.cityError">{{ errors.cityError }}</div>
 
-            <label for="postalcode">CAP</label><br>
-            <input type="number" name="postalcode" v-model.trim="postalCode" required><br>
-            <div v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
+                    <label for="vat_number">Partita IVA</label>
+                    <input type="text" name="vat_number" v-model.trim="vatNumber" required :class="errors.vatNumberError ? 'red' : 'green' ">
+                    <div class="error" v-if="errors.vatNumberError">{{ errors.vatNumberError }}</div>
+                </div>
+                <div class="data">
+                    <h3>Categorie</h3>
+                    <span class="categories" v-for="category in categories" :key="category.id">
+                        <input type="checkbox" :value="category.id" v-model="categoriesChecked" required>
+                        <label for="categories">{{ category.name }}</label>
+                    </span>
+                    <div class="error" v-if="errors.categoryError">{{ errors.categoryError }}</div>
 
-            <label for="city">Città</label><br>
-            <input type="text" name="city" v-model.trim="city" required><br>
-            <div v-if="errors.cityError">{{ errors.cityError }}</div>
-
-            <label for="vat_number">Partita IVA</label><br>
-            <input type="text" name="vat_number" v-model.trim="vatNumber" required>
-            <div v-if="errors.vatNumberError">{{ errors.vatNumberError }}</div>
-
-            <div v-for="category in categories" :key="category.id">
-                <label for="categories">{{ category.name }}</label>
-                <input type="checkbox" :value="category.id" v-model="categoriesChecked" required>
+                    <label id="logo" for="logo">Immagine</label>
+                    <input type="file" name="logo" @change="getFile">
+                    <div class="error" v-if="errors.fileError">{{ errors.fileError }}</div>
+                </div>
             </div>
-            <div v-if="errors.categoryError">{{ errors.categoryError }}</div>
-
-            <label for="logo">Logo</label><br>
-            <input type="file" name="logo" @change="getFile"><br>
-            <div v-if="errors.fileError">{{ errors.fileError }}</div>
-
-            <button type="button" class="btn btn-success" @click="sendData">REGISTER</button>
+            <div class="btn-container">
+                <button type="button" class="btn register-btn" @click="sendData">Registrami</button>
+            </div>
+            
         </form>
 
-        <a class="btn btn-secondary">BACK TO HOME</a>
+        <a href="http://localhost:8000/" class="btn btn-secondary">Torna alla Home</a>
     </div>
 </template>
 
@@ -96,7 +105,7 @@
                     vatNumberError: '',
                     categoryError: ''
                 },
-                namesRegex: /^[a-z ,.\'-]+$/gi
+                namesRegex: /^[a-z]+$/gi
             }
         },
         mounted() {
@@ -174,23 +183,38 @@
             },
             getFile() {
                 this.file = event.target.files[0];
+                this.validateFileType(this.file);
             },
             sendData: async function() {
 
+                let validEmail = this.validateEmail(this.email),
+                    validCategories = this.validateCategory(),
+                    validCity = this.validateCity(this.city),
+                    validFileType = this.validateFileType(),
+                    validFirstName = this.validateFirstName(this.firstName),
+                    validLastName = this.validateLastName(this.lastName),
+                    validPassword = this.validatePassword(this.password),
+                    validPasswordConfirmed = this.validatePasswordConfirm(this.passwordConfirmed),
+                    validRestaurantAddress = this.validateRestaurantAddress(this.restaurantAddress),
+                    validRestaurantName = this.validateRestaurantName(this.restaurantName),
+                    validStreetNumber = this.validateStreetNumberPostalCode(this.streetNumber),
+                    validPostalCode = this.validateStreetNumberPostalCode(this.postalCode),
+                    validVatNumber = this.validateVatNumber(this.vatNumber);
+
                 if (
-                    this.validateEmail(this.email) &&
-                    this.validateCategory() &&
-                    this.validateCity(this.city) &&
-                    this.validateFileType() &&
-                    this.validateFirstName(this.firstName) &&
-                    this.validateLastName(this.lastName) &&
-                    this.validatePassword(this.password) &&
-                    this.validatePasswordConfirm(this.passwordConfirmed) &&
-                    this.validateRestaurantAddress(this.restaurantAddress) &&
-                    this.validateRestaurantName(this.restaurantName) &&
-                    this.validateStreetNumberPostalCode(this.streetNumber) &&
-                    this.validateStreetNumberPostalCode(this.postalCode) &&
-                    this.validateVatNumber(this.vatNumber)
+                    validEmail &&
+                    validCategories &&
+                    validCity &&
+                    validFileType &&
+                    validFirstName &&
+                    validLastName &&
+                    validPassword &&
+                    validPasswordConfirmed &&
+                    validRestaurantAddress &&
+                    validRestaurantName &&
+                    validStreetNumber &&
+                    validPostalCode &&
+                    validVatNumber
                 ) {
                     let data = new FormData();
 
@@ -225,7 +249,7 @@
             },
             validateEmail(email) {
 
-                if (!/^([a-zA-Z0-9\_\-\.]+)@([a-zA-Z0-9\_\-\.]+)\.([a-zA-Z]{2,5})$/g.test(email)) {
+                if (!email || !/^([a-zA-Z0-9\_\-\.]+)@([a-zA-Z0-9\_\-\.]+)\.([a-zA-Z]{2,5})$/g.test(email)) {
                     this.errors.emailError = 'Email non valida';
                     return false;
                 }
@@ -235,7 +259,7 @@
             },
             validatePassword(password) {
 
-                if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g.test(password)) {
+                if (!password || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g.test(password)) {
                     this.errors.passwordError = 'Password non valida';
                     return false;
                 }
@@ -246,7 +270,7 @@
             validatePasswordConfirm(passwordConfirmed) {
 
                 if (passwordConfirmed !== this.password) {
-                    this.errors.passwordConfirmError = 'Questa password non coirrisponde alla prima inserita';
+                    this.errors.passwordConfirmError = 'Questa password non corrisponde alla prima inserita';
                     return false;
                 }
 
@@ -255,7 +279,7 @@
             },
             validateFirstName(firstName) {
 
-                if (!this.namesRegex.test(firstName)) {
+                if (!firstName || !this.namesRegex.test(firstName)) {
                     this.errors.firstNameError = 'Nome non valido';
                     return false;
                 }
@@ -265,7 +289,7 @@
             },
             validateLastName(lastName) {
 
-                if (!this.namesRegex.test(lastName)) {
+                if (!lastName || !this.namesRegex.test(lastName)) {
                     this.errors.lastNameError = 'Cognome non valido';
                     return false;
                 }
@@ -275,7 +299,7 @@
             },
             validateRestaurantName(restaurantName) {
 
-                if (!/^[-a-z ,.\'0-9]+$/gi.test(restaurantName)) {
+                if (!restaurantName || !/^[-a-z ,.\'0-9]+$/gi.test(restaurantName)) {
                     this.errors.restaurantNameError = 'Nome ristorante non valido';
                     return false;
                 }
@@ -285,7 +309,7 @@
             },
             validateRestaurantAddress(restaurantAddress) {
 
-                if (!/^[-a-z ,.\'0-9]+$/gi.test(restaurantAddress)) {
+                if (!restaurantAddress || !/^[-a-z ,.\'0-9]+$/gi.test(restaurantAddress)) {
                     this.errors.restaurantAddressError = 'Indirizzo non valido';
                     return false;
                 }
@@ -295,7 +319,7 @@
             },
             validateStreetNumberPostalCode(number) {
 
-                if (typeof Number(number) !== 'number') {
+                if (!number || typeof Number(number) !== 'number') {
                     this.errors.streetNumberPostalCordeError = 'Numero civico o CAP non validi';
                     return false;
                 }
@@ -305,7 +329,7 @@
             },
             validateCity(city) {
 
-                if (!this.namesRegex.test(city)) {
+                if (!city || !this.namesRegex.test(city)) {
                     this.errors.cityError = 'Città non valida';
                     return false;
                 }
@@ -315,7 +339,7 @@
             },
             validateVatNumber(vatNumber) {
 
-                if (!/^it\d{14}$/gi.test(vatNumber)) {
+                if (!vatNumber || !/^it\d{14}$/gi.test(vatNumber)) {
                     this.errors.vatNumberError = 'Partita IVA non valida. Formato richiesto: IT seguito da 14 cifre';
                     return false;
                 }
@@ -325,7 +349,7 @@
             },
             validateFileType() {
 
-                if (!this.file.type.includes('/image/')) {
+                if (this.file && !this.file.type.includes('/image/')) {
                     this.errors.fileError = 'Formato file non valido. Inserisci una immagine';
                     return false;
                 }
@@ -335,7 +359,7 @@
             },
             validateCategory() {
 
-                if (!this.categoriesChecked) {
+                if (this.categoriesChecked.length === 0) {
                     this.errors.categoryError = 'Devi scegliere almeno una categoria';
                     return false;
                 }
@@ -348,12 +372,58 @@
 </script>
 
 <style scoped>
+    #register {
+        width: 90%;
+        margin: 0 auto;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    #logo, h3 {
+        font-size: 1.2rem;
+        display: block;
+    }
+
+    .container-flex {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+    }
+
+    .data {
+        width: 33%;
+    }
+
+    .categories {
+        display: inline-block;
+        padding-right: 0.5rem;
+    }
+
+    .categories label {
+        margin-bottom: 0;
+    }
 
     .red {
-        border-color: red;
+        border: 1px solid red;
     }
 
     .green {
-        border-color: green;
+        border: 1px solid green;
+    }
+
+    .error {
+        font-size: 10px;
+        color: red;
+        padding-bottom: 0.6rem;
+    }
+
+    .btn-container {
+        text-align: right;
+        padding: 1rem 0;
+    }
+
+    .register-btn {
+        background-color: green;
+        color: white;
     }
 </style>
