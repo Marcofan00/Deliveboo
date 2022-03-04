@@ -5,55 +5,55 @@
                 <div class="data">
                     <h3>Dati personali</h3>
                     <label for="email">E-mail</label>
-                    <input type="email" name="email" v-model.trim="email" required :class="errors.emailError ? 'red' : 'green' "><br>
+                    <input type="email" name="email" v-model.trim="email" :class="errors.emailError ? 'red' : 'green' " placeholder="email@example.com"><br>
                     <div class="error" v-if="errors.emailError">{{ errors.emailError }}</div>
 
                     <label for="password">Password</label>
-                    <input type="password" name="password" v-model.trim="password" required :class="errors.passwordError ? 'red' : 'green' "><br>
+                    <input type="password" name="password" v-model.trim="password" :class="errors.passwordError ? 'red' : 'green' " placeholder="Password1!"><br>
                     <div class="error" v-if="errors.passwordError">{{ errors.passwordError }}</div>
 
                     <label for="password_confirmation">Conferma Password</label>
-                    <input type="password" name="password_confirmation" v-model.trim="passwordConfirmed" required :class="errors.passwordConfirmError ? 'red' : 'green' "><br>
+                    <input type="password" name="password_confirmation" v-model.trim="passwordConfirmed" :class="errors.passwordConfirmError ? 'red' : 'green' " placeholder="Password1!"><br>
                     <div class="error" v-if="errors.passwordConfirmError">{{ errors.passwordConfirmError }}</div>
 
                     <label for="firstame">Nome</label>
-                    <input type="text" name="firstname" v-model.trim="firstName" required :class="errors.firstNameError ? 'red' : 'green' "><br>
+                    <input type="text" name="firstname" v-model.trim="firstName" :class="errors.firstNameError ? 'red' : 'green' "><br>
                     <div class="error" v-if="errors.firstNameError">{{ errors.firstNameError }}</div>
 
                     <label for="lastname">Cognome</label>
-                    <input type="text" name="lastname" v-model.trim="lastName" required :class="errors.lastNameError ? 'red' : 'green' "><br>
+                    <input type="text" name="lastname" v-model.trim="lastName" :class="errors.lastNameError ? 'red' : 'green' "><br>
                     <div class="error" v-if="errors.lastNameError">{{ errors.lastNameError }}</div>
                 </div>
                 <div class="data">
                     <h3>Dati Ristorante</h3>
                     <label for="restaurant_name">Nome Ristorante</label>
-                    <input type="text" name="restaurant_name" v-model.trim="restaurantName" required :class="errors.restaurantNameError ? 'red' : 'green' "><br>
+                    <input type="text" name="restaurant_name" v-model.trim="restaurantName" :class="errors.restaurantNameError ? 'red' : 'green' "><br>
                     <div class="error" v-if="errors.restaurantNameError">{{ errors.restaurantNameError }}</div>
 
                     <label for="street">Indirizzo Ristorante</label>
-                    <input type="text" name="street" v-model.trim="restaurantAddress" required :class="errors.restaurantAddressError ? 'red' : 'green' "><br>
+                    <input type="text" name="street" v-model.trim="restaurantAddress" :class="errors.restaurantAddressError ? 'red' : 'green' "><br>
                     <div class="error" v-if="errors.restaurantAddressError">{{ errors.restaurantAddressError }}</div>
 
                     <label for="streetnumber">Numero Civico</label>
-                    <input type="number" name="streetnumber" v-model.trim="streetNumber" required :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
+                    <input type="number" name="streetnumber" v-model.trim="streetNumber" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
                     <div class="error" v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
 
                     <label for="postalcode">CAP</label>
-                    <input type="number" name="postalcode" v-model.trim="postalCode" required :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
+                    <input type="number" name="postalcode" v-model.trim="postalCode" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
                     <div class="error" v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
 
                     <label for="city">Città</label>
-                    <input type="text" name="city" v-model.trim="city" required :class="errors.cityError ? 'red' : 'green' "><br>
+                    <input type="text" name="city" v-model.trim="city" :class="errors.cityError ? 'red' : 'green' "><br>
                     <div class="error" v-if="errors.cityError">{{ errors.cityError }}</div>
 
                     <label for="vat_number">Partita IVA</label>
-                    <input type="text" name="vat_number" v-model.trim="vatNumber" required :class="errors.vatNumberError ? 'red' : 'green' ">
+                    <input type="text" name="vat_number" v-model.trim="vatNumber" :class="errors.vatNumberError ? 'red' : 'green' " placeholder="IT12345678901234">
                     <div class="error" v-if="errors.vatNumberError">{{ errors.vatNumberError }}</div>
                 </div>
                 <div class="data">
                     <h3>Categorie</h3>
                     <span class="categories" v-for="category in categories" :key="category.id">
-                        <input type="checkbox" :value="category.id" v-model="categoriesChecked" required>
+                        <input type="checkbox" :value="category.id" v-model="categoriesChecked">
                         <label for="categories">{{ category.name }}</label>
                     </span>
                     <div class="error" v-if="errors.categoryError">{{ errors.categoryError }}</div>
