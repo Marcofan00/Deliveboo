@@ -29,8 +29,8 @@
                     I miei piatti
                 </h2>
             
-                <ul v-for="food, i in foods" :key="i">
-                    <li>
+                <ul>
+                    <li v-for="food, i in foods" :key="i">
                         <div id="action_food">
 
                             <a :href="`/food/edit/${food.id}`" target="_blank">
