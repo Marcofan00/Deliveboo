@@ -53,9 +53,10 @@
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)
             .then((r) => {
-
-                this.foods = r.data.foods;
-                this.users = r.data.user;
+                console.log(r.data);
+                
+                this.foods = r.data[0].foods;
+                this.users = r.data[0].user;
             })
             .catch(e => console.error(e));
 
@@ -65,17 +66,30 @@
          
         },
         methods:{
-            addCart(id){
+            addCart : async function(id){
                 console.log(id+  'id' + 'quantita' +this.quantity);
        
 
                 let addFoodToCart = {
                     'id' : id,
-                    'quantity' : this.quantity
+                    'quantity' : this.quantity,
+                    // 'user_id' : this.restaurant
                 }
                 if (this.cartArray.filter(e => e.id === id).length > 0) {
                         alert('gia inserito')
                     } else{
+                        const response = await fetch('http://localhost:8000/api/test/', {
+                        method: 'POST',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    
+                        },
+                        body: JSON.stringify(addFoodToCart)
+                    });
+                    console.log(response.ok);
+                    // const content = await rawResponse.json();
                        this.cartArray.push(addFoodToCart);
                     }
               
@@ -89,8 +103,11 @@
 
             },
 
-            test(){
-                console.log(this.cartArray);
+            testo(){
+                // console.log(this.cartArray);
+                this.foods.forEach(element => {
+                    console.log(element);
+                });
 
             },
             quantitaa($event){
@@ -102,6 +119,23 @@
                     } else{
                        return true
                     }
+            },
+            test: async function(){
+                    const response = await fetch('http://localhost:8000/api/testi/', {
+                        method: 'GET',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    
+                        },
+                        // body: JSON.stringify(addFoodToCart)
+
+                        });
+                    const content = await response.json();
+                    console.log(content);
+
+
             }
         }
     }
