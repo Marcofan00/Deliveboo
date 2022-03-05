@@ -17,27 +17,6 @@ class CartController extends Controller {
         $this->total = 0.00;
     }
 
-    public function index()
-    {
-        // $products = Food::get();
-        
-
-        $cart = session()->get('cart');
-       
-        if ($cart == null)
-        $cart = [];
-        
-        $arr = [];
-        foreach ($cart as $value) {
-            $arr[] = $value;
-        }
-        
-        
-        
-            return json_encode($arr);
-
-    }
-
     public function emptyCart() {
         $this->foods = [];
         $this->total = 0.00;
@@ -79,12 +58,29 @@ class CartController extends Controller {
 
 
     // Update of the cart
-    public function updateCart(Food $product, $quantity) {
+    public function incrementQty(Food $product) {
         if($this->hasFoods()) {
             foreach($this->foods as &$food)  {
                 if($product->id == $food['id']) {
-                    $food['quantity'] = $quantity;
-                    $food['subtotal'] = ($product->price * $quantity);
+                    $food['quantity'] += 1;
+                    $food['subtotal'] = ($product->price * $food['quantity']);
+                    $this->calculateTotal();
+                }
+            }
+        }
+    }
+
+    public function decrementQty(Food $product) {
+        if($this->hasFoods()) {
+            foreach($this->foods as &$food)  {
+                if($product->id == $food['id']) {
+                    $food['quantity'] -= 1;
+                    if ($food['quantity'] === 0) {
+                        $this->removeFromCart($product);
+                    } else {
+                        $food['subtotal'] = ($product->price * $food['quantity']);
+                    }
+                    
                     $this->calculateTotal();
                 }
             }
@@ -177,7 +173,6 @@ class CartController extends Controller {
             $quantity = (int) $request->input('quantity');
         }
         $product = Food::find($product_id);
-        // dd($product);
         if(is_null($product)) {
             return redirect()->route('home');
         }
@@ -200,16 +195,20 @@ class CartController extends Controller {
         return response()->json($request->session()->get('cart'));
     }
 
-    public function cartRemove(Request $request) {
-        $id = (int) $request->input('id');
+    public function cartRemove(Request $request, $id) {
         $product = Food::find($id);
+
+        if (!$product) {
+            return;
+        }
+
         $cart = new CartController();
         $sessionCart = $request->session()->get('cart');
         $cart->setFoods($sessionCart['foods']);
         $cart->setTotal($sessionCart['total']);
         $cart->removeFromCart($product);
         $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
-        return redirect()->route('cart');
+        return response()->json($request->session()->get('cart'));
     }
 
     public function cartUpdate(Request $request) {
@@ -228,5 +227,67 @@ class CartController extends Controller {
         }
         $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
         return redirect()->route('/');
+    }
+
+    public function addQty(Request $request, $id) {
+
+        $product = Food::findOrFail($id);
+
+        if (!$product) {
+            return;
+        }
+
+        $quantity = $request->quantity;
+
+        $cart = new CartController();
+        $sessionCart = $request->session()->get('cart');
+        $cart->setFoods($sessionCart['foods']);
+        $cart->setTotal($sessionCart['total']);
+
+        $cart->incrementQty($product, $quantity);
+
+        $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+        return response()->json($request->session()->get('cart'));
+    }
+
+    public function removeQty(Request $request, $id) {
+
+        $product = Food::findOrFail($id);
+
+        if (!$product) {
+            return;
+        }
+
+        $quantity = $request->quantity;
+
+        $cart = new CartController();
+        $sessionCart = $request->session()->get('cart');
+        $cart->setFoods($sessionCart['foods']);
+        $cart->setTotal($sessionCart['total']);
+
+        $cart->decrementQty($product, $quantity);
+
+        $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+        return response()->json($request->session()->get('cart'));
+
+    }
+
+    public function removeAllItems(Request $request) {
+        $cart = new CartController();
+        $cart->emptyCart();
+
+        $request->session()->flush();
+
+        return response()->json($request->session()->get('cart'));
+    }
+
+    public function getCart() {
+        $sessionCart = session('cart');
+
+        if (!$sessionCart) {
+            return;
+        }
+
+        return response()->json($sessionCart);
     }
 }

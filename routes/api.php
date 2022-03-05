@@ -36,4 +36,9 @@ Route::post('/dashboard/edit/{id}', 'Api\RestaurantController@editFood'); // upd
 Route::post('/dashboard/delete/{id}', 'Api\RestaurantController@foodVisibility'); // changes food visibility
 
 
-Route::post('add/{id}', 'Api\CartController@add');
+Route::post('/add/{id}', 'Api\CartController@add');
+Route::get('/cart', 'Api\CartController@getCart');
+Route::post('/addqty/{id}', 'Api\CartController@addQty');
+Route::post('/removeqty/{id}', 'Api\CartController@removeQty');
+Route::post('removeitem/{id}', 'Api\CartController@cartRemove');
+Route::post('/emptycart', 'Api\CartController@removeAllItems');
