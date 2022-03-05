@@ -120,24 +120,7 @@
             this.testApi();
         },
         computed:{
-        //    testo(){
-        //        return this.test;
-        //    },
-        //    addQ : {
-        //        get() {
-                    
-                
-        //         },
-        //         set() {
-        //             this.cartArrayUser.forEach(element => {
-        //                 element.quantity
-        //             });
-        //         },
-               
-                
-                
-        //     },
-           
+        
         },
         methods : {
              mobilecheck(){
@@ -158,8 +141,10 @@
                         // body: JSON.stringify(addFoodToCart)
 
                         });
-                    this.cartArrayUser = await response.json();
-                    console.log(this.cartArrayUser);
+                    let risposta = await response.json();
+                    this.cartArrayUser = risposta[0];
+                    this.prezzoFinale = risposta[1];
+
             },
 
             addQuantity(id){
