@@ -40,5 +40,5 @@ Route::post('/dashboard/delete/{id}', 'Api\RestaurantController@foodVisibility')
 
 
 
-Route::post('/test','Api\CartController@addToCart');
+Route::post('/test/{id}','Api\CartController@add');
 Route::get('/testi','Api\CartController@index');
