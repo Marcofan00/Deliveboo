@@ -44,7 +44,9 @@
             logUser: async function() {
 
                 let validEmail = this.validateEmail(this.email),
-                    validPassword = this.validatePassword(this.password);
+                    validPassword = true;
+
+                    // this.validatePassword(this.password);
 
                 if (validEmail && validPassword) {
 
