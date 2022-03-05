@@ -53,10 +53,10 @@
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)
             .then((r) => {
-                console.log(r.data);
+                // console.log(r.data);
                 
-                this.foods = r.data[0].foods;
-                this.users = r.data[0].user;
+                this.foods = r.data.foods;
+                this.users = r.data.user;
             })
             .catch(e => console.error(e));
 
@@ -67,7 +67,7 @@
         },
         methods:{
             addCart : async function(id){
-                console.log(id+  'id' + 'quantita' +this.quantity);
+                // console.log(id+  'id' + 'quantita' +this.quantity);
        
 
                 let addFoodToCart = {
@@ -77,8 +77,9 @@
                 }
                 if (this.cartArray.filter(e => e.id === id).length > 0) {
                         alert('gia inserito')
-                    } else{
-                        const response = await fetch('http://localhost:8000/api/test/', {
+                    } 
+                    else{
+                        const response = await fetch('http://localhost:8000/api/test/'+addFoodToCart.id , {
                         method: 'POST',
                         headers: {
                         'Accept': 'application/json',
@@ -106,7 +107,7 @@
             testo(){
                 // console.log(this.cartArray);
                 this.foods.forEach(element => {
-                    console.log(element);
+                    // console.log(element);
                 });
 
             },
@@ -133,7 +134,7 @@
 
                         });
                     const content = await response.json();
-                    console.log(content);
+                    // console.log(content);
 
 
             }
