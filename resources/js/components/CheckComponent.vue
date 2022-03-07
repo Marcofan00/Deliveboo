@@ -179,6 +179,7 @@
 
                 let data = JSON.stringify({
                     buyer_fullname: this.fullName,
+                    buyer_email: this.buyerEmail,
                     buyer_address: this.fullAddress,
                     buyer_phone: this.buyerPhone,
                     note: this.notes ? this.notes : '',
@@ -191,6 +192,7 @@
                     let response = await fetch('http://localhost:8000/api/payment', {
                         method: 'POST',
                         headers: {
+                            'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
                         body: data

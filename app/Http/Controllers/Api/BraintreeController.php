@@ -31,22 +31,27 @@ class BraintreeController extends Controller
 
     public function processPayment(Request $request) {
 
-        $validatedData = Validator::make($request->all(), [
-            'bill' => ['required', 'numeric'],
+        $sessionCart = session()->get('cart');
+
+        // dd($sessionCart);
+
+        $data = $request->all();
+
+        $validatedData = Validator::make($data, [
             'order_date' => ['required', 'date'],
             'buyer_fullname' => ['required', 'string', 'max:150'],
             'buyer_email' => ['required', 'email', 'max:60'],
-            'buyer_phone' => ['nullable', 'string', 'max:40', 'min:40'],
-            'note' => ['nullable', 'string'],
-            'cart' => ['required']
+            'buyer_address' => ['required', 'string'],
+            'buyer_phone' => ['nullable', 'string', 'max:40', 'min:10'],
+            'note' => ['nullable', 'string']
         ])->validate();
 
         $gateway = $this->configGateway();
 
         $clientNonce = $request->paymentMethodId;
 
-        $transaction = $gateway->transaction()->sale([
-            'amount' => $orderData['bill'],
+        $result = $gateway->transaction()->sale([
+            'amount' => $sessionCart['total'],
             'paymentMethodNonce' => $clientNonce,
             // 'deviceData' => $deviceDataFromTheClient,
             'options' => [
@@ -54,8 +59,20 @@ class BraintreeController extends Controller
             ]
         ]);
 
-        $newOrder = Order::create();
+        // dd($result);
 
-        dd($result);
+        $newOrder = Order::create([
+            'bill' => $sessionCart['total'],
+            'order_date' => $data['order_date'],
+            'buyer_fullname' => $data['buyer_fullname'],
+            'buyer_email' => $data['buyer_email'],
+            'buyer_address' => $data['buyer_address'],
+            'buyer_phone' => $data['buyer_phone'],
+            'note' => $data['note'],
+            'transaction_status' => $result->transaction->status,
+            'transaction_id' => $result->transaction->id
+        ]);
+
+        return response()->json($newOrder);
     }
 }
