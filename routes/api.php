@@ -23,6 +23,8 @@ Route::get('/restaurants', 'Api\RestaurantController@getAllRestaurants'); // get
 Route::get('restaurant/{id}', 'Api\RestaurantController@getRestaurantFoodById'); // gets all visible restaurant's food
 Route::get('/categories', 'Api\CategoryController@getAllCategories'); // gets all restaurants' categories
 Route::post('/search', 'Api\RestaurantController@getRestaurantsByCategory'); // returns restaurants filtered by category
+
+
     // payment routes
 Route::get('/token', 'Api\BraintreeController@getToken'); // returns braintree token
 Route::post('/checkout', 'Api\BraintreeController@processPayment'); // process payment

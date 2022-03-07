@@ -282,6 +282,7 @@ class CartController extends Controller {
     }
 
     public function getCart() {
+
         $sessionCart = session()->get('cart');
 
         if (!$sessionCart) {
@@ -290,4 +291,6 @@ class CartController extends Controller {
 
         return response()->json($sessionCart);
     }
+  
 }
+

@@ -29,8 +29,8 @@
                     I miei piatti
                 </h2>
             
-                <ul v-for="food, i in foods" :key="i">
-                    <li>
+                <ul>
+                    <li v-for="food, i in foods" :key="i">
                         <div id="action_food">
 
                             <a :href="`/food/edit/${food.id}`" target="_blank">
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="card" style="width: 14rem;">
-                            <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
+                            <img :src="`/storage/img/${food.food_img}`" class="card-img-top" alt="">
                             <div class="card-body">
                                 <h5 class="card-title">{{food.name}}</h5>
                                 <p class="card-text">{{food.description_ingredients}}</p>
@@ -100,7 +100,7 @@
             
         },
         mounted() {
-
+            // test 
         },
         methods : {
             visibility_foods(){

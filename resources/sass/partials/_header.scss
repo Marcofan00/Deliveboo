@@ -15,7 +15,10 @@ header{
         display: none;
         color: #009FB7;
     }
+    #action_user{
+        position: relative;
 
+    }
     // icona carrello 
     .fa-cart-arrow-down{
         font-size: 32px;
@@ -60,6 +63,40 @@ header{
         display: none;
     }
 
+}
+// carrello blocco
+
+.cart_block{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    height: 500px;
+    z-index: 4;
+    width: 100%;
+
+    .viewcart{
+        background-color: #009FB7;
+        color: white;
+        padding: 16px;
+        width: 100%;
+        overflow-y: scroll;
+
+    }
+    .quantitaspan{
+        display: inline-block;
+        margin: 0 4px;
+
+    }
+    .operator{
+        background-color: white;
+        padding: 2px;
+        color: black;
+        cursor: pointer;
+    }
+    li{
+        list-style: none;
+    }
 }
 
 @media all and (max-width:576px){

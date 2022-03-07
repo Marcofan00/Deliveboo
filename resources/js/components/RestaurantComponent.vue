@@ -6,13 +6,17 @@
         </section>
 
         <section id="foods">
-            <ul id="foods-cards">
-                <li class="food-class" v-for="food in foods" :key="food.id">
+            <ul id="foods-cards" >
+                <li v-for="food in foods" :key="food.id" class="food-class" >
                     <img src="/storage/img/deliverooDefault.png" alt="">
                     <h3>{{ food.name }}</h3>
                     <p>{{ food.description_ingredients }}</p>
                     <h4>{{ food.price }}&euro;</h4>
-                    <button class="btn" @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>
+                    <button class="btn" @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>                 
+                    <input type="number" v-model="quantity">
+                    <div class="btn btn-danger" v-else @click="deleteToCart(food.id)">
+                        test
+                    </div>
                 </li>
             </ul>
         </section>
@@ -24,7 +28,12 @@
         data: function() {
             return {
                 foods: [],
-                users: ''
+                users: '',
+                quantita : 0,
+                cartArray : [],
+                quantity : 0,
+                // clicked : -1,
+
             };
         },
 
@@ -35,18 +44,21 @@
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)
             .then((r) => {
+                // console.log(r.data);
+                
                 this.foods = r.data.foods;
                 this.users = r.data.user;
             })
             .catch(e => console.error(e));
+
         },
         methods: {
             addToCart: async function(id, userId) {
-                console.log(userId);
+                
                 let data = JSON.stringify({
                     id,
                     userId,
-                    quantity: 1
+                    quantity: this.quantity
                 });
 
                 try {
@@ -55,7 +67,6 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         body: data
                     });
@@ -67,7 +78,30 @@
                 } catch(err) {
                     console.log(err);
                 }
-            }
+            },
+            deleteToCart(id){
+                let index = this.cartArray.map(x => {
+                    return x.id;
+                }).indexOf(id);
+
+                    this.cartArray.splice(index, 1);
+
+            },
+
+            testo(){
+                // console.log(this.cartArray);
+                this.foods.forEach(element => {
+                    // console.log(element);
+                });
+
+            },
+            verifico(id){
+                if (this.cartArray.filter(e => e.id === id).length > 0) {
+                        return false
+                    } else{
+                       return true
+                    }
+            },
         }
     }
 </script>
