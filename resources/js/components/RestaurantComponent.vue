@@ -12,23 +12,14 @@
                     <h3>{{ food.name }}</h3>
                     <p>{{ food.description_ingredients }}</p>
                     <h4>{{ food.price }}&euro;</h4>
-                   
-                    <input type="number" :value="quantita" @change="quantitaa">
-                    <div class="btn btn-primary" v-if="verifico(food.id)" @click="addCart(food.id)">
-                        aggiungi al carrello 
-                    </div>
+                    <button class="btn" @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>                 
+                    <input type="number" v-model="quantity">
                     <div class="btn btn-danger" v-else @click="deleteToCart(food.id)">
                         test
                     </div>
-
-                   
                 </li>
             </ul>
         </section>
-
-        <div @click="test">
-            test
-        </div>
     </div>
 </template>
 
@@ -60,40 +51,33 @@
             })
             .catch(e => console.error(e));
 
-            
         },
-        computed : {
-         
-        },
-        methods:{
-            addCart : async function(id){
-                // console.log(id+  'id' + 'quantita' +this.quantity);
-       
+        methods: {
+            addToCart: async function(id, userId) {
+                
+                let data = JSON.stringify({
+                    id,
+                    userId,
+                    quantity: this.quantity
+                });
 
-                let addFoodToCart = {
-                    'id' : id,
-                    'quantity' : this.quantity,
-                    // 'user_id' : this.restaurant
-                }
-                if (this.cartArray.filter(e => e.id === id).length > 0) {
-                        alert('gia inserito')
-                    } 
-                    else{
-                        const response = await fetch('http://localhost:8000/api/add/'+addFoodToCart.id , {
+                try {
+
+                    let response = await fetch('http://localhost:8000/api/add/' + id, {
                         method: 'POST',
                         headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    
+                            'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(addFoodToCart)
+                        body: data
                     });
-                    console.log(response.ok);
-                    // const content = await rawResponse.json();
-                       this.cartArray.push(addFoodToCart);
+
+                    if (response.ok) {
+                        console.log(await response.json());
                     }
-              
+
+                } catch(err) {
+                    console.log(err);
+                }
             },
             deleteToCart(id){
                 let index = this.cartArray.map(x => {
@@ -111,9 +95,6 @@
                 });
 
             },
-            quantitaa($event){
-               this.quantity = parseInt($event.target.value) ;
-            },
             verifico(id){
                 if (this.cartArray.filter(e => e.id === id).length > 0) {
                         return false
@@ -121,23 +102,6 @@
                        return true
                     }
             },
-            test: async function(){
-                    const response = await fetch('http://localhost:8000/api/testi/', {
-                        method: 'GET',
-                        headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    
-                        },
-                        // body: JSON.stringify(addFoodToCart)
-
-                        });
-                    const content = await response.json();
-                    // console.log(content);
-
-
-            }
         }
     }
 </script>

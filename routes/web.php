@@ -24,3 +24,4 @@ Route::middleware('auth')->group(function() {
     Route::get('/food/create', 'PageController@create') -> name('create');
     Route::get('/food/edit/{id}', 'PageController@edit') -> name('edit');
 });
+
