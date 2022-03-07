@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="card" style="width: 14rem;">
-                            <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
+                            <img :src="`/storage/img/${food.food_img}`" class="card-img-top" alt="">
                             <div class="card-body">
                                 <h5 class="card-title">{{food.name}}</h5>
                                 <p class="card-text">{{food.description_ingredients}}</p>
