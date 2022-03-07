@@ -1,15 +1,25 @@
 <template>
 <!-- struttura del form -->
     <div class="demo-frame">  
-        <form action="/" method="post" id="cardForm" >
-            <label class="hosted-fields--label" for="full_name">Name</label><br>
-            <input class="hosted-field" type="text" name="full_name" v-model="fullName"><br>
+        <form id="cardForm" >
+            <label class="hosted-fields--label" for="firstname">Nome</label><br>
+            <input class="hosted-field" type="text" name="firstname" v-model="firstName"><br>
+            <label class="hosted-fields--label" for="lastname">Cognome</label><br>
+            <input class="hosted-field" type="text" name="lastname" v-model="lastName"><br>
             <label class="hosted-fields--label" for="email">E-mail</label><br>
-            <input class="hosted-field" type="text" name="email" v-model="email"><br>
+            <input class="hosted-field" type="text" name="email" v-model="buyerEmail"><br>
             <label class="hosted-fields--label" for="address">Indirizzo</label><br>
-            <input class="hosted-field" type="text" name="address" v-model="restaurantAddress"><br>
-            <label class="hosted-fields--label" for="phone">Phone</label><br>
-            <input class="hosted-field" type="text" name="phone" v-model="Phone"><br>
+            <input class="hosted-field" type="text" name="address" v-model="buyerAddress"><br>
+            <label class="hosted-fields--label" for="streetnumber">Numero Civico</label><br>
+            <input class="hosted-field" type="text" name="streetnumber" v-model="streetNumber"><br>
+            <label class="hosted-fields--label" for="postalcode">CAP</label><br>
+            <input class="hosted-field" type="text" name="postalcode" v-model="postalCode"><br>
+            <label class="hosted-fields--label" for="city">Citt&agrave;</label><br>
+            <input class="hosted-field" type="text" name="city" v-model="city"><br>
+            <label class="hosted-fields--label" for="phone">Telefono</label><br>
+            <input class="hosted-field" type="text" name="phone" v-model="buyerPhone"><br>
+            <label class="hosted-fields--label" for="notes">Note</label>
+            <textarea class="hosted-fields" name="note" cols="91" rows="10" v-model="notes"></textarea>
 
             <label class="hosted-fields--label" for="card-number">Card Number</label>
             <!-- per ogni campo da compilare NON va usato il tag <input> ma il tag <div></div> 
@@ -21,9 +31,6 @@
 
             <label class="hosted-fields--label" for="cvv">CVV</label>
             <div type="text" class="hosted-field" id="cvv"></div>
-
-            <label class="hosted-fields--label" for="postal-code">Postal Code</label>
-            <div type="text" class="hosted-field" id="postal-code"></div>
 
             <div class="button-container">
                 <!-- usate type="button" per evitare che la pagina venga refreshata ogni volta che si mandano i dati -->
@@ -43,15 +50,29 @@
         data() {
             return {
                 clientToken: '',
-                hostedFieldsInstance: ''
+                hostedFieldsInstance: '',
+                firstName: '',
+                lastName: '',
+                buyerEmail: '',
+                buyerAddress: '',
+                streetNumber: '',
+                postalCode: '',
+                city: '',
+                buyerPhone: '',
+                notes: ''
+            }
+        },
+        computed: {
+            fullName() {
+                return this.firstName + ' ' + this.lastName;
+            },
+            fullAddress() {
+                return this.buyerAddress + ', ' + this.streetNumber + ', ' + this.postalCode + ', ' + this.city;
             }
         },
         mounted() {
             /* 
-                chiama l'API per avere il clientToken, che serve per l'autorizzazione a tutte le fasi successive del pagamento
-                in qst caso ho fatto la chiamata direttamente all'API di Braintree
-                una volta montato il server la chiamata verrà fatta alla rotta dell'API del ns server, che provvederà a chiedere
-                il clientToken a Braintree e a mandarlo al front-end
+                chiama la ns API per avere il clientToken, che serve per l'autorizzazione a tutte le fasi successive del pagamento
             */
             this.callToApi();
         },
@@ -61,19 +82,7 @@
                 // blocco try/catch per la gestione di eventuali errori
                 try {
 
-                    let getClientToken = await fetch('http://localhost:8000/api/token'
-                        // {
-                        //     method: 'POST',
-                        //     headers: {
-                        //         // API key per farsi identificare da Braintree
-                        //         'Authorization': 'Basic Z2Z2MmQ2OTk3dGhqYnJubjozZmI3ZDRhOGNjYjZkOWE5NjRmZTlhMDhkYzRjZjAxZA==',
-                        //         'Braintree-Version' : '2022-02-22',
-                        //         'Content-Type': 'application/json'
-                        //     },
-                        //     // query in formato Json per avere il clientToken
-                        //     body: JSON.stringify({ query: "mutation { createClientToken { clientToken } }"})
-                        // }
-                    );
+                    let getClientToken = await fetch('http://localhost:8000/api/token');
 
                     let clientTokenToJson = await getClientToken.json();
 
@@ -127,10 +136,10 @@
                                     container: '#expiration-date',
                                     placeholder: 'MM/YYYY'
                                 },
-                                postalCode: {
-                                    container: '#postal-code',
-                                    placeholder: '11111'
-                                }
+                                // postalCode: {
+                                //     container: '#postal-code',
+                                //     placeholder: '11111'
+                                // }
 
                             }
                         }, function(err, hostedFieldsInstance) {
@@ -163,10 +172,20 @@
                     // stampa in console il paymentMethodNonce
                     console.log(payload.nonce);
 
-                    self.sendPayloadNonce(payload.nonce);
+                    self.sendPaymentData(payload.nonce);
                 })
             },
-            sendPayloadNonce: async function(nonce) {
+            sendPaymentData: async function(nonce) {
+
+                let data = JSON.stringify({
+                    buyer_fullname: this.fullName,
+                    buyer_address: this.fullAddress,
+                    buyer_phone: this.buyerPhone,
+                    note: this.notes ? this.notes : '',
+                    order_date: new Date(),
+                    paymentMethodId: nonce
+                });
+
                 try {
 
                     let response = await fetch('http://localhost:8000/api/payment', {
@@ -174,8 +193,12 @@
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ paymentMethodId: nonce })
+                        body: data
                     });
+
+                    if (response.ok) {
+                        console.log(await response.json());
+                    }
 
                 } catch(err) {
                     console.log(err);
