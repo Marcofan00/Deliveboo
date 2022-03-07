@@ -79,7 +79,7 @@
                         alert('gia inserito')
                     } 
                     else{
-                        const response = await fetch('http://localhost:8000/api/test/'+addFoodToCart.id , {
+                        const response = await fetch('http://localhost:8000/api/add/'+addFoodToCart.id , {
                         method: 'POST',
                         headers: {
                         'Accept': 'application/json',
