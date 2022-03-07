@@ -15,7 +15,10 @@ header{
         display: none;
         color: #009FB7;
     }
+    #action_user{
+        position: relative;
 
+    }
     // icona carrello 
     .fa-cart-arrow-down{
         font-size: 32px;
@@ -62,16 +65,23 @@ header{
 
 }
 // carrello blocco
+
 .cart_block{
     margin-top: 20px;
     display: flex;
     justify-content: flex-end;
-    position: static;
+    position: absolute;
+    height: 500px;
+    z-index: 4;
+    width: 100%;
+
     .viewcart{
-        background-color: blue;
+        background-color: #009FB7;
         color: white;
         padding: 16px;
-        width: 40%;
+        width: 100%;
+        overflow-y: scroll;
+
     }
     .quantitaspan{
         display: inline-block;
@@ -83,6 +93,9 @@ header{
         padding: 2px;
         color: black;
         cursor: pointer;
+    }
+    li{
+        list-style: none;
     }
 }
 
