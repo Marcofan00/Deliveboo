@@ -282,7 +282,7 @@ class CartController extends Controller {
     }
 
     public function getCart() {
-        $sessionCart = session('cart');
+        $sessionCart = session()->get('cart');
 
         if (!$sessionCart) {
             return;
