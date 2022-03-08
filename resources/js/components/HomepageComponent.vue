@@ -52,9 +52,7 @@ export default {
     },
     methods: {
         getCategoryId(id) {
-            console.log('clicked');
             this.selectedCategories.push(id);
-            console.log(this.selectedCategories);
         },
         searchResults: async function() {
             try {
