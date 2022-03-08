@@ -29,7 +29,7 @@ class RestaurantController extends Controller
 
         $food = Food::all()->where('user_id', '=', $id)->where('visible', '=', 1);
 
-        return response()->json(['foods' => $food, 'user' => $user]);
+        return response()->json(['foods' => $food->values()->all(), 'user' => $user]);
     }
 
     // create new record in food table
@@ -103,7 +103,7 @@ class RestaurantController extends Controller
         }
     }
 
-    // returns restaurants orders
+    // returns restaurant's orders in desc order
     public function getRestaurantOrdersById($id) {
 
         $userFoods = Food::all()->where('user_id', '=', $id);
@@ -112,11 +112,12 @@ class RestaurantController extends Controller
             return $food->orders->toArray();
         });
 
-        $result = $orders->collapse()->values()->unique('id');
+        $result = $orders->collapse()->values()->unique('id')->sortByDesc('order_date');
 
-        return response()->json($result);
+        return response()->json($result->values()->all());
     }
 
+    // toggles food visibility
     public function foodVisibility($id) {
         
         $food = Food::findOrFail($id);
@@ -132,15 +133,16 @@ class RestaurantController extends Controller
         $food -> update();
     }
 
-    // returns all restaurant's food
+    // returns all restaurant's food in dashboard
     public function getFoodsByUserId($id) {
 
         $foods = Food::all()->where('user_id', '=', $id);
 
-        return response()->json($foods);
+        return response()->json($foods->values()->all());
 
     }
 
+    // filters restaurants by category
     public function getRestaurantsByCategory(Request $request) {
         $selectedCategories = $request->categories;
 
