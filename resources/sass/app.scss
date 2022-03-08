@@ -36,16 +36,16 @@
 // Restaurant page
 @import 'partials/foods-cards';
 
-body {
-    position: relative;
-    z-index: 2;
-}
 
+#layout{
+    min-height: 1600px;
+}
 #layout_style_1 {
     position: absolute;
     top: 200px;
     right: 0;
     z-index: -1;
+    width: 60%;
 }
 
 #layout_style_2 {
@@ -53,6 +53,7 @@ body {
     top: 600px;
     left: 0;
     z-index: -2;
+    width: 60%;
 }
 
 // hover a
@@ -64,4 +65,29 @@ a:hover{
    .container_xxl_{
        max-width: 1380px;
    }
+}
+@media all and (max-width:576px){
+    #check_mobile{
+        margin-top: 80vh;
+    }
+    #layout{
+        min-height: 0;
+        margin-bottom: 30px;
+        position: relative;
+    }
+    #layout_style_1 {
+        position: absolute;
+        top: 200px;
+        right: 0;
+        z-index: -1;
+        min-width: 103%;
+    }
+    
+    #layout_style_2 {
+        position: absolute;
+        top: 616px;
+        left: 0;
+        z-index: -2;
+        min-width: 95%;
+    }
 }
