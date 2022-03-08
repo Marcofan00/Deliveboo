@@ -1,35 +1,45 @@
 <template>
-<div>
-    <h2>Edit</h2>
+    <div id="edit">
+        <h2>Modifica i dati del piatto corrente</h2>
 
-    <form >
-        <!-- NAME  -->
-        <label for="name">Name:</label>
-        <input v-model="nameFood" name="name"  type="text">
+        <form >
+            <div class="data">
+                <label for="name">Nome</label>
+                <input type="text" name="name" v-model.trim="nameFood" required id="name">
+                <div class="error" v-if="errors.nameError">Campo obbligatorio. {{ errors.nameError }}</div>
+            </div>
 
-        <!-- TEXT  -->
-        <textarea name="description_ingredients" id="" cols="30" rows="10" v-model="descriptionIngredients"></textarea>
+            <div class="data">
+                <label for="description_ingredients">Descrizione/Ingredienti</label>
+                <textarea name="description_ingredients" id="" rows="10" v-model.trim="descriptionIngredients" required placeholder="Min 150 caratteri"></textarea>
+                <div v-if="descriptionIngredients">Numero caratteri digitati: {{ descriptionLength }}</div>
+                <div class="error" v-if="errors.descriptionError">Campo obbligatorio. {{ errors.descriptionError }}</div>
+            </div>
 
-        <!-- PRICE  -->
-        <label for="price">Price:</label>
-        <input step=".01" type="number" name="price" v-model="price"><br>
+            <div class="data">
+                <label for="price">Prezzo</label>
+                <input step=".10" type="number" name="price" v-model="price" required id="price">
+                <div class="error" v-if="errors.priceError">Campo obbligatorio. {{ errors.priceError }}</div>
+            </div>
 
+            <div class="data">
+                <label for="visible">Visibilit&agrave;</label>
+                <select v-model="visible" name="visible" id="">
+                    <option value="0">No</option>
+                    <option value="1">Si</option>
+                </select><br>
+            </div>
 
-        <!-- immagine  -->
-        <label for="food_img">Inserisci immagine</label>
-        <input @change="getFile" type="file" name="food_img">
+            <div class="data">
+                <label for="food_img">Inserisci immagine piatto</label>
+                <input @change="getFile" type="file" name="food_img" required>
+                <div class="error" v-if="errors.fileError">{{ errors.fileError }}</div>
+            </div>
 
-        <!-- visibility -->
-        <label for="visible">visibility</label>
-        <select v-model="visible" name="visible" id="">
-            <option :selected="food_edit.visible" value="0">No</option>
-            <option :selected="food_edit.visible" value="1">Si</option>
-        </select>  
-        <!-- edit  -->
-        <input @click="sendFood" type="button" value="edit">
+            <button class="btn save-btn" @click="sendFood" type="button">Salva</button>
 
-    </form>
-</div>
+        </form>
+    </div>
     
 </template>
 
@@ -42,65 +52,73 @@
             return {
 
                 file : "",
+                foodData: this.food_edit,
+                errors: {
+                    nameError: '',
+                    descriptionError: '',
+                    priceError: '',
+                    visibilityError: '',
+                    fileError: ''
+                },
             }
         },
         computed: {
             nameFood: {
                 get() {
-                    return this.food_edit.name;
+                    return this.foodData.name;
                 },
                 set(value) {
                     if (value) {
-                        this.food_edit.name = value;
-                        return this.food_edit.name;
+                        this.foodData.name = value;
+                        return this.foodData.name;
                     }
 
-                    return this.food_edit.name;
+                    return this.foodData.name;
                 }
             },
-            descriptionIngredients : {
+            descriptionIngredients: {
                 get() {
-                    return this.food_edit.description_ingredients;
+                    return this.foodData.description_ingredients;
                 },
                 set(value) {
                     if (value) {
-                        this.food_edit.description_ingredients = value;
-                        return this.food_edit.description_ingredients;
+                        this.foodData.description_ingredients = value;
+                        return this.foodData.description_ingredients;
                     }
 
-                    return this.food_edit.description_ingredients;
+                    return this.foodData.description_ingredients;
                 }
             },
             
-            price : {
+            price: {
                  get() {
-                    return this.food_edit.price;
+                    return this.foodData.price;
                 },
                 set(value) {
                     if (value) {
-                        this.food_edit.price = value;
-                        return this.food_edit.price;
+                        this.foodData.price = value;
+                        return this.foodData.price;
                     }
 
-                    return this.food_edit.price;
+                    return this.foodData.price;
                 }
             },
-            visible : {
+            visible: {
                  get() {
-                    return this.food_edit.visible;
+                    return this.foodData.visible;
                 },
                 set(value) {
                     if (value) {
-                        this.food_edit.visible = value;
-                        return this.food_edit.visible;
+                        this.foodData.visible = value;
+                        return this.foodData.visible;
                     }
 
-                    return this.food_edit.visible;
+                    return this.foodData.visible;
                 }
             },
-        },
-        
-        mounted() {
+            descriptionLength() {
+                return this.descriptionIngredients.length;
+            }
         },
         methods :{
            
@@ -108,25 +126,139 @@
                 this.file = event.target.files[0];
             },
             sendFood: async function() {
- 
-                  let data = new FormData();
+
+                let validFile = this.validateFileType(),
+                    validName = this.validateName(),
+                    validDescription = this.validateDescription(),
+                    validPrice = this.validatePrice();
+                
+                if (
+                    validFile &&
+                    validName &&
+                    validDescription &&
+                    validPrice
+                ) {
+                    let data = new FormData();
 
                     data.append('user_id', this.food_edit.user_id);
-                    data.append('name', this.food_edit.name);
-                    data.append('description_ingredients', this.food_edit.description_ingredients);
-                    data.append('price', this.food_edit.price);
-                    data.append('visible', this.food_edit.visible);
+                    data.append('name', this.nameFood);
+                    data.append('description_ingredients', this.descriptionIngredients);
+                    data.append('price', this.price);
+                    data.append('visible', this.visible);
                     data.append('food_img', this.file);
 
-                try {
-                    let response = await fetch('http://localhost:8000/api/dashboard/edit/'+this.food_edit.id,{
-                        method : 'POST',
-                        body : data
-                    })
-                } catch (err) {
-                    console.log(err);
+                    // console.log(data.entries());
+
+                    try {
+                        let response = await fetch('http://localhost:8000/api/dashboard/edit/'+this.food_edit.id,{
+                            method : 'POST',
+                            body : data
+                        })
+
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+ 
+            },
+            validateName() {
+
+                if (!this.nameFood || this.nameFood.length < 2) {
+
+                    this.errors.nameError = 'Inserire almeno un dato valido';
+                    return false;
+
+                } else {
+
+                    this.errors.nameError = '';
+                    return true;
+
+                }
+            },
+            validateDescription() {
+
+                if (!this.descriptionIngredients || this.descriptionIngredients.length < 150) {
+
+                    this.errors.descriptionError = 'Inserire una descrizione di almeno 150 caratteri';
+                    return false;
+
+                } else {
+
+                    this.errors.descriptionError = '';
+                    return true;
+                }
+            },
+            validatePrice() {
+
+                if (!this.price || typeof Number(this.price) !== 'number') {
+
+                    this.errors.priceError = 'Inserire un prezzo valido';
+                    return false;
+
+                } else {
+
+                    this.errors.priceError = '';
+                    return true;
+
+                }
+            },
+            validateFileType() {
+
+                if (this.file && !this.file.type.includes('/image/')) {
+
+                    this.errors.fileError = 'Formato file non valido. Inserisci una immagine';
+                    return false;
+
+                } else {
+
+                    this.errors.fileError = '';
+                    return true;
+
                 }
             }
         }
     }
 </script>
+
+<style scoped>
+    #edit {
+        width: 90%;
+        margin: 0 auto;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        padding: 1rem 0;
+    }
+
+    .data {
+        margin: 0.5rem 0;
+    }
+
+    .error {
+        font-size: 10px;
+        color: red;
+        padding-bottom: 0.6rem;
+    }
+
+    #name {
+        width: 96.8%;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    #price {
+        width: 4rem;
+        margin-right: 1.5rem;
+    }
+
+    .save-btn {
+        background-color: green;
+        color: white;
+        display: block;
+    }
+</style>
