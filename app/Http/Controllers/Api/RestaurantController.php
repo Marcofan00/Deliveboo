@@ -142,7 +142,7 @@ class RestaurantController extends Controller
     }
 
     public function getRestaurantsByCategory(Request $request) {
-        $selectedCategories = $request->all();
+        $selectedCategories = $request->categories;
 
         $allUsers = User::all();
 
@@ -155,7 +155,7 @@ class RestaurantController extends Controller
                 $searchResults[] = User::findOrFail($collection->unique('pivot.user_id')->pluck('pivot.user_id'))->toArray()[0];               
             }
         }
-
+        
         return response()->json($searchResults);
 
     }
