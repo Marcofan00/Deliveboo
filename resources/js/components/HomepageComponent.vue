@@ -10,11 +10,10 @@
             <h1>Filtra per</h1>
             <ul id="categories-cards">
                 <li class="category-card" v-for="category in categories" :key="category.id">
-                    <img src="/storage/img/deliverooDefault.png" alt="category_img">
+                    <img src="https://www.donnamoderna.com/content/uploads/2021/01/sushi-nigiri-830x625.jpg" alt="category_img">
                     <h3>{{ category.name }}</h3>
                 </li>
             </ul>
-            <button class="btn btn-secondary">Filtra</button>
         </section>
 
         <section id="users">
@@ -22,7 +21,7 @@
             <ul id="users-cards">
                 <li class="user-card" v-for="user in users" :key="user.id">
                     <a :href="`restaurant/` + user.id">
-                        <img src="/storage/img/deliverooDefault.png" alt="logo">
+                        <img src="https://static.gamberorosso.it/2022/01/sushi-1024x683.jpeg" alt="logo">
                         <h3>{{ user.restaurant_name }}</h3>
                         <h5>{{ user.address }}</h5>
                     </a>

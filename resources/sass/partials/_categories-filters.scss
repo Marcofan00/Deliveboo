@@ -1,4 +1,10 @@
 #categories-filters {
+    margin-bottom: 30px;
+    ul {
+        height: 120px;
+        list-style-type: none;
+        overflow: auto;
+    }
     li {
         position: relative;
         height: 100px;
@@ -6,17 +12,31 @@
         display: inline-block;
         margin-right: 10px;
         border-radius: 10px;
-        border: 1px solid #000;
-        background-color: #fff;
+        color: #fff;
         cursor: pointer;
         img {
             height: 100%;
             width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
         }
         h3 {
             position: absolute;
-            top: 20px;
-            left: 10px;
+            top: 10%;
+            left: 5%;
+            color: #ff5e49;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 3px;
+        }
+    }
+    li:active {
+        img {
+            filter: brightness(0.5);
+        }
+        h3 {
+            color: #fff;
+            background-color: #ff5e49;
         }
     }
 }

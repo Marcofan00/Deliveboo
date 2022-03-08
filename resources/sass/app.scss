@@ -65,3 +65,33 @@ a:hover{
        max-width: 1380px;
    }
 }
+
+// homepage
+@media all and (max-width:576px) {
+    body {
+        background-color: #ff5e49;
+    }
+
+    #layout_style_1 {
+        display: none;
+    }
+
+    #layout_style_2 {
+        display: none;
+    }
+
+    // #jumbotron {
+        
+    // }
+
+    #categories-filters {
+        display: none;
+    }
+
+    #users {
+        li {
+            width: 80%;
+            background-color: 000;
+        }
+    }
+}

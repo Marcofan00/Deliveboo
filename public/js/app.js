@@ -1996,20 +1996,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 10:
                 response = _context.sent;
-                _context.next = 16;
+
+                // const test = await response;
+                if (response.status === 201) {
+                  window.location.href = 'http://localhost:8000/dashboard';
+                } else {
+                  alert('Errore nella validazione dei dati');
+                }
+
+                _context.next = 17;
                 break;
 
-              case 13:
-                _context.prev = 13;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context["catch"](7);
                 console.log(_context.t0);
 
-              case 16:
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[7, 13]]);
+        }, _callee, this, [[7, 14]]);
       }));
 
       function sendFood() {
@@ -2477,7 +2485,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -39324,9 +39331,16 @@ var render = function () {
                   return _c("ul", { key: i }, [
                     _c("li", [
                       _c("div", { attrs: { id: "action_food" } }, [
-                        _c("a", { attrs: { href: "/food/edit/" + food.id } }, [
-                          _vm._m(0, true),
-                        ]),
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: "/food/edit/" + food.id,
+                              target: "_blank",
+                            },
+                          },
+                          [_vm._m(0, true)]
+                        ),
                         _vm._v(" "),
                         _c("div", [
                           food.visible
@@ -39780,7 +39794,7 @@ var render = function () {
           return _c("li", { key: category.id, staticClass: "category-card" }, [
             _c("img", {
               attrs: {
-                src: "/storage/img/deliverooDefault.png",
+                src: "https://www.donnamoderna.com/content/uploads/2021/01/sushi-nigiri-830x625.jpg",
                 alt: "category_img",
               },
             }),
@@ -39790,8 +39804,6 @@ var render = function () {
         }),
         0
       ),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Filtra")]),
     ]),
     _vm._v(" "),
     _c("section", { attrs: { id: "users" } }, [
@@ -39805,7 +39817,7 @@ var render = function () {
             _c("a", { attrs: { href: "restaurant/" + user.id } }, [
               _c("img", {
                 attrs: {
-                  src: "/storage/img/deliverooDefault.png",
+                  src: "https://static.gamberorosso.it/2022/01/sushi-1024x683.jpeg",
                   alt: "logo",
                 },
               }),
@@ -40028,7 +40040,7 @@ var render = function () {
         }),
         _vm._v(" "),
         _vm._l(_vm.categories, function (category) {
-          return _c("div", [
+          return _c("div", { key: category.id }, [
             _c("label", { attrs: { for: "categories" } }, [
               _vm._v(_vm._s(category.name)),
             ]),

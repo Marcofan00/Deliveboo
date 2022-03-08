@@ -11301,14 +11301,24 @@ footer #social_logo .social_icon:hover {
 #jumbotron h1 {
   position: absolute;
   bottom: 200px;
-  right: 15%;
+  right: 0;
 }
 
 #jumbotron h2 {
   position: absolute;
   bottom: 50px;
-  right: 15%;
+  right: 0;
   color: #00a0b7;
+}
+
+#categories-filters {
+  margin-bottom: 30px;
+}
+
+#categories-filters ul {
+  height: 120px;
+  list-style-type: none;
+  overflow: auto;
 }
 
 #categories-filters li {
@@ -11318,20 +11328,35 @@ footer #social_logo .social_icon:hover {
   display: inline-block;
   margin-right: 10px;
   border-radius: 10px;
-  border: 1px solid #000;
-  background-color: #fff;
+  color: #fff;
   cursor: pointer;
 }
 
 #categories-filters li img {
   height: 100%;
   width: 100%;
+  border-radius: 10px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 #categories-filters li h3 {
   position: absolute;
-  top: 20px;
-  left: 10px;
+  top: 10%;
+  left: 5%;
+  color: #ff5e49;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 3px;
+}
+
+#categories-filters li:active img {
+  filter: brightness(0.5);
+}
+
+#categories-filters li:active h3 {
+  color: #fff;
+  background-color: #ff5e49;
 }
 
 #users-cards {
@@ -11342,27 +11367,30 @@ footer #social_logo .social_icon:hover {
 }
 
 #users-cards li {
-  height: 200px;
-  width: 25%;
+  height: 250px;
+  width: 30%;
   margin: 10px;
   border-radius: 10px;
-  border: 1px solid #000;
   background-color: #fff;
 }
 
 #users-cards li img {
   height: 50%;
   width: 100%;
-  border-radius: 15px;
+  border-radius: 10px 10px 0 0;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 #users-cards li h3 {
-  color: #000;
+  color: #ff5e49;
   margin-left: 10px;
+  margin-top: 10px;
 }
 
 #users-cards li h5 {
   margin-left: 10px;
+  color: #000;
 }
 
 #restaurant {
@@ -11439,6 +11467,29 @@ a:hover {
 @media all and (min-width: 1400px) {
   .container_xxl_ {
     max-width: 1380px;
+  }
+}
+
+@media all and (max-width: 576px) {
+  body {
+    background-color: #ff5e49;
+  }
+
+  #layout_style_1 {
+    display: none;
+  }
+
+  #layout_style_2 {
+    display: none;
+  }
+
+  #categories-filters {
+    display: none;
+  }
+
+  #users li {
+    width: 80%;
+    background-color: 0;
   }
 }
 
