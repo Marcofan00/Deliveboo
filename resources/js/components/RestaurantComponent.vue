@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" :class="hamburgermenu? 'if_open' : ''">
         <section id="restaurant">
             <img src="/storage/img/deliverooDefault.png" alt="">
             <h1>{{ users.restaurant_name }}</h1>
@@ -12,12 +12,7 @@
                     <h3>{{ food.name }}</h3>
                     <p>{{ food.description_ingredients }}</p>
                     <h4>{{ food.price }}&euro;</h4>
-                    <button class="btn btn-primary" v-if="!food.added" @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>     
-                          <div class="btn btn-danger" v-else @click="deleteToCart(food.id)">
-                        test
-                    </div>            
-
-                    
+                    <button class="btn btn-primary"  @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>     
                 </li>
             </ul>
         </section>
@@ -35,13 +30,18 @@
                 quantita : 0,
                 cartArray : [],
                 quantity : 1,
-                
+                hamburgermenu : false,
 
             };
         },
 
         props: {
             restaurant: Number
+        },
+        created(){
+             this.$root.$on('openHambMenu',(value)=>{
+               this.hamburgermenu = value;
+            });
         },
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)

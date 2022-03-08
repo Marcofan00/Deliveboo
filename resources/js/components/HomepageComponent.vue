@@ -44,7 +44,6 @@ export default {
     created(){
         this.$root.$on('openHambMenu',(value)=>{
                this.hamburgermenu = value;
-                console.log(this.hamburgermenu);
             });
        
     },

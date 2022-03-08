@@ -36,7 +36,9 @@
 // Restaurant page
 @import 'partials/foods-cards';
 
-
+.if_open{
+    margin-top: 100vh;
+}
 #layout{
     min-height: 1600px;
 }
