@@ -23,9 +23,11 @@ Route::get('/restaurants', 'Api\RestaurantController@getAllRestaurants'); // get
 Route::get('restaurant/{id}', 'Api\RestaurantController@getRestaurantFoodById'); // gets all visible restaurant's food
 Route::get('/categories', 'Api\CategoryController@getAllCategories'); // gets all restaurants' categories
 Route::post('/search', 'Api\RestaurantController@getRestaurantsByCategory'); // returns restaurants filtered by category
+
+
     // payment routes
 Route::get('/token', 'Api\BraintreeController@getToken'); // returns braintree token
-Route::post('/checkout', 'Api\BraintreeController@processPayment'); // process payment
+Route::post('/payment', 'Api\BraintreeController@processPayment'); // process payment
 
 
 // UR routes
@@ -34,3 +36,11 @@ Route::get('/dashboard/orders/{id}', 'Api\RestaurantController@getRestaurantOrde
 Route::post('/dashboard/create', 'Api\RestaurantController@createNewFood'); // creates new record in food table
 Route::post('/dashboard/edit/{id}', 'Api\RestaurantController@editFood'); // updates existing record in food table
 Route::post('/dashboard/delete/{id}', 'Api\RestaurantController@foodVisibility'); // changes food visibility
+
+
+Route::post('/add/{id}', 'Api\CartController@add');
+Route::get('/cart', 'Api\CartController@getCart');
+Route::post('/addqty/{id}', 'Api\CartController@addQty');
+Route::post('/removeqty/{id}', 'Api\CartController@removeQty');
+Route::post('removeitem/{id}', 'Api\CartController@cartRemove');
+Route::post('/emptycart', 'Api\CartController@removeAllItems');

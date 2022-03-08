@@ -6,12 +6,13 @@
         </section>
 
         <section id="foods">
-            <ul id="foods-cards">
-                <li class="food-class" v-for="food in foods" :key="food.id">
+            <ul id="foods-cards" >
+                <li v-for="food in foods" :key="food.id" class="food-class" >
                     <img src="/storage/img/deliverooDefault.png" alt="">
                     <h3>{{ food.name }}</h3>
                     <p>{{ food.description_ingredients }}</p>
                     <h4>{{ food.price }}&euro;</h4>
+                    <button class="btn" @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>                 
                 </li>
             </ul>
         </section>
@@ -23,7 +24,12 @@
         data: function() {
             return {
                 foods: [],
-                users: ''
+                users: '',
+                quantita : 0,
+                cartArray : [],
+                quantity : 0,
+                // clicked : -1,
+
             };
         },
 
@@ -34,10 +40,41 @@
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)
             .then((r) => {
+                // console.log(r.data);
+                
                 this.foods = r.data.foods;
                 this.users = r.data.user;
             })
             .catch(e => console.error(e));
+
+        },
+        methods: {
+            addToCart: async function(id, userId) {
+                
+                let data = JSON.stringify({
+                    id,
+                    userId,
+                    // quantity: this.quantity
+                });
+
+                try {
+
+                    let response = await fetch('http://localhost:8000/api/add/' + id, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: data
+                    });
+
+                    if (response.ok) {
+                        console.log(await response.json());
+                    }
+
+                } catch(err) {
+                    console.log(err);
+                }
+            },
         }
     }
 </script>

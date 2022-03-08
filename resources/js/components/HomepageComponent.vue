@@ -9,12 +9,12 @@
         <section id="categories-filters">
             <h1>Filtra per</h1>
             <ul id="categories-cards">
-                <li class="category-card" v-for="category in categories" :key="category.id">
+                <li class="category-card" v-for="category in categories" :key="category.id" @click="getCategoryId(category.id)">
                     <img src="/storage/img/deliverooDefault.png" alt="category_img">
                     <h3>{{ category.name }}</h3>
                 </li>
             </ul>
-            <button class="btn btn-secondary">Filtra</button>
+            <button class="btn btn-secondary" @click="searchResults()">Filtra</button><button class="btn btn-secondary" @click="getAllRestaurants()">Reset</button>
         </section>
 
         <section id="users">
@@ -37,7 +37,8 @@ export default {
     data: function() {
         return {
             categories: [],
-            users: []
+            users: [],
+            selectedCategories: []
         };
     },
 
@@ -46,9 +47,39 @@ export default {
         .then(r => this.categories = r.data)
         .catch(e => console.error(e));
 
-        axios.get('/api/restaurants')
-        .then(r => this.users = r.data)
-        .catch(e => console.error(e));
+        this.getAllRestaurants();
+
+    },
+    methods: {
+        getCategoryId(id) {
+            this.selectedCategories.push(id);
+        },
+        searchResults: async function() {
+            try {
+
+                let response = await fetch('http://localhost:8000/api/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ categories: this.selectedCategories })
+                });
+
+                if (response.ok) {
+                    
+                    this.users = await response.json();
+                    this.selectedCategories = [];
+                }
+
+            } catch(err) {
+                console.log(err);
+            }
+        },
+        getAllRestaurants() {
+            axios.get('/api/restaurants')
+            .then(r => this.users = r.data)
+            .catch(e => console.error(e));
+        }
     }
 }
 </script>
