@@ -140,4 +140,23 @@ class RestaurantController extends Controller
         return response()->json($foods);
 
     }
+
+    public function getRestaurantsByCategory(Request $request) {
+        $selectedCategories = $request->all();
+
+        $allUsers = User::all();
+
+        $searchResults = [];
+
+        foreach($allUsers as $user) {
+            $collection = $user->categories->whereIn('pivot.category_id', $selectedCategories)->groupBy('pivot.user_id')->collapse();
+            
+            if (count($collection->all()) === count($selectedCategories)) {
+                $searchResults[] = User::findOrFail($collection->unique('pivot.user_id')->pluck('pivot.user_id'))->toArray()[0];               
+            }
+        }
+
+        return response()->json($searchResults);
+
+    }
 }
