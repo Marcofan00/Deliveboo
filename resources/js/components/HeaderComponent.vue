@@ -1,58 +1,21 @@
 <template>
     <div>
     
-    <header class="container container_xxl_">
+    <header :class="!mobile_check? 'container container_xxl_' : 'container mobile_header'">
 
-            <!-- logo  -->
+        <!-- logo  -->
         <a href="/">
             <img src="/storage/img/Logo.png" alt="logo_deeboo">
         </a>
 
         <!-- auth -->
-        <div v-if="userid !== 0">
+        <div v-if="userid !== 0" class="action_user">
             
-
             <!-- carrello  -->
-                <i @click="getCart" class="fas fa-cart-arrow-down"></i>
-                <div class=" cart_block " v-if="cartSelected">
-                    <div class="viewcart">
+                <span>{{lunghezzaCart}}</span>
+                <i @click="openCart()" class="fas fa-cart-arrow-down"></i>
 
-                        <h2>Riepilogo Carrello</h2>
-
-                        <ul>
-
-                            <li v-for="(item, i) in cart" :key="i">
-                                
-                                <div>
-                                    Nome food : <span>{{ item.name }}</span>
-                                </div>
-
-                                    <div><button class="btn" @click="removeQty(item.id)">-</button>  {{ item.quantity }}  <button class="btn" @click="addQty(item.id)">+</button></div>
-                                    <button class="btn" @click="removeItem(item.id)">Rimuovi piatto</button>
-                                    <div>price: {{ item.price }}</div>
-                                    <div>subtotal : {{ item.subtotal }}</div>
-
-                                <hr>
-                            </li>
-                            
-                        </ul>
-
-                    <div> total price : {{ total }}</div>
-                        
-                        <button class="btn" @click="emptyCart()">Svuota carrello</button>
-                    </div>
-                </div>
-            <a class="accedi_logout_btn" href="/logout">LOGOUT</a>
-
-    
-        </div>
-        <!-- endauth -->
-
-        <!-- guest -->
-            <div v-if="userid === 0" id="action_user">
-                
-                <!-- carrello  -->
-                <i @click="getCart" class="fas fa-cart-arrow-down"></i>
+                <!-- Apertura riepilogo al click  -->
                  <div class="cart_block " v-if="cartSelected">
                     <div class="viewcart">
 
@@ -61,23 +24,89 @@
                         <ul>
 
                             <li v-for="(item, i) in cart" :key="i">
-                                <div>
-                                    Nome food : <span>{{ item.name }}</span>
+                                <!-- Nome prodotto e icona rimuovi  -->
+                                <div class="Nome_Rimuovi">
+                                    {{ item.name }}
+                                    <i @click="removeItem(item.id)" class="fas fa-times"></i>
                                 </div>
 
-                                    <div><button class="btn" @click="removeQty(item.id)">-</button>  {{ item.quantity }}  <button class="btn" @click="addQty(item.id)">+</button></div>
-                                    <button class="btn" @click="removeItem(item.id)">Rimuovi piatto</button>
-                                    <div>price: {{ item.price }}</div>
-                                    <div>subtotal : {{ item.subtotal }}</div>
+                                <!-- prezzo singolo  -->
+                                <div class="price_font">Prezzo singolo : {{ item.price }} &euro;</div>
+                                
+                                <!-- subtotale e gestione quantita  -->
+                                <div class="subtot_qty">
+                                        <div class="price_font" >Subtotale : {{ item.subtotal }} &euro;</div>
+                                        <div><button class="button" @click="removeQty(item.id)">-</button>  {{ item.quantity }}  <button class="button" @click="addQty(item.id)">+</button></div>
+                                </div>
 
                                 <hr>
                             </li>
                         </ul>
 
-                    
-                    <div> total price : {{ total }}</div>
+                    <!-- PREZZO TOTALE  -->
+                    <div class="total_price">  TOTALE: {{ total }} &euro;</div>
                         
-                        <button class="btn" @click="emptyCart()">Svuota carrello</button>
+                        <!-- SVUOTA IL CARRELLO  -->
+                        <div  class="svuota_cart"@click="emptyCart()"> Svuota carrello <i  class="fas fa-trash"></i> </div> 
+
+                        <!-- link to checkout  -->
+                        <a class="btn go_checkout" href="/cart">Prosegui con il pagamento</a>
+                    </div>
+                </div>
+            
+            <!-- PULSANTE LOGOUT  -->
+            <div class="accedi_logout_btn">
+                <a  href="/logout">LOGOUT</a>
+            </div>
+
+    
+        </div>
+        <!-- endauth -->
+
+        <!-- guest -->
+            <div v-if="userid === 0" class="action_user">
+                
+                <!-- carrello  -->
+                <span>{{lunghezzaCart}}</span>
+                <i @click="openCart()" class="fas fa-cart-arrow-down"></i>
+
+                <!-- Apertura riepilogo al click  -->
+                 <div class="cart_block " v-if="cartSelected">
+                    <div class="viewcart">
+
+                        <h2>Riepilogo Carrello</h2>
+
+                        <ul>
+
+                            <li v-for="(item, i) in cart" :key="i">
+
+                                <!-- Nome prodotto e icona rimuovi     -->
+                                <div class="Nome_Rimuovi">
+                                    {{ item.name }}
+                                    <i @click="removeItem(item.id)" class="fas fa-times"></i>
+                                </div>
+
+                                <!-- Prezzo singolo prodotto  -->
+                                <div class="price_font">Prezzo singolo : {{ item.price }} &euro;</div>
+
+                                <!-- Subtotale e gestione quantita  -->
+                                <div class="subtot_qty">
+                                    <div class="price_font" >Subtotale : {{ item.subtotal }} &euro;</div>
+                                    <div><button class="button" @click="removeQty(item.id)">-</button>  {{ item.quantity }}  <button class="button" @click="addQty(item.id)">+</button></div>
+                                </div>
+
+                                <hr>
+                            </li>
+                        </ul>
+
+                    <!-- PREZZO TOTALE  -->
+                    <div class="total_price">  
+                        TOTALE: {{ total }} &euro;</div>
+                        <!-- Pulsante svuota carrello  -->
+                        <div class="svuota_cart" @click="emptyCart()"> Svuota carrello <i  class="fas fa-trash"></i> </div> 
+
+                        <!-- link to checkout  -->
+                        <a class="btn go_checkout" href="/cart">Prosegui con il pagamento</a>
                     </div>
                 </div>
 
@@ -91,40 +120,93 @@
         <!-- endguest     -->
 
 
-
-
-
-
-        <div id="header_component">
+        <!-- GESTIONE MOBILE VIEW  -->
+        <div id="header_component_mobile">
             <!-- hamburger menu  -->
             <i @click="mobilecheck()" class="fas fa-bars" ></i>
 
             <!-- dropdown menu ( mobile version se click su hamburge menu)  -->
             <div v-if="mobile_check" id="dropdown-menu" class="container">
                     <div id="menu_top">
-
-                        <!-- carrello  -->
-                        <i @click="getCart" class="fas fa-cart-arrow-down"></i>
-                        
+                        <div>
+                            <span>{{lunghezzaCart}}</span>
+                            <!-- carrello  -->
+                            <i @click="openCart()" class="fas fa-cart-arrow-down"></i>
+                        </div>
+                      
+                        <!-- chiudi tendina  -->
                         <i @click="mobilecheck()" class="fas fa-bars close_menu" ></i>
                     </div>
+
+                    <!-- blocco carrello  -->
+                    <div class="cart_block " v-if="cartSelected">
+                    <div class="viewcart">
+
+                        <h2>Riepilogo Carrello</h2>
+
+                        <ul>
+
+                            <li v-for="(item, i) in cart" :key="i">
+
+                                <!-- Nome prodotto e icona rimuovi     -->
+                                <div class="Nome_Rimuovi">
+                                    {{ item.name }}
+                                    <i @click="removeItem(item.id)" class="fas fa-times"></i>
+                                </div>
+
+                                <!-- Prezzo singolo prodotto  -->
+                                <div class="price_font">Prezzo singolo : {{ item.price }} &euro;</div>
+
+                                <!-- Subtotale e gestione quantita  -->
+                                <div class="subtot_qty">
+                                    <div class="price_font" >Subtotale : {{ item.subtotal }} &euro;</div>
+                                    <div><button class="button" @click="removeQty(item.id)">-</button>  {{ item.quantity }}  <button class="button" @click="addQty(item.id)">+</button></div>
+                                </div>
+
+                                <hr>
+                            </li>
+                        </ul>
+
+                    <!-- PREZZO TOTALE  -->
+                    <div class="total_price">  
+                        TOTALE: {{ total }} &euro;</div>
+                        <!-- Pulsante svuota carrello  -->
+                        <div class="svuota_cart" @click="emptyCart()"> Svuota carrello <i  class="fas fa-trash"></i> </div> 
+
+                        <!-- link to checkout  -->
+                        <a class="btn go_checkout" href="/cart">Prosegui con il pagamento</a>
+                    </div>
+                </div>
                     
                     <!-- Logout BTN -->
                     <div v-if="userid">
+
                         <a class="accedi_mobile" href="/logout">LOGOUT</a>
+
+                        <div class="btn redirect">
+                            <a href="/dashboard">
+                                Vai alla dashboard
+                            </a>
+                        </div>
+
+                        <div class="btn redirect">
+                            <a href="/statistiche">
+                                Visualizza le statistiche
+                            </a>
+                        </div>
+
+                    <img class="img_default" :src="logoRistorante + '.png' " alt="DEFAULT_IMG">
+
                     </div>
 
                     <!-- ACCEDI BTN  -->
                     <div v-if="!userid">
+                        <div id="descrizione_mobile">
+                            Hai un ristorante ? Registrati su DeeBoo e fai conoscere a tutti i tuoi fantastici prodotti !
+                        </div>
                         <a class="accedi_mobile" href="/login">Accedi</a>
                     </div>
 
-                    <!-- TESTO  -->
-                    <div id="testo_descrizione">
-                        {{testo}}
-                    </div>
-
-                    <img class="img_default" src="/storage/img/deliverooDefault.png" alt="DEFAULT_IMG">
             </div>
         </div>  
 
@@ -144,36 +226,57 @@
         data(){
             return  {
                 mobile_check : false,
-                testoVero : "prova vediamo un po",
-                test : "Accedi o registrati per usufruire dei servizi DeeBoo !",
                 cartSelected : false,
-                cartArrayUser : [],
-                quantitaProdotto : 1,
                 prezzoFinale : 0,
-                   cart: [],
-                    total: ''
+                cart: [],
+                total: '',
+                logoRistorante : "",
+            }
+        },
+        computed : {
+            lunghezzaCart () {
+                return this.cart.length;
             }
         },
         created(){
-            // this.getCart();
+            this.getImgRestaurant();
+            this.getCart();
+            self = this;
+            this.$root.$on('addItem',()=>{
+
+                self.getCart();
+                
+            });
         },
-        computed:{
         
-        },
         methods : {
+            getImgRestaurant(){
+                if (this.userid !== 0){
+                    axios.get('/api/restaurant/' + this.userid)
+                    .then((r) => {
+                        this.logoRistorante = r.data.user.logo;
+                    })
+                    .catch(e => console.error(e));
+                }
+                  
+            },
+
              mobilecheck(){
                 this.mobile_check = !this.mobile_check;
+                this.$root.$emit('openHambMenu',this.mobile_check);
             },
-            
-             getCart: async function() {
+            openCart(){
                  this.cartSelected = !this.cartSelected
+                this.getCart();
+            },
+             getCart: async function() {
              try {
 
                  let response = await fetch('http://localhost:8000/api/cart');
 
                  if (response.ok) {
                      let responseToJson = await response.json();
-                     console.log(responseToJson);
+
 
                      this.cart = responseToJson.foods;
                      this.total = responseToJson.total;
@@ -223,10 +326,13 @@
                  if (response.ok) {
 
                     let responseToJson = await response.json();
-
-                    this.cart = responseToJson.foods;
-                    this.total = responseToJson.total;
-
+                    if(responseToJson.foods){
+                        this.cart = responseToJson.foods;
+                        this.total = responseToJson.total;
+                    } else {
+                        this.cart = [];
+                        this.total = 0;
+                    }  
                  }
 
              } catch(err) {
@@ -245,9 +351,13 @@
 
                  if (response.ok) {
                      let responseToJson = await response.json();
-
-                     this.cart = responseToJson.foods;
-                     this.total = responseToJson.total;
+                        if(responseToJson.foods){
+                            this.cart = responseToJson.foods;
+                            this.total = responseToJson.total;
+                        } else {
+                            this.cart = [];
+                            this.total = 0;
+                        } 
                  }
 
              } catch(err) {
@@ -264,11 +374,9 @@
                      }
                  });
 
-                 if (response.ok) {
-                     let responseToJson = await response.json();
-
-                    this.cart = responseToJson.foods;
-                    this.total = responseToJson.total;
+                if (response.ok) {
+                   this.cart = [];
+                   this.total = 0;
                  }
 
              } catch(err) {
@@ -276,36 +384,5 @@
              }
          }
      },
-
-
-            // addQuantity(id){
-            //   this.cartArrayUser.forEach(element => {
-            //       if (element.id === id){
-            //           element.quantity ++
-            //       }
-            //   });
-            // },
-            // lessQuantity(id){
-            //     this.cartArrayUser.forEach(element => {
-            //       if (element.id === id && element.quantity >= 2 ){
-            //           element.quantity --
-            //       }
-            //   });
-            // },
-            // prezzototale(){
-            //     this.prezzoFinale = 0;
-            //    this.cartArrayUser.forEach(element => {
-                   
-            //         this.prezzoFinale +=  (element.price * element.quantity);
-                    
-            //    });
-               
-                
-            // }
-           
-        // },
-        mounted() {
-
-        }
     }
 </script>

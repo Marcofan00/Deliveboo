@@ -1,6 +1,6 @@
 <template>
     <div class="container"> 
-        <section id="jumbotron">
+        <section :class="hamburgermenu? 'if_open' : ''" id="jumbotron">
             <img :src="`/storage/img/deliverooDefault.png`" alt="">
             <h1>I piatti che ami, a domicilio.</h1>
             <h2>#aCasaTuaConDeliveboo</h2>
@@ -37,8 +37,16 @@ export default {
     data: function() {
         return {
             categories: [],
-            users: []
+            users: [],
+            hamburgermenu : false
         };
+    },
+    created(){
+        this.$root.$on('openHambMenu',(value)=>{
+               this.hamburgermenu = value;
+                console.log(this.hamburgermenu);
+            });
+       
     },
 
     mounted() {
