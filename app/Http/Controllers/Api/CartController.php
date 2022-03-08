@@ -207,7 +207,13 @@ class CartController extends Controller {
         $cart->setFoods($sessionCart['foods']);
         $cart->setTotal($sessionCart['total']);
         $cart->removeFromCart($product);
-        $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+
+        if (count($cart->foods)) {
+            $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+        } else {
+            $request->session()->flush();
+        }
+        
         return response()->json($request->session()->get('cart'));
     }
 
@@ -267,7 +273,13 @@ class CartController extends Controller {
 
         $cart->decrementQty($product, $quantity);
 
-        $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+        if (count($cart->foods)) {
+            $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+        } else {
+            $request->session()->flush();
+        }
+
+        
         return response()->json($request->session()->get('cart'));
 
     }
@@ -278,7 +290,7 @@ class CartController extends Controller {
 
         $request->session()->flush();
 
-        return response()->json($request->session()->get('cart'));
+        return response()->json(session()->get('cart'));
     }
 
     public function getCart() {
