@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Order;
+use App\Mail\OrderReceived;
+use Illuminate\Support\Facades\Mail;
+
+use App\Models\Food;
+use App\Models\User;
 
 class BraintreeController extends Controller
 {
@@ -33,7 +38,13 @@ class BraintreeController extends Controller
 
         $sessionCart = session()->get('cart');
 
-        // dd($sessionCart);
+        $foodId = $sessionCart['foods'][0]['id'];
+
+        $userId = Food::findOrFail($foodId)->user_id;
+
+        $user = User::findOrFail($userId);
+
+        // dd($user);
 
         $data = $request->all();
 
@@ -82,6 +93,8 @@ class BraintreeController extends Controller
         foreach($sessionCart['foods'] as $food) {
             $newOrder -> foods() ->attach($food['id'], ['food_qty' => $food['quantity']]);
         }
+
+        Mail::to($data['buyer_email'])->send(new OrderReceived($newOrder, $user));
 
         return response()->json($newOrder);
     }
