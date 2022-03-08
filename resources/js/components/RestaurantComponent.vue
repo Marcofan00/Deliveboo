@@ -12,18 +12,21 @@
                     <h3>{{ food.name }}</h3>
                     <p>{{ food.description_ingredients }}</p>
                     <h4>{{ food.price }}&euro;</h4>
-                    <button class="btn" @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>                 
-                    <input type="number" v-model="quantity">
-                    <div class="btn btn-danger" v-else @click="deleteToCart(food.id)">
+                    <button class="btn btn-primary" v-if="!food.added" @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>     
+                          <div class="btn btn-danger" v-else @click="deleteToCart(food.id)">
                         test
-                    </div>
+                    </div>            
+
+                    
                 </li>
             </ul>
         </section>
+
     </div>
 </template>
 
 <script>
+
     export default {
         data: function() {
             return {
@@ -31,8 +34,8 @@
                 users: '',
                 quantita : 0,
                 cartArray : [],
-                quantity : 0,
-                // clicked : -1,
+                quantity : 1,
+                
 
             };
         },
@@ -40,21 +43,21 @@
         props: {
             restaurant: Number
         },
-
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)
             .then((r) => {
-                // console.log(r.data);
                 
                 this.foods = r.data.foods;
                 this.users = r.data.user;
+                
             })
             .catch(e => console.error(e));
 
         },
+        
         methods: {
             addToCart: async function(id, userId) {
-                
+                   
                 let data = JSON.stringify({
                     id,
                     userId,
@@ -78,7 +81,10 @@
                 } catch(err) {
                     console.log(err);
                 }
+                this.$root.$emit('addItem');
+               
             },
+
             deleteToCart(id){
                 let index = this.cartArray.map(x => {
                     return x.id;
@@ -86,21 +92,6 @@
 
                     this.cartArray.splice(index, 1);
 
-            },
-
-            testo(){
-                // console.log(this.cartArray);
-                this.foods.forEach(element => {
-                    // console.log(element);
-                });
-
-            },
-            verifico(id){
-                if (this.cartArray.filter(e => e.id === id).length > 0) {
-                        return false
-                    } else{
-                       return true
-                    }
             },
         }
     }
