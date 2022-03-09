@@ -3,6 +3,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    margin-bottom: 20px;
     // logo 
     img{
         color: #009FB7;
@@ -15,9 +16,16 @@ header{
         display: none;
         color: #009FB7;
     }
-    #action_user{
+    .action_user{
         position: relative;
-
+        .go_checkout{
+            background: white;
+            color: #009FB7;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+        }
     }
     // icona carrello 
     .fa-cart-arrow-down{
@@ -29,22 +37,16 @@ header{
         }
     }
     
+
+    // accedi e logout pulsante 
     .accedi_logout_btn{
-        display: inline-block;
         background: #009FB7;
         border-radius: 48px;
-        padding: 12px 32px;
-        width: 209px;
-        height: 62px;
-        &:hover{
-            background-color: #f8fafc;
-            border: 2px solid #009FB7;
-            a{
-                color: #009FB7;
-            }
-        }
-
-        // Pulsante accedi link
+        display: inline-block;
+        text-align: center;
+        // line-height: 50px;
+        width: 180px;
+        height: 50px;
         a{
             font-family: 'Rubik', sans-serif;
             font-size: 32px;
@@ -52,55 +54,120 @@ header{
             display: inline-block;
             width: 100%;
             height: 100%;
-            line-height: 38px;
+            line-height: 50px;
             text-align: center;
         }
+        &:hover{
+            background-color: #f8fafc;
+            border: 2px solid #009FB7;
+            a{
+                color: #009FB7;
+            }
+           
+        }
+        
     }
+
+
+    // mobile 
     #dropdown-menu{
         display: none;
     }
-    #header_component{
+    #header_component_mobile{
         display: none;
     }
 
-}
-// carrello blocco
 
-.cart_block{
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-    position: absolute;
-    height: 500px;
-    z-index: 4;
-    width: 100%;
 
-    .viewcart{
-        background-color: #009FB7;
-        color: white;
-        padding: 16px;
+    // CARRELLO GESTIONE 
+    .cart_block{
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+        position: absolute;
+        z-index: 4;
         width: 100%;
-        overflow-y: scroll;
-
-    }
-    .quantitaspan{
-        display: inline-block;
-        margin: 0 4px;
-
-    }
-    .operator{
-        background-color: white;
-        padding: 2px;
-        color: black;
-        cursor: pointer;
-    }
-    li{
-        list-style: none;
+    
+        .viewcart{
+            background-color: #009FB7;
+            color: white;
+            padding: 16px;
+            width: 100%;
+            overflow-y: scroll;
+            border-radius: 15px;
+    
+        }
+        .quantitaspan{
+            display: inline-block;
+            margin: 0 4px;
+    
+        }
+        .svuota_cart{
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .operator{
+            background-color: white;
+            padding: 2px;
+            color: black;
+            cursor: pointer;
+        }
+        h2{
+            padding-bottom: 10px;
+            text-align: center;
+            border-bottom: 2px solid white;
+        }
+        .total_price{
+            font-size: 1.3rem;
+            padding-top: 10px;
+        }
+        ul{
+            margin-bottom: 0;
+        }
+        li{
+            list-style: none;
+            
+            .Nome_Rimuovi{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 1.3rem;
+            }
+            .fa-times{
+                cursor: pointer;
+            }
+            hr{
+                background-color: white;
+                margin-bottom: 0;
+            }
+            .button{
+                background: white;
+                padding: 0px 5px;
+                color: #009FB7;
+                font-weight: bold;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                border-style: solid;
+                border-color: #00000012;
+            }
+            .subtot_qty{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .price_font{
+                font-size: .8rem;
+            }
+        }
     }
 }
 
+
+// mobile gestione 
 @media all and (max-width:576px){
-    #Action_user{
+    
+    .action_user{
         display: none;
     }
     #accedi_btn{
@@ -108,10 +175,14 @@ header{
     }
     // hamburger menu 
     header {
+        .mobile_header{
+            margin-bottom: 100vh;
+        }
         .fa-cart-arrow-down{
             font-size: 32px;
             margin-right: 40px;
             color: white;
+            cursor: pointer;
         }
         .fa-bars{
             display: block;
@@ -126,12 +197,20 @@ header{
             position: absolute;
             left: 0;
             top: 0;
-            height: 100vh;
+            min-height: 100%;
             width: 100%;
             z-index: 3;
             background-color: #009FB7;
+            padding-bottom: 32px;
             .close_menu{
                 color: white;
+            }
+            #descrizione_mobile{
+                width: 90%;
+                color: white;
+                font-family: "Rubik", sans-serif;
+                font-size: 1.6rem;
+                margin-bottom: 20px;
             }
         }
         #menu_top{
@@ -139,25 +218,39 @@ header{
             justify-content: space-between;
             padding-top:16px;
             margin-bottom: 20px;
+            color: white;
         }
-        #header_component{
+        #header_component_mobile{
             display: block;
         }
         // immagine default 
         .img_default{
-            width: 70%;
+            margin-top: 40px;
+            width: 100%;
             height: auto;
-            margin-left: 30%;
-            position: absolute;
-            bottom: 0;
-            right: 0;
+            text-align: center;
+        }
+        // redirect
+        .redirect{
+            background-color: white;
+            border-radius: 3px;
+            text-align: center;
+            padding: 12px 0;
+            margin-top: 16px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 18px;
+            width: 100%;
+            
+            a{ 
+               color:  #009FB7;
+            }
         }
         // pulsante accedi su mobile 
         .accedi_mobile{
-            font-family: 'Rubik', sans-serif;
-            width: 40%;
+            font-family: "Rubik", sans-serif;
+            width: 100%;
             margin: 0 auto;
-            padding: 12px 32px;
+            padding: 12px 0px;
             text-align: center;
             display: inline-block;
             color: white;
@@ -167,7 +260,10 @@ header{
             &:hover{
                 background-color: white ;
                 color: #009FB7;
+
             }
+
+            
         }
         #testo_descrizione{
             margin-top: 50px;
@@ -176,12 +272,108 @@ header{
             font-family: 'Righteous', cursive;
             font-size: 20px;
         }
+
+
+        // carrello mobile
+        .cart_block{
+            margin-top: 0;
+            display: block;
+            position: relative;
+            z-index: 4;
+            width: 100%;
+            margin-bottom: 30px;
         
-      
+            .viewcart{
+                background-color: white;
+                color: #009FB7;
+                padding: 16px;
+                width: 100%;
+                overflow-y: scroll;
+                border-radius: 15px;
+        
+            }
+            .quantitaspan{
+                display: inline-block;
+                margin: 0 4px;
+        
+            }
+            // pulsante svuota carrello 
+            .svuota_cart{
+                cursor: pointer;
+                margin: 10px 0;
+            }
+            .operator{
+                background-color: white;
+                padding: 2px;
+                color: black;
+                cursor: pointer;
+            }
+
+            // Riepilogo carrello 
+            h2{
+                padding-bottom: 10px;
+                text-align: center;
+                border-bottom: 2px solid #009FB7;
+            }
+
+            // prezzo totale 
+            .total_price{
+                font-size: 1.3rem;
+                padding-top: 10px;
+            }
+
+            // pulsante procedi pagamento 
+            .go_checkout{
+                background: #009FB7;
+                color: white;
+                font-weight: bold;
+                text-align: center;
+                display: inline-block;
+                width: 100%;
+            }
+            // carrello 
+            ul{
+                margin-bottom: 0;
+            }
+            li{
+                list-style: none;
+                
+                .Nome_Rimuovi{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 1.3rem;
+                }
+                .fa-times{
+                    cursor: pointer;
+                }
+                hr{
+                    background-color: #009FB7;
+                    margin-bottom: 0;
+                }
+                .button{
+                    background: white;
+                    padding: 0px 5px;
+                    color: #009FB7;
+                    font-weight: bold;
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 50%;
+                    border-style: solid;
+                    border-color: #00000012;
+                }
+                .subtot_qty{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .price_font{
+                    font-size: .8rem;
+                }
+               
+            }
+        }
     }
-    
-   
-    
 }
 
 
