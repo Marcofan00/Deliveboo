@@ -47,6 +47,10 @@ class PageController extends Controller
         return view('pages.cart');
     }
 
+    public function checkout() {
+        return view('pages.checkout');
+    }
+
     public function registerPage() {
         return view('pages.registerpage');
     }
