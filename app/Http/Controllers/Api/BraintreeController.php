@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Order;
 use App\Mail\OrderReceived;
+use App\Mail\OrderReceivedRestaurant;
+
 use Illuminate\Support\Facades\Mail;
 
 use App\Models\Food;
@@ -95,6 +97,9 @@ class BraintreeController extends Controller
         }
 
         Mail::to($data['buyer_email'])->send(new OrderReceived($newOrder, $user));
+        Mail::to($user->email)->send(new OrderReceivedRestaurant($newOrder, $user));
+
+            
 
         return response()->json($newOrder);
     }
