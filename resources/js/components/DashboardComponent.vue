@@ -1,9 +1,9 @@
 <template>
-    <div class="container container_xxl_">
+    <div :class="hamburgermenu? 'if_open' : ''" class="container container_xxl_">
       <div id="dashboard">
           <div id="menu_select">
               <h2>
-                  NOME RISTORANTE
+                  {{nomeRistorante}}
               </h2>
                 <img class="img_restaurant" src="/storage/img/deliverooDefault.png" alt="immagine_ristorante">
 
@@ -11,6 +11,9 @@
 
 
               <button class="btn dashboard_action" @click="visibility_orders">Visualizza i miei Ordini</button>
+
+              <button class="btn dashboard_action" @click="visibility_statistic">Visualizza Statistiche</button>
+
 
 
 
@@ -30,7 +33,7 @@
                 </h2>
             
                 <ul>
-                    <li v-for="food, i in foods" :key="i">
+                    <li v-for="food, i in foods" :key="i" >
                         <div id="action_food">
 
                             <a :href="`/food/edit/${food.id}`" target="_blank">
@@ -42,22 +45,23 @@
 
                             <div>
                             
-                                 <div v-if="food.visible" id="nascondi" @click="hideCard(food.id)">
-                                   <i class="far fa-eye-slash"></i> Hide  
+                                 <div v-if="food.visible" class="nascondi" @click="hideCard(food.id)">
+                                   <i class="far fa-eye-slash"></i> Nascondi  
                                 </div>
-                                <div v-else >
-                                    <button @click="MakeVisibleFood(food.id)">Rendi dinyovo visibile</button>
+                                <div v-else class="pubblica" @click="MakeVisibleFood(food.id)">
+                                    <i class="fas fa-globe-europe"></i> Rendi visibile
                                 </div>
                             
                             </div>
                         </div>
-                        <div class="card" style="width: 14rem;">
-                            <img :src="`/storage/img/${food.food_img}`" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">{{food.name}}</h5>
-                                <p class="card-text">{{food.description_ingredients}}</p>
-                                <span>
-                                    {{food.price}}
+                        <div class="card_food">
+                            <img v-if="`/storage/img/${food.food_img}`" :src="`/storage/img/${food.food_img}`" class="card-img-food" alt="">
+                            <img v-else src="/storage/img/deliverooDefault.png" alt="default">
+                            <div class="card-body_food">
+                                <h5 class="card-title_food">{{food.name}}</h5>
+                                <p class="card-text_food">{{food.description_ingredients}}</p>
+                                <span class="cart-food-price">
+                                    {{food.price}} &euro;
                                 </span>
                             </div>
                         </div>
@@ -67,30 +71,127 @@
                 </ul>
              </div>
             <div v-if="orders_visibility" id="orders">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Numero ordine</th>
-                            <th>Nome acquirente</th>
-                            <th>Email acquirente</th>
-                            <th>Totale ordine</th>
-                            <th>Data ordine</th>
-                            <th>ID transazione</th>
-                            <th>Stato della transazione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="order, i in orders" :key="order.id">
-                            <td>{{ order.id }}</td>
-                            <td>{{ order.buyer_fullname }}</td>
-                            <td>{{ order.buyer_email }}</td>
-                            <td>{{ order.bill }}</td>
-                            <td>{{ order.order_date }}</td>
-                            <td>{{ order.transaction_id }}</td>
-                            <td>{{ order.transaction_status }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="row riga_ordine_head">
+                            <!-- <div class="col head_table">
+                                Numero ordine
+                            </div> -->
+                            <div class="col-lg-2 head_table">
+                                Nome acquirente
+                            </div>
+                            <div class="col head_table">
+                                Email acquirente
+                            </div>
+                            <div class="col-2 head_table">
+                                Totale ordine
+                            </div>
+                            <div class="col-2 head_table">
+                                Data ordine
+                            </div>
+                            <!-- <div class="col-1 head_table">
+                                ID transazione
+                            </div> -->
+                            <div class="col-1 head_table">
+                                Info
+                            </div>
+                             <!-- <div class="col head_table">
+                                Stato della transazione
+                            </div> -->
+                        </div>
+                
+                        <div class="row riga_ordine" v-for="order,i in orders" :key="order.id">
+                            <!-- <div class="col-1">
+                                {{ order.id }}
+                            </div> -->
+                            <div class="col-2">
+                                {{ order.buyer_fullname }}
+                            </div>
+                            <div class="col">
+                                {{ order.buyer_email }}
+                            </div>
+                            <div class="col-2">
+                                {{ order.bill }}&euro;
+                            </div>
+                            <div class="col-2">
+                               {{ order.order_date }}
+                            </div>
+                            <!-- <div class="col-1">
+                                {{ order.transaction_id }}
+                            </div> -->
+                            <div class="col-1">
+                                <a href=""> <i class="fas fa-info info_order"></i></a>
+                            </div>
+                            <!-- <div class="col-1">
+                                {{ order.transaction_status }}
+                            </div> -->
+                        </div>
+                    
+        
+            </div>
+
+
+
+
+
+            <!-- order mobile-->
+            <div v-if="orders_visibility" id="orders-mobile">
+                    <div class="row riga_ordine_head" v-for="order,i in orders" :key="order.id">
+                            <div class="number_order">
+                                Ordine n° {{ i + 1}}
+                            </div> 
+                            <div class="col-sm-12 head_table">
+                               <div class="intestazione">
+                                   Nome acquirente
+                                </div> 
+                                <div class="ordine_selected">
+                                    {{ order.buyer_fullname }}
+                                </div>
+                            </div>
+                            <div class="col-sm-12 head_table">
+                                <div class="intestazione">
+                                    Email acquirente
+                                </div>
+                                
+                                <div class="ordine_selected">
+                                    {{ order.buyer_email }}
+                                </div>
+                            </div>
+                            <div class="col-sm-12 head_table">
+                                <div class="intestazione">
+                                    Totale ordine
+                                </div>
+                                
+                                <div class="ordine_selected">
+                                     {{ order.bill }}&euro;
+                                </div>
+                            </div>
+                            <div class="col-sm-12 head_table">
+                                <div class="intestazione">
+                                    Data ordine
+                                </div>
+                                
+                                <div class="ordine_selected">
+                                    {{ order.order_date }}
+                                </div>
+                            </div>
+                            <div class="col-sm-12 head_table">
+                                <div class="intestazione text-center">
+                                     <a class="info_btn" href=""> <i class="fas fa-info info_order"></i>info</a>
+                                </div>
+                                
+                            </div>
+                         
+                        </div>
+                
+                        
+                    
+        
+            </div>
+
+
+
+            <!-- statistiche  -->
+            <div v-if="statistic_visibility">
+                Statistiche
             </div>
          </div>
       </div>
@@ -105,14 +206,21 @@
         data () {
             
             return {
+                nomeRistorante : "",
                 foods_visibility : false,
                 foods : [],
                 orders_visibility : false,
+                statistic_visibility : false,
                 hidebtn : true,
-                orders: []
+                orders: [],
+                hamburgermenu : false,
             }
         },
         created(){
+             this.$root.$on('openHambMenu',(value)=>{
+               this.hamburgermenu = value;
+            });
+
             console.log(this.logincheck);
              axios.get('http://localhost:8000/api/dashboard/restaurant/'+ this.logincheck)
             .then(res => {
@@ -126,17 +234,30 @@
             
         },
         mounted() {
-            // test 
+             axios.get('/api/restaurant/' + this.logincheck)
+            .then((r) => {
+                
+                this.nomeRistorante = r.data.user.restaurant_name;
+                
+            })
+            .catch(e => console.error(e));
         },
         methods : {
+            visibility_statistic(){
+                this.orders_visibility = false;
+                this.foods_visibility = false;
+                this.statistic_visibility = !this.statistic_visibility;
+            },
             visibility_foods(){
                 this.orders_visibility = false;
+                this.statistic_visibility = false;
+
                 this.foods_visibility = !this.foods_visibility;
             },
             visibility_orders(){
                
                 this.foods_visibility = false;
-                
+                this.statistic_visibility = false;
                 this.orders_visibility =! this.orders_visibility;
 
                 
@@ -145,7 +266,7 @@
                     axios.post('http://localhost:8000/api/dashboard/delete/'+ id)
                 .then(res => {
                     console.log(res.data);
-                    (res.data);
+                    // (res.data);
                     // let food = res.data;
                     // console.log(food.id);
                     // for ( let i = 0 ; i < this.foods.length; i++){
@@ -161,15 +282,6 @@
                 }).catch(err=>{
                     console.error(err);
                 });
-                // let data = id;
-                // try {
-                //     let response = await fetch('http://localhost:8000/api/dashboard/delete/'+ id,{
-                //         method : 'POST',
-                //         body : data
-                //     })
-                // } catch (err) {
-                //     console.log(err);
-                // }
             },
             MakeVisibleFood(id){
                  axios.post('http://localhost:8000/api/dashboard/delete/'+ id)
@@ -177,16 +289,7 @@
 
                     let food = res.data;
                     console.log(food);
-                    // console.log(food.id);
-                    // for ( let i = 0 ; i < this.foods.length; i++){
-                    //     element = this.foods[i];
-                        
-                    //     if( element.id === id){
-                    //         element.visible = 1;
-                    //         element = food;
-                    //     }
-                    // }
-
+                   
 
 
                 }).catch(err=>{

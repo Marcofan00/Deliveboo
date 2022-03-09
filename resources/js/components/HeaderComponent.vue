@@ -54,6 +54,10 @@
                     </div>
                 </div>
             
+
+
+            <a  class="go_dashboard" href="/dashboard">Visualizza la dashboard</a>
+            
             <!-- PULSANTE LOGOUT  -->
             <div class="accedi_logout_btn">
                 <a  href="/logout">LOGOUT</a>
@@ -179,7 +183,7 @@
                 </div>
                     
                     <!-- Logout BTN -->
-                    <div v-if="userid">
+                    <div class="contenitore_blocco_if_logout" v-if="userid">
 
                         <a class="accedi_mobile" href="/logout">LOGOUT</a>
 
@@ -195,7 +199,7 @@
                             </a>
                         </div>
 
-                    <img class="img_default" :src="logoRistorante + '.png' " alt="DEFAULT_IMG">
+                        <img class="img_default" :src="logoRistorante + '.png' " alt="DEFAULT_IMG">
 
                     </div>
 
