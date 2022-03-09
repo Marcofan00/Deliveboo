@@ -59,10 +59,22 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            'X-Requested-With': 'XMLHttpRequest'
                         },
                         body: data
                     });
+
+                    let responseToJson = await response.json();
+
+                    if (responseToJson.errors.email) {
+                        this.emailError = responseToJson.errors.email.toString();
+                    }
+
+                    if (responseToJson.errors.password) {
+                        this.emailError = responseToJson.errors.password.toString();
+                    }
                 }
             },
             validateEmail(email) {
