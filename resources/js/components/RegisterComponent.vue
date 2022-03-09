@@ -240,41 +240,43 @@
                             body: data
                         });
 
-                        let responseToJson = await response.json();
+                        if (!response.ok) {
+                            let responseToJson = await response.json();
 
-                        if (responseToJson.errors.email) {
-                            this.errors.emailError = responseToJson.errors.email.toString();
-                        }
+                            if (responseToJson.errors.email) {
+                                this.errors.emailError = responseToJson.errors.email.toString();
+                            }
 
-                        if (responseToJson.errors.logo) {
-                            this.errors.fileError = responseToJson.errors.logo.toString();
-                        }
-                        
-                        if (responseToJson.errors.password) {
-                            this.errors.passwordError = responseToJson.errors.password.toString();
-                        }
-                        
-                        if (responseToJson.errors.full_name) {
-                            this.errors.firstNameError = responseToJson.errors.full_name.toString();
-                            this.errors.lastNameError = responseToJson.errors.full_name.toString();
-                        }
+                            if (responseToJson.errors.logo) {
+                                this.errors.fileError = responseToJson.errors.logo.toString();
+                            }
+                            
+                            if (responseToJson.errors.password) {
+                                this.errors.passwordError = responseToJson.errors.password.toString();
+                            }
+                            
+                            if (responseToJson.errors.full_name) {
+                                this.errors.firstNameError = responseToJson.errors.full_name.toString();
+                                this.errors.lastNameError = responseToJson.errors.full_name.toString();
+                            }
 
-                        if (responseToJson.errors.restaurant_name) {
-                            this.errors.restaurantNameError = responseToJson.errors.restaurant_name.toString();
-                        }
-                        
-                        if (responseToJson.errors.address) {
-                            this.errors.restaurantAddressError = responseToJson.errors.address.toString();
-                            this.errors.streetNumberPostalCordeError = responseToJson.errors.address.toString();
-                            this.errors.cityError = responseToJson.errors.address.toString();
-                        }
-                        
-                        if (responseToJson.errors.vat_number) {
-                            this.errors.vatNumberError = responseToJson.errors.vat_number.toString();
-                        }
-                        
-                        if (responseToJson.errors.categories) {
-                            this.errors.categoryError = responseToJson.errors.categories.toString();
+                            if (responseToJson.errors.restaurant_name) {
+                                this.errors.restaurantNameError = responseToJson.errors.restaurant_name.toString();
+                            }
+                            
+                            if (responseToJson.errors.address) {
+                                this.errors.restaurantAddressError = responseToJson.errors.address.toString();
+                                this.errors.streetNumberPostalCordeError = responseToJson.errors.address.toString();
+                                this.errors.cityError = responseToJson.errors.address.toString();
+                            }
+                            
+                            if (responseToJson.errors.vat_number) {
+                                this.errors.vatNumberError = responseToJson.errors.vat_number.toString();
+                            }
+                            
+                            if (responseToJson.errors.categories) {
+                                this.errors.categoryError = responseToJson.errors.categories.toString();
+                            }
                         }
 
                     } catch(err) {
