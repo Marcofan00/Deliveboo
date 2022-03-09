@@ -2,35 +2,55 @@
 <!-- struttura del form -->
     <div class="demo-frame">  
         <form id="cardForm" >
-            <label class="hosted-fields--label" for="firstname">Nome</label><br>
-            <input class="hosted-field" type="text" name="firstname" v-model="firstName"><br>
-            <label class="hosted-fields--label" for="lastname">Cognome</label><br>
-            <input class="hosted-field" type="text" name="lastname" v-model="lastName"><br>
-            <label class="hosted-fields--label" for="email">E-mail</label><br>
-            <input class="hosted-field" type="text" name="email" v-model="buyerEmail"><br>
-            <label class="hosted-fields--label" for="address">Indirizzo</label><br>
-            <input class="hosted-field" type="text" name="address" v-model="buyerAddress"><br>
-            <label class="hosted-fields--label" for="streetnumber">Numero Civico</label><br>
-            <input class="hosted-field" type="text" name="streetnumber" v-model="streetNumber"><br>
-            <label class="hosted-fields--label" for="postalcode">CAP</label><br>
-            <input class="hosted-field" type="text" name="postalcode" v-model="postalCode"><br>
-            <label class="hosted-fields--label" for="city">Citt&agrave;</label><br>
-            <input class="hosted-field" type="text" name="city" v-model="city"><br>
-            <label class="hosted-fields--label" for="phone">Telefono</label><br>
-            <input class="hosted-field" type="text" name="phone" v-model="buyerPhone"><br>
-            <label class="hosted-fields--label" for="notes">Note</label>
-            <textarea class="hosted-fields" name="note" cols="91" rows="10" v-model="notes"></textarea>
+            <div class="data">
+                <label class="hosted-fields--label" for="firstname">Nome</label>
+                <input class="hosted-field" type="text" name="firstname" v-model="firstName">
+                <div class="error" v-if="errors.firstNameError">{{ errors.firstNameError }}</div>
 
-            <label class="hosted-fields--label" for="card-number">Card Number</label>
-            <!-- per ogni campo da compilare NON va usato il tag <input> ma il tag <div></div> 
-                hostedFields.create nello script provvederà a creare i campi dove poter scrivere -->
-            <div type="text" class="hosted-field" id="card-number"></div>
+                <label class="hosted-fields--label" for="lastname">Cognome</label>
+                <input class="hosted-field" type="text" name="lastname" v-model="lastName">
+                <div class="error" v-if="errors.lastNameError">{{ errors.lastNameError }}</div>
 
-            <label class="hosted-fields--label" for="expiration-date">Expiration Date</label>
-            <div type="text" class="hosted-field" id="expiration-date"></div>
+                <label class="hosted-fields--label" for="email">E-mail</label>
+                <input class="hosted-field" type="text" name="email" v-model="buyerEmail">
+                <div class="error" v-if="errors.emailError">{{ errors.emailError }}</div>
 
-            <label class="hosted-fields--label" for="cvv">CVV</label>
-            <div type="text" class="hosted-field" id="cvv"></div>
+                <label class="hosted-fields--label" for="address">Indirizzo</label>
+                <input class="hosted-field" type="text" name="address" v-model="buyerAddress">
+                <div class="error" v-if="errors.addressError">{{ errors.addressError }}</div>
+
+                <label class="hosted-fields--label" for="streetnumber">Numero Civico</label>
+                <input class="hosted-field" type="text" name="streetnumber" v-model="streetNumber">
+                <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
+
+                <label class="hosted-fields--label" for="postalcode">CAP</label>
+                <input class="hosted-field" type="text" name="postalcode" v-model="postalCode">
+                <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
+
+                <label class="hosted-fields--label" for="city">Citt&agrave;</label>
+                <input class="hosted-field" type="text" name="city" v-model="city">
+                <div class="error" v-if="errors.cityError">{{ errors.cityError }}</div>
+
+                <label class="hosted-fields--label" for="phone">Telefono</label>
+                <input class="hosted-field" type="text" name="phone" v-model="buyerPhone">
+                <div class="error" v-if="errors.phoneError">{{ errors.phoneError }}</div>
+
+                <label class="hosted-fields--label" for="notes">Note</label>
+                <textarea class="hosted-fields" name="note" cols="91" rows="10" v-model="notes"></textarea>
+            </div>
+            
+            <div class="data">
+                <label class="hosted-fields--label" for="card-number">Card Number</label>
+                <!-- per ogni campo da compilare NON va usato il tag <input> ma il tag <div></div> 
+                    hostedFields.create nello script provvederà a creare i campi dove poter scrivere -->
+                <div type="text" class="hosted-field" id="card-number"></div>
+
+                <label class="hosted-fields--label" for="expiration-date">Expiration Date</label>
+                <div type="text" class="hosted-field" id="expiration-date"></div>
+
+                <label class="hosted-fields--label" for="cvv">CVV</label>
+                <div type="text" class="hosted-field" id="cvv"></div>
+            </div>
 
             <div class="button-container">
                 <!-- usate type="button" per evitare che la pagina venga refreshata ogni volta che si mandano i dati -->
@@ -59,7 +79,17 @@
                 postalCode: '',
                 city: '',
                 buyerPhone: '',
-                notes: ''
+                notes: '',
+                errors: {
+                    emailError: '',
+                    firstNameError: '',
+                    lastNameError: '',
+                    phoneError: '',
+                    streetNumberPostalCodeError: '',
+                    cityError: '',
+                    addressError: ''
+                },
+                namesRegex: /^[a-z\s]+$/i
             }
         },
         computed: {
@@ -68,6 +98,40 @@
             },
             fullAddress() {
                 return this.buyerAddress + ', ' + this.streetNumber + ', ' + this.postalCode + ', ' + this.city;
+            }
+        },
+        watch: {
+            firstName(value) {
+                this.firstName = value;
+                this.validateFirstName(value);
+            },
+            lastName(value) {
+                this.lastName = value;
+                this.validateLastName(value);
+            },
+            buyerEmail(value) {
+                this.buyerEmail = value;
+                this.validateEmail(value);
+            },
+            buyerAddress(value) {
+                this.buyerAddress = value;
+                this.validateAddress(value);
+            },
+            streetNumber(value) {
+                this.streetNumber = value;
+                this.validateStreetNumberPostalCode(value);
+            },
+            postalCode(value) {
+                this.postalCode = value;
+                this.validateStreetNumberPostalCode(value);
+            },
+            city(value) {
+                this.city = value;
+                this.validateCity(value);
+            },
+            buyerPhone(value) {
+                this.buyerPhone = value;
+                this.validatePhone(value);
             }
         },
         mounted() {
@@ -135,11 +199,7 @@
                                 expirationDate: {
                                     container: '#expiration-date',
                                     placeholder: 'MM/YYYY'
-                                },
-                                // postalCode: {
-                                //     container: '#postal-code',
-                                //     placeholder: '11111'
-                                // }
+                                }
 
                             }
                         }, function(err, hostedFieldsInstance) {
@@ -187,24 +247,68 @@
                     paymentMethodId: nonce
                 });
 
-                try {
+                let validEmail = this.validateEmail(this.buyerEmail),
+                    validCity = this.validateCity(this.city),
+                    validFirstName = this.validateFirstName(this.firstName),
+                    validLastName = this.validateLastName(this.lastName),
+                    validAddress = this.validateAddress(this.buyerAddress),
+                    validStreetNumber = this.validateStreetNumberPostalCode(this.streetNumber),
+                    validPostalCode = this.validateStreetNumberPostalCode(this.postalCode),
+                    validPhone = this.validatePhone(this.buyerPhone);
 
-                    let response = await fetch('http://localhost:8000/api/payment', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: data
-                    });
+                if (
+                    validEmail &&
+                    validCity &&
+                    validFirstName &&
+                    validLastName &&
+                    validPhone &&
+                    validAddress &&
+                    validPostalCode &&
+                    validStreetNumber
+                ) {
+                    try {
 
-                    // if (response.ok) {
-                    //     console.log(await response.json());
-                    // }
+                        console.log('all true sending data...')
 
-                } catch(err) {
-                    console.log(err);
+                        let response = await fetch('http://localhost:8000/api/payment', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: data
+                        });
+
+                        if (!response.ok) {
+
+                            let responseToJson = await response.json();
+
+                            if (responseToJson.errors.buyer_email) {
+                                this.errors.emailError = responseToJson.errors.email.toString();
+                            }
+
+                            if (responseToJson.errors.buyer_fullname) {
+                                this.errors.firstNameError = responseToJson.errors.buyer_fullname.toString();
+                                this.errors.lastNameError = responseToJson.errors.buyer_fullname.toString();
+                            }
+
+                            if (responseToJson.errors.buyer_address) {
+                                this.errors.addressError = responseToJson.errors.buyer_address.toString();
+                                this.errors.streetNumberPostalCodeError = responseToJson.errors.buyer_address.toString();
+                                this.errors.cityError = responseToJson.errors.buyer_address.toString();
+                            }
+
+                            if (responseToJson.errors.buyer_phone) {
+                                this.errors.phoneError = responseToJson.errors.buyer_phone.toString();
+                            }
+                        }
+
+                    } catch(err) {
+                        console.log(err);
+                    }
                 }
+
             },
             setOrderDate() {
                 let date = new Date(),
@@ -213,6 +317,78 @@
                     month = date.getMonth() + 1;
 
                 return fullYear + '/' + month + '/' + day;
+            },
+            validateEmail(email) {
+
+                if (!email || !/^([a-zA-Z0-9\_\-\.]+)@([a-zA-Z0-9\_\-\.]+)\.([a-zA-Z]{2,5})$/g.test(email)) {
+                    this.errors.emailError = 'Email non valida';
+                    return false;
+                }
+
+                this.errors.emailError = '';
+                return true;
+            },
+            validateFirstName(firstName) {
+
+                if (!firstName || !this.namesRegex.test(firstName)) {
+                    this.errors.firstNameError = 'Nome non valido';
+                    return false;
+                }
+
+                this.errors.firstNameError = '';
+                return true;
+            },
+            validateLastName(lastName) {
+
+                if (!lastName || !this.namesRegex.test(lastName)) {
+                    this.errors.lastNameError = 'Cognome non valido';
+                    return false;
+                }
+
+                this.errors.lastNameError = '';
+                return true;                
+            },
+            validateAddress(address) {
+
+                if (!address || !/^[-a-z ,.\'0-9]+$/gi.test(address)) {
+                    this.errors.addressError = 'Indirizzo non valido';
+                    return false;
+                }
+
+                this.errors.addressError = '';
+                return true;  
+            },
+            validateStreetNumberPostalCode(number) {
+
+                console.log(number);
+
+                if (!number || !/^\d+$/.test(number)) {
+                    this.errors.streetNumberPostalCodeError = 'Numero civico o CAP non validi';
+                    return false;
+                }
+
+                this.errors.streetNumberPostalCodeError = '';
+                return true;                
+            },
+            validateCity(city) {
+
+                if (!city || !this.namesRegex.test(city)) {
+                    this.errors.cityError = 'Città non valida';
+                    return false;
+                }
+
+                this.errors.cityError = '';
+                return true;                 
+            },
+            validatePhone(phone) {
+
+                if (phone && !/\d{10}/.test(phone)) {
+                    this.errors.phoneError = 'Numero di telefono errato';
+                    return false;
+                }
+
+                this.errors.phoneError = '';
+                return true;
             }
             
         }
@@ -221,90 +397,98 @@
 </script>
 
 <style scoped>
-.hosted-field {
-  height: 40px;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 12px;
-  display: inline-block;
-  box-shadow: none;
-  font-weight: 600;
-  font-size: 10px;
-  border-radius: 6px;
-  border: 1px solid #dddddd;
-  line-height: 20px;
-  background: #fcfcfc;
-  margin-bottom: 12px;
-  background: linear-gradient(to right, white 50%, #fcfcfc 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 300ms ease-in-out;
-}
+
+    .error {
+        font-size: 10px;
+        color: red;
+        padding-bottom: 0.6rem;
+    }
+    .hosted-field {
+    height: 40px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    display: inline-block;
+    box-shadow: none;
+    font-weight: 600;
+    font-size: 10px;
+    border-radius: 6px;
+    border: 1px solid #dddddd;
+    line-height: 20px;
+    background: #fcfcfc;
+    margin-bottom: 12px;
+    background: linear-gradient(to right, white 50%, #fcfcfc 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all 300ms ease-in-out;
+    }
 
 
 
-.hosted-fields--label {
-  font-family: courier, monospace;
-  text-transform: uppercase;
-  font-size: 14px;
-  display: block;
-  margin-bottom: 6px;
-}
+    .hosted-fields--label {
+    font-family: courier, monospace;
+    text-transform: uppercase;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 6px;
+    }
 
-.button-container {
-  display: block;
-  text-align: center;
-}
+    .button-container {
+    display: block;
+    text-align: center;
+    }
 
-.button {
-  cursor: pointer;
-  font-weight: 500;
-  line-height: inherit;
-  position: relative;
-  text-decoration: none;
-  text-align: center;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  display: inline-block;
-}
+    .button {
+    cursor: pointer;
+    font-weight: 500;
+    line-height: inherit;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+    }
 
-.button--small {
-  padding: 10px 20px;
-  font-size: 0.875rem;
-}
+    .button--small {
+    padding: 10px 20px;
+    font-size: 0.875rem;
+    }
 
-.button--green {
-  outline: none;
-  background-color: #64d18a;
-  border-color: #64d18a;
-  color: white;
-  transition: all 200ms ease;
-}
+    .button--green {
+    outline: none;
+    background-color: #64d18a;
+    border-color: #64d18a;
+    color: white;
+    transition: all 200ms ease;
+    }
 
-.button--green:hover {
-  background-color: #8bdda8;
-  color: white;
-}
+    .button--green:hover {
+    background-color: #8bdda8;
+    color: white;
+    }
 
-.braintree-hosted-fields-focused {
-  border: 1px solid #64d18a;
-  border-radius: 1px;
-  background-position: left bottom;
-}
+    .braintree-hosted-fields-focused {
+    border: 1px solid #64d18a;
+    border-radius: 1px;
+    background-position: left bottom;
+    }
 
-.braintree-hosted-fields-invalid {
-  border: 1px solid #ed574a;
-}
+    .braintree-hosted-fields-invalid {
+    border: 1px solid #ed574a;
+    }
 
-/* .braintree-hosted-fields-valid {
-} */
+    /* .braintree-hosted-fields-valid {
+    } */
 
-#cardForm {
-  max-width: 50.75em;
-  margin: 0 auto;
-  padding: 1.875em;
-}
+    #cardForm {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    }
 </style>
