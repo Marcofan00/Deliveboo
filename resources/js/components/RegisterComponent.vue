@@ -105,7 +105,7 @@
                     vatNumberError: '',
                     categoryError: ''
                 },
-                namesRegex: /^[a-z]+$/gi
+                namesRegex: /^[a-z\s]+$/i
             }
         },
         mounted() {
@@ -237,6 +237,22 @@
                             },
                             body: data
                         });
+
+                        let responseToJson = await response.json();
+
+                        if (responseToJson.errors) {
+                            this.errors.emailError = responseToJson.errors.email,
+                            this.errors.fileError = responseToJson.errors.logo,
+                            this.errors.passwordError = responseToJson.errors.password,
+                            this.errors.firstNameError = responseToJson.errors.full_name,
+                            this.errors.lastNameError = responseToJson.errors.full_name,
+                            this.errors.restaurantNameError = responseToJson.errors.restaurant_name,
+                            this.errors.restaurantAddressError = responseToJson.errors.address,
+                            this.errors.streetNumberPostalCordeError = responseToJson.errors.address,
+                            this.errors.cityError = responseToJson.errors.address,
+                            this.errors.vatNumberError = responseToJson.errors.vat_number,
+                            this.errors.categoryError = responseToJson.errors.categories
+                        }
 
                     } catch(err) {
                         console.log(err)
