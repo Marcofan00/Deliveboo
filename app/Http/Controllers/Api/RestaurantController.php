@@ -71,16 +71,31 @@ class RestaurantController extends Controller
 
             $data = $request->all();
 
-            // dd($data);
+            $messages = [
+                'user_id.required' => 'Questo campo è obbligatorio',
+                'user_id.numeric' => 'Questo campo deve avere valore numerico',
+                'name.required' => 'Questo campo è obbligatorio',
+                'name.max' => 'Questo campo deve contenere massimo 60 caratteri',
+                'description_ingredients.required' => 'Questo campo è obbligatorio',
+                'description_ingredients.min' => 'Questo campo deve contenere minimo 150 caratteri',
+                'price.required' => 'Questo campo è obbligatorio',
+                'price.numeric' => 'Questo campo deve essere di tipo numerico',
+                'visible.required' => 'Questo campo è obbligatorio',
+                'food_image.image' => 'Il file caricato deve essere di tipo immagine'
+            ];
 
             $validatedData = Validator::make($data, [
                 'user_id' => ['required', 'numeric'],
                 'name' => ['required', 'string', 'max:60'],
-                'description_ingredients' => ['required', 'string'],
+                'description_ingredients' => ['required', 'string', 'min:150'],
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['nullable', 'image']
-            ])->validate();
+            ], $messages)->validate();
+
+            if ($validatedData->fails()) {
+                return response('failed', 422)->json(['errors' => $validatedData->errors()]);
+            }
 
             if ($validatedData['food_img']) {
 

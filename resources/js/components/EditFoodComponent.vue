@@ -147,13 +147,35 @@
                     data.append('visible', this.visible);
                     data.append('food_img', this.file);
 
-                    // console.log(data.entries());
-
                     try {
                         let response = await fetch('http://localhost:8000/api/dashboard/edit/'+this.food_edit.id,{
                             method : 'POST',
                             body : data
-                        })
+                        });
+
+                        if (!response.ok) {
+                            let responseToJson = await response.json();
+
+                            if (responseToJson.errors.name) {
+                                this.errors.nameError = responseToJson.errors.name.toString();
+                            }
+
+                            if (responseToJson.errors.description_ingredients) {
+                                this.errors.descriptionError = responseToJson.errors.description_ingredients.toString();
+                            }
+
+                            if (responseToJson.errors.price) {
+                                this.errors.priceError = responseToJson.errors.price.toString();
+                            }
+
+                            if (responseToJson.errors.visible) {
+                                this.errors.visibilityError = responseToJson.errors.visible.toString();
+                            }
+
+                            if (responseToJson.errors.food_image) {
+                                this.errors.fileError = responseToJson.errors.food_image.toString();
+                            }
+                        }
 
                     } catch (err) {
                         console.log(err);
