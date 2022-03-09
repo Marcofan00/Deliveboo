@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\Models\Category;
+
 class RegisterController extends Controller
 {
     /*
@@ -47,18 +49,52 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    public function messages()
+    {
+        return [
+            'email.required' => 'Il campo :attribute è obbligatorio',
+            'email.unique' => 'Questa email è già presente nei nostri database'
+        ];
+    }
+
     protected function validator(array $data)
     {
 
-        return Validator::make($data, [
+        $messages = [
+            'email.required' => 'Questo campo è obbligatorio',
+            'email.email' => 'Email non valida',
+            'email.unique' => 'Questa email è già presente nei nostri database',
+            'email.max' => 'L\'email deve essere massimo di 60 caratteri',
+            'password.required' => 'Questo campo è obbligatorio',
+            'password.min' => 'La password deve essere lunga minimo 8 caratteri',
+            'password.confirmed' => 'La password confermata non corrisponde a quella inserita in precedenza',
+            'full_name.required' => 'Questo campo è obbligatorio',
+            'full_name.max' => 'Il nome completo deve essere lungo massimo 150 caratteri',
+            'restaurant_name.required' => 'Questo campo è obbligatorio',
+            'address.required' => 'Questo campo è obbligatorio',
+            'vat_number.required' => 'Questo campo è obbligatorio',
+            'vat_number.max' => 'La lunghezza massima della Partita IVA deve essere massimo di 16 caratteri compreso il prefisso',
+            'vat_number.unique' => 'Questa Partita IVA è già presente nei nostri database',
+            'logo.image' => 'Il formato del file caricato non è valido. Il file deve essere una immagine',
+            'categories.required' => 'Questo campo è obbligatorio'
+        ];
+
+        $validator = Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:60', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'full_name' => ['required', 'string', 'max:150'],
             'restaurant_name' => ['required', 'string'],
             'address' => ['required', 'string'],
-            'vat_number' => ['required', 'max:16'],
-            'logo' => ['nullable', 'image']
-        ]);
+            'vat_number' => ['required', 'max:16', 'unique:users'],
+            'logo' => ['nullable', 'image'],
+            'categories' => ['required']
+        ], $messages)->validate();
+
+        if ($validator->fails() || !Category::find($data['categories'])) {
+            return response()->json(['errors' => $validator()->errors()]);
+        }
+
+        return $validator;
 
     }
 
