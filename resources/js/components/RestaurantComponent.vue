@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" :class="hamburgermenu? 'if_open' : ''">
         <section id="restaurant">
             <img src="/storage/img/deliverooDefault.png" alt="">
             <h1>{{ users.restaurant_name }}</h1>
@@ -12,14 +12,18 @@
                     <h3>{{ food.name }}</h3>
                     <p>{{ food.description_ingredients }}</p>
                     <h4>{{ food.price }}&euro;</h4>
-                    <button class="btn" @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>                 
+
+                    <button class="btn btn-primary"  @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>     
+
                 </li>
             </ul>
         </section>
+
     </div>
 </template>
 
 <script>
+
     export default {
         data: function() {
             return {
@@ -27,8 +31,8 @@
                 users: '',
                 quantita : 0,
                 cartArray : [],
-                quantity : 0,
-                // clicked : -1,
+                quantity : 1,
+                hamburgermenu : false,
 
             };
         },
@@ -36,21 +40,26 @@
         props: {
             restaurant: Number
         },
-
+        created(){
+             this.$root.$on('openHambMenu',(value)=>{
+               this.hamburgermenu = value;
+            });
+        },
         mounted() {
             axios.get('/api/restaurant/' + this.restaurant)
             .then((r) => {
-                // console.log(r.data);
                 
                 this.foods = r.data.foods;
                 this.users = r.data.user;
+                
             })
             .catch(e => console.error(e));
 
         },
+        
         methods: {
             addToCart: async function(id, userId) {
-                
+                   
                 let data = JSON.stringify({
                     id,
                     userId,
@@ -74,7 +83,10 @@
                 } catch(err) {
                     console.log(err);
                 }
+                this.$root.$emit('addItem');
+               
             },
+
         }
     }
 </script>
