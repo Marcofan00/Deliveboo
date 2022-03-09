@@ -131,6 +131,8 @@ class RestaurantController extends Controller
 
 
         $food -> update();
+
+        return response()->json($food);
     }
 
     // returns all restaurant's food in dashboard
