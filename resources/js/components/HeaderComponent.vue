@@ -47,7 +47,7 @@
                     <div class="total_price">  TOTALE: {{ total }} &euro;</div>
                         
                         <!-- SVUOTA IL CARRELLO  -->
-                        <div  class="svuota_cart"@click="emptyCart()"> Svuota carrello <i  class="fas fa-trash"></i> </div> 
+                        <div  class="svuota_cart" @click="emptyCart()"> Svuota carrello <i  class="fas fa-trash"></i> </div> 
 
                         <!-- link to checkout  -->
                         <a class="btn go_checkout" href="/checkout">Prosegui con il pagamento</a>
@@ -276,6 +276,8 @@
 
                  if (response.ok) {
                      let responseToJson = await response.json();
+
+                     console.log(responseToJson.total);
 
 
                      this.cart = responseToJson.foods;
