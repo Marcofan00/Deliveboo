@@ -36,11 +36,11 @@
 
                     <label for="streetnumber">Numero Civico</label>
                     <input type="number" name="streetnumber" v-model.trim="streetNumber" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
+                    <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
 
                     <label for="postalcode">CAP</label>
                     <input type="number" name="postalcode" v-model.trim="postalCode" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
+                    <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
 
                     <label for="city">Città</label>
                     <input type="text" name="city" v-model.trim="city" :class="errors.cityError ? 'red' : 'green' "><br>
@@ -266,7 +266,7 @@
                             
                             if (responseToJson.errors.address) {
                                 this.errors.restaurantAddressError = responseToJson.errors.address.toString();
-                                this.errors.streetNumberPostalCordeError = responseToJson.errors.address.toString();
+                                this.errors.streetNumberPostalCodeError = responseToJson.errors.address.toString();
                                 this.errors.cityError = responseToJson.errors.address.toString();
                             }
                             
@@ -360,12 +360,12 @@
             },
             validateStreetNumberPostalCode(number) {
 
-                if (!number || typeof Number(number) !== 'number') {
-                    this.errors.streetNumberPostalCordeError = 'Numero civico o CAP non validi';
+                if (!number || !/^\d+$/.test(number)) {
+                    this.errors.streetNumberPostalCodeError = 'Numero civico o CAP non validi';
                     return false;
                 }
 
-                    this.errors.streetNumberPostalCordeError = '';
+                    this.errors.streetNumberPostalCodeError = '';
                     return true;                
             },
             validateCity(city) {
