@@ -1,34 +1,38 @@
 <template>
-    <div class="container"> 
-        <section :class="hamburgermenu? 'if_open' : ''" id="jumbotron">
-            <img :src="`/storage/img/deliverooDefault.png`" alt="">
-            <h1>I piatti che ami, a domicilio.</h1>
-            <h2>#aCasaTuaConDeliveboo</h2>
-        </section>
+    <div id="layout"  :class="hamburgermenu? 'if_open' : ''">
+        <img id="layout_style_1" src="/storage/img/Vector.svg" alt="vettore1">
+        <img id="layout_style_2" src="/storage/img/vectoruno.png" alt="vettore2">
+        <div class="container"> 
+            <section  id="jumbotron">
+                <img :src="`/storage/img/deliverooDefault.png`" alt="">
+                <h1>I piatti che ami, a domicilio.</h1>
+                <h2>#aCasaTuaConDeliveboo</h2>
+            </section>
 
-        <section id="categories-filters">
-            <h1>Filtra per</h1>
-            <ul id="categories-cards">
-                <li class="category-card" v-for="category in categories" :key="category.id">
-                    <img src="/storage/img/deliverooDefault.png" alt="category_img">
-                    <h3>{{ category.name }}</h3>
-                </li>
-            </ul>
-            <button class="btn btn-secondary">Filtra</button>
-        </section>
+            <section id="categories-filters">
+                <h1>Filtra per</h1>
+                <ul id="categories-cards">
+                    <li class="category-card" v-for="category in categories" :key="category.id">
+                        <img src="/storage/img/deliverooDefault.png" alt="category_img">
+                        <h3>{{ category.name }}</h3>
+                    </li>
+                </ul>
+                <button class="btn btn-secondary">Filtra</button>
+            </section>
 
-        <section id="users">
-            <h1>I tuoi piatti preferiti, consegnati da noi.</h1>
-            <ul id="users-cards">
-                <li class="user-card" v-for="user in users" :key="user.id">
-                    <a :href="`restaurant/` + user.id">
-                        <img src="/storage/img/deliverooDefault.png" alt="logo">
-                        <h3>{{ user.restaurant_name }}</h3>
-                        <h5>{{ user.address }}</h5>
-                    </a>
-                </li>
-            </ul>
-        </section>
+            <section id="users">
+                <h1>I tuoi piatti preferiti, consegnati da noi.</h1>
+                <ul id="users-cards">
+                    <li class="user-card" v-for="user in users" :key="user.id">
+                        <a :href="`restaurant/` + user.id">
+                            <img src="/storage/img/deliverooDefault.png" alt="logo">
+                            <h3>{{ user.restaurant_name }}</h3>
+                            <h5>{{ user.address }}</h5>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </div>
     </div>
 </template>
 

@@ -50,7 +50,7 @@
                         <div  class="svuota_cart"@click="emptyCart()"> Svuota carrello <i  class="fas fa-trash"></i> </div> 
 
                         <!-- link to checkout  -->
-                        <a class="btn go_checkout" href="/cart">Prosegui con il pagamento</a>
+                        <a class="btn go_checkout" href="/checkout">Prosegui con il pagamento</a>
                     </div>
                 </div>
             
@@ -106,7 +106,7 @@
                         <div class="svuota_cart" @click="emptyCart()"> Svuota carrello <i  class="fas fa-trash"></i> </div> 
 
                         <!-- link to checkout  -->
-                        <a class="btn go_checkout" href="/cart">Prosegui con il pagamento</a>
+                        <a class="btn go_checkout" href="/checkout">Prosegui con il pagamento</a>
                     </div>
                 </div>
 
@@ -174,7 +174,7 @@
                         <div class="svuota_cart" @click="emptyCart()"> Svuota carrello <i  class="fas fa-trash"></i> </div> 
 
                         <!-- link to checkout  -->
-                        <a class="btn go_checkout" href="/cart">Prosegui con il pagamento</a>
+                        <a class="btn go_checkout" href="/checkout">Prosegui con il pagamento</a>
                     </div>
                 </div>
                     

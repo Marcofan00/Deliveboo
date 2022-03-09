@@ -197,11 +197,10 @@ header{
             position: absolute;
             left: 0;
             top: 0;
-            height: 100%;
+            min-height: 100%;
             width: 100%;
             z-index: 3;
             background-color: #009FB7;
-            overflow-y: scroll;
             padding-bottom: 32px;
             .close_menu{
                 color: white;
@@ -258,14 +257,13 @@ header{
             border-radius: 3px;
             border: 2px solid white;
             font-size: 18px;
-            a{
-                color: white;
-            }
             &:hover{
                 background-color: white ;
                 color: #009FB7;
 
             }
+
+            
         }
         #testo_descrizione{
             margin-top: 50px;
@@ -299,6 +297,7 @@ header{
                 margin: 0 4px;
         
             }
+            // pulsante svuota carrello 
             .svuota_cart{
                 cursor: pointer;
                 margin: 10px 0;
@@ -309,15 +308,21 @@ header{
                 color: black;
                 cursor: pointer;
             }
+
+            // Riepilogo carrello 
             h2{
                 padding-bottom: 10px;
                 text-align: center;
                 border-bottom: 2px solid #009FB7;
             }
+
+            // prezzo totale 
             .total_price{
                 font-size: 1.3rem;
                 padding-top: 10px;
             }
+
+            // pulsante procedi pagamento 
             .go_checkout{
                 background: #009FB7;
                 color: white;
@@ -326,6 +331,7 @@ header{
                 display: inline-block;
                 width: 100%;
             }
+            // carrello 
             ul{
                 margin-bottom: 0;
             }
