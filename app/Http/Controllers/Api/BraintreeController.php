@@ -95,7 +95,12 @@ class BraintreeController extends Controller
         }
 
         Mail::to($data['buyer_email'])->send(new OrderReceived($newOrder, $user));
+        Mail::to($user->email)->send(new OrderReceived($newOrder, $user));
 
-        return response()->json($newOrder);
+        session()->flush();
+
+        // return response()->json($newOrder);
+
+        return redirect()->route('success', ['id' => $newOrder->id]);
     }
 }

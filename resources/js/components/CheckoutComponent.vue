@@ -198,9 +198,9 @@
                         body: data
                     });
 
-                    if (response.ok) {
-                        console.log(await response.json());
-                    }
+                    // if (response.ok) {
+                    //     console.log(await response.json());
+                    // }
 
                 } catch(err) {
                     console.log(err);
