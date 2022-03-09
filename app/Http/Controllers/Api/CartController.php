@@ -49,7 +49,7 @@ class CartController extends Controller {
 
     // Getter and setter for total
     public function setTotal($value) {
-        $this->total = $value;
+        $this->total = round($value, 2);
     }
 
     public function getTotal() {
@@ -63,7 +63,7 @@ class CartController extends Controller {
             foreach($this->foods as &$food)  {
                 if($product->id == $food['id']) {
                     $food['quantity'] += 1;
-                    $food['subtotal'] = ($product->price * $food['quantity']);
+                    $food['subtotal'] = round(($product->price * $food['quantity']), 2);
                     $this->calculateTotal();
                 }
             }
@@ -78,7 +78,7 @@ class CartController extends Controller {
                     if ($food['quantity'] === 0) {
                         $this->removeFromCart($product);
                     } else {
-                        $food['subtotal'] = ($product->price * $food['quantity']);
+                        $food['subtotal'] = round(($product->price * $food['quantity']), 2);
                     }
                     
                     $this->calculateTotal();
@@ -116,7 +116,7 @@ class CartController extends Controller {
             'price' => $product->price,
             'food_img' => $product->food_img,
             'quantity' => $quantity,
-            'subtotal' => ($product->price * $quantity),
+            'subtotal' => round(($product->price * $quantity), 2),
         ];
         $this->foods[] = $food;
         $this->calculateTotal();

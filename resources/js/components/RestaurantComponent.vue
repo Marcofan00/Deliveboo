@@ -12,7 +12,9 @@
                     <h3>{{ food.name }}</h3>
                     <p>{{ food.description_ingredients }}</p>
                     <h4>{{ food.price }}&euro;</h4>
+
                     <button class="btn btn-primary"  @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>     
+
                 </li>
             </ul>
         </section>
@@ -61,7 +63,7 @@
                 let data = JSON.stringify({
                     id,
                     userId,
-                    quantity: this.quantity
+                    // quantity: this.quantity
                 });
 
                 try {
@@ -85,14 +87,6 @@
                
             },
 
-            deleteToCart(id){
-                let index = this.cartArray.map(x => {
-                    return x.id;
-                }).indexOf(id);
-
-                    this.cartArray.splice(index, 1);
-
-            },
         }
     }
 </script>

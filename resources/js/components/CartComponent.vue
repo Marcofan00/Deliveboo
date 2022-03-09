@@ -11,6 +11,7 @@
         </div>
         <div>{{ total }}</div>
         <button class="btn" @click="emptyCart()">Svuota carrello</button>
+        <a href="/checkout" target="_blank">Vai al Checkout</a>
     </div>
 </template>
 
