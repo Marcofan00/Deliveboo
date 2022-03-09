@@ -233,25 +233,48 @@
                         let response = await fetch('http://localhost:8000/register', {
                             method: 'POST',
                             headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                'X-Requested-With': 'XMLHttpRequest'
                             },
                             body: data
                         });
 
                         let responseToJson = await response.json();
 
-                        if (responseToJson.errors) {
-                            this.errors.emailError = responseToJson.errors.email,
-                            this.errors.fileError = responseToJson.errors.logo,
-                            this.errors.passwordError = responseToJson.errors.password,
-                            this.errors.firstNameError = responseToJson.errors.full_name,
-                            this.errors.lastNameError = responseToJson.errors.full_name,
-                            this.errors.restaurantNameError = responseToJson.errors.restaurant_name,
-                            this.errors.restaurantAddressError = responseToJson.errors.address,
-                            this.errors.streetNumberPostalCordeError = responseToJson.errors.address,
-                            this.errors.cityError = responseToJson.errors.address,
-                            this.errors.vatNumberError = responseToJson.errors.vat_number,
-                            this.errors.categoryError = responseToJson.errors.categories
+                        if (responseToJson.errors.email) {
+                            this.errors.emailError = responseToJson.errors.email.toString();
+                        }
+
+                        if (responseToJson.errors.logo) {
+                            this.errors.fileError = responseToJson.errors.logo.toString();
+                        }
+                        
+                        if (responseToJson.errors.password) {
+                            this.errors.passwordError = responseToJson.errors.password.toString();
+                        }
+                        
+                        if (responseToJson.errors.full_name) {
+                            this.errors.firstNameError = responseToJson.errors.full_name.toString();
+                            this.errors.lastNameError = responseToJson.errors.full_name.toString();
+                        }
+
+                        if (responseToJson.errors.restaurant_name) {
+                            this.errors.restaurantNameError = responseToJson.errors.restaurant_name.toString();
+                        }
+                        
+                        if (responseToJson.errors.address) {
+                            this.errors.restaurantAddressError = responseToJson.errors.address.toString();
+                            this.errors.streetNumberPostalCordeError = responseToJson.errors.address.toString();
+                            this.errors.cityError = responseToJson.errors.address.toString();
+                        }
+                        
+                        if (responseToJson.errors.vat_number) {
+                            this.errors.vatNumberError = responseToJson.errors.vat_number.toString();
+                        }
+                        
+                        if (responseToJson.errors.categories) {
+                            this.errors.categoryError = responseToJson.errors.categories.toString();
                         }
 
                     } catch(err) {
