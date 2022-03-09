@@ -68,7 +68,7 @@ class BraintreeController extends Controller
             'buyer_address' => ['required', 'string'],
             'buyer_phone' => ['nullable', 'string', 'max:40', 'min:10'],
             'note' => ['nullable', 'string']
-        ], $messages)->validate();
+        ], $messages);
 
         if ($validatedData->fails()) {
             return response('failed', 422)->json(['errors' => $validatedData->errors()]);
@@ -111,13 +111,15 @@ class BraintreeController extends Controller
             $newOrder -> foods() ->attach($food['id'], ['food_qty' => $food['quantity']]);
         }
 
-        Mail::to($data['buyer_email'])->send(new OrderReceived($newOrder, $user));
-        Mail::to($user->email)->send(new OrderReceived($newOrder, $user));
+        if ($result->success) {
+            Mail::to($data['buyer_email'])->send(new OrderReceived($newOrder, $user));
+            Mail::to($user->email)->send(new OrderReceived($newOrder, $user));
 
-        session()->flush();
+            session()->flush();
 
-        // return response()->json($newOrder);
+            return response()->json($newOrder);
+        }
 
-        return redirect()->route('success', ['id' => $newOrder->id]);
+        return response()->json(['errors' => 'Pagamento non andato a buon fine']);
     }
 }

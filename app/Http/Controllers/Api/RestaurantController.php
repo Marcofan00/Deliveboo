@@ -58,7 +58,7 @@ class RestaurantController extends Controller
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['required', 'image']
-            ], $messages)->validate();
+            ], $messages);
 
             if ($validatedData->fails()) {
                 return response('failed', 422)->json(['errors' => $validatedData->errors()]);
@@ -107,7 +107,7 @@ class RestaurantController extends Controller
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['nullable', 'image']
-            ], $messages)->validate();
+            ], $messages);
 
             if ($validatedData->fails()) {
                 return response('failed', 422)->json(['errors' => $validatedData->errors()]);

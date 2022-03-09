@@ -20,11 +20,11 @@
                 <div class="error" v-if="errors.addressError">{{ errors.addressError }}</div>
 
                 <label class="hosted-fields--label" for="streetnumber">Numero Civico</label>
-                <input class="hosted-field" type="text" name="streetnumber" v-model="streetNumber">
+                <input class="hosted-field" type="number" name="streetnumber" v-model="streetNumber">
                 <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
 
                 <label class="hosted-fields--label" for="postalcode">CAP</label>
-                <input class="hosted-field" type="text" name="postalcode" v-model="postalCode">
+                <input class="hosted-field" type="number" name="postalcode" v-model="postalCode">
                 <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
 
                 <label class="hosted-fields--label" for="city">Citt&agrave;</label>
@@ -146,11 +146,12 @@
                 // blocco try/catch per la gestione di eventuali errori
                 try {
 
-                    let getClientToken = await fetch('http://localhost:8000/api/token');
+                    let response = await fetch('http://localhost:8000/api/token');
 
-                    let clientTokenToJson = await getClientToken.json();
-
-                    this.clientToken = clientTokenToJson;
+                    if (response.ok) {
+                        let clientTokenToJson = await response.json();
+                        this.clientToken = clientTokenToJson;
+                    }
 
                     
                     if (this.clientToken) {
@@ -268,8 +269,6 @@
                 ) {
                     try {
 
-                        console.log('all true sending data...')
-
                         let response = await fetch('http://localhost:8000/api/payment', {
                             method: 'POST',
                             headers: {
@@ -280,12 +279,12 @@
                             body: data
                         });
 
+                        let responseToJson = await response.json();
+
                         if (!response.ok) {
 
-                            let responseToJson = await response.json();
-
                             if (responseToJson.errors.buyer_email) {
-                                this.errors.emailError = responseToJson.errors.email.toString();
+                                this.errors.emailError = responseToJson.errors.buyer_email.toString();
                             }
 
                             if (responseToJson.errors.buyer_fullname) {
@@ -302,6 +301,8 @@
                             if (responseToJson.errors.buyer_phone) {
                                 this.errors.phoneError = responseToJson.errors.buyer_phone.toString();
                             }
+                        } else {
+                            window.location.href = '/success/' + responseToJson.id;
                         }
 
                     } catch(err) {
@@ -359,8 +360,6 @@
                 return true;  
             },
             validateStreetNumberPostalCode(number) {
-
-                console.log(number);
 
                 if (!number || !/^\d+$/.test(number)) {
                     this.errors.streetNumberPostalCodeError = 'Numero civico o CAP non validi';

@@ -88,7 +88,7 @@ class RegisterController extends Controller
             'vat_number' => ['required', 'max:16', 'unique:users'],
             'logo' => ['nullable', 'image'],
             'categories' => ['required']
-        ], $messages)->validate();
+        ], $messages);
 
         if ($validator->fails() || !Category::find($data['categories'])) {
             return response()->json(['errors' => $validator()->errors()]);
