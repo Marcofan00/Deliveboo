@@ -281,6 +281,8 @@
                  if (response.ok) {
                      let responseToJson = await response.json();
 
+                     console.log(responseToJson.total);
+
 
                      this.cart = responseToJson.foods;
                      this.total = responseToJson.total;

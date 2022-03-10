@@ -50,6 +50,19 @@ class BraintreeController extends Controller
 
         $data = $request->all();
 
+        $messages = [
+            'order_date.required' => 'Questo campo è obbligatorio',
+            'order_date.date' => 'Questo campo deve essere di tipo data in formato YYYY/MM/DD',
+            'buyer_fullname.required' => 'Questo campo è obbligatorio',
+            'buyer_fullname.max' => 'Il nome nel complesso deve essere lungo massimo 150 caratteri',
+            'buyer_email.required' => 'Questo campo è obbligatorio',
+            'buyer_email.email' => 'Email non valida',
+            'buyer_email.max' => 'L\'email deve essere lunga massimo 60 caratteri',
+            'buyer_address.required' => 'Questo campo è obbligatorio',
+            'buyer_phone.min' => 'Questo campo deve contenere minimo 10 caratteri',
+            'buyer_phone.max' => 'Questo campo deve contenere massimo 40 caratteri',
+        ];
+
         $validatedData = Validator::make($data, [
             'order_date' => ['required', 'date'],
             'buyer_fullname' => ['required', 'string', 'max:150'],
@@ -57,7 +70,13 @@ class BraintreeController extends Controller
             'buyer_address' => ['required', 'string'],
             'buyer_phone' => ['nullable', 'string', 'max:40', 'min:10'],
             'note' => ['nullable', 'string']
-        ])->validate();
+        ], $messages);
+
+        $validatedData->validate();
+
+        if ($validatedData->fails()) {
+            return response('failed', 422)->json(['errors' => $validatedData->errors()]);
+        }
 
         $gateway = $this->configGateway();
 
@@ -96,11 +115,16 @@ class BraintreeController extends Controller
             $newOrder -> foods() ->attach($food['id'], ['food_qty' => $food['quantity']]);
         }
 
-        Mail::to($data['buyer_email'])->send(new OrderReceived($newOrder, $user));
-        Mail::to($user->email)->send(new OrderReceivedRestaurant($newOrder, $user));
+        if ($result->success) {
+            Mail::to($data['buyer_email'])->send(new OrderReceived($newOrder, $user));
+            Mail::to($user->email)->send(new OrderReceivedRestaurant($newOrder, $user));
 
-            
+            session()->flush();
 
-        return response()->json($newOrder);
+            return response()->json($newOrder);
+        }
+
+
+        return response()->json(['errors' => 'Pagamento non andato a buon fine']);
     }
 }

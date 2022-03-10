@@ -45,11 +45,12 @@
 
                             <div>
                             
-                                 <div v-if="food.visible" class="nascondi" @click="hideCard(food.id)">
+
+                                 <div v-if="food.visible" class="nascondi" @click="toggleVisibility(food.id)">
                                    <i class="far fa-eye-slash"></i> Nascondi  
                                 </div>
-                                <div v-else class="pubblica" @click="MakeVisibleFood(food.id)">
-                                    <i class="fas fa-globe-europe"></i> Rendi visibile
+                                <div v-else >
+                                    <button @click="toggleVisibility(food.id)">Rendi visibile</button>
                                 </div>
                             
                             </div>
@@ -262,39 +263,19 @@
 
                 
             },
-            hideCard(id){
+            toggleVisibility(id){
                     axios.post('http://localhost:8000/api/dashboard/delete/'+ id)
-                .then(res => {
-                    console.log(res.data);
-                    // (res.data);
-                    // let food = res.data;
-                    // console.log(food.id);
-                    // for ( let i = 0 ; i < this.foods.length; i++){
-                    //     element = this.foods[i];
-                        
-                    //     if( element.id === id){
-                    //         element.visible = 0;
-                    //         element = food;
-                    //     }
-                    // }
 
+                    .then((res) => {
+                        this.foods.forEach((food) => {
+                            if (food.id === res.data.id) {
+                                food.visible = res.data.visible;
+                            }
+                        })
 
-                }).catch(err=>{
-                    console.error(err);
-                });
-            },
-            MakeVisibleFood(id){
-                 axios.post('http://localhost:8000/api/dashboard/delete/'+ id)
-                .then(res => {
-
-                    let food = res.data;
-                    console.log(food);
-                   
-
-
-                }).catch(err=>{
-                    console.error(err);
-                });
+                    }).catch(err=>{
+                        console.error(err);
+                    });
             },
             getAllOrders: async function() {
                 try {

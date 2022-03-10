@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Food;
+use App\Models\Order;
 
 class PageController extends Controller
 {
@@ -57,5 +58,12 @@ class PageController extends Controller
     
     public function loginPage() {
         return view('pages.loginpage');
+    }
+
+    public function success($id) {
+
+        $order = Order::findOrFail($id);
+
+        return view('pages.success', compact('order'));
     }
 }
