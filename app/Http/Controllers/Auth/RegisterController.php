@@ -90,6 +90,8 @@ class RegisterController extends Controller
             'categories' => ['required']
         ], $messages);
 
+        $validator->validate();
+
         if ($validator->fails() || !Category::find($data['categories'])) {
             return response()->json(['errors' => $validator()->errors()]);
         }

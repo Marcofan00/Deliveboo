@@ -60,6 +60,8 @@ class RestaurantController extends Controller
                 'food_img' => ['required', 'image']
             ], $messages);
 
+            $validatedData->validate();
+
             if ($validatedData->fails()) {
                 return response('failed', 422)->json(['errors' => $validatedData->errors()]);
             }
@@ -108,6 +110,8 @@ class RestaurantController extends Controller
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['nullable', 'image']
             ], $messages);
+
+            $validatedData->validate();
 
             if ($validatedData->fails()) {
                 return response('failed', 422)->json(['errors' => $validatedData->errors()]);

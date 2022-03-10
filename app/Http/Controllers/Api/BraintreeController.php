@@ -70,6 +70,8 @@ class BraintreeController extends Controller
             'note' => ['nullable', 'string']
         ], $messages);
 
+        $validatedData->validate();
+
         if ($validatedData->fails()) {
             return response('failed', 422)->json(['errors' => $validatedData->errors()]);
         }
