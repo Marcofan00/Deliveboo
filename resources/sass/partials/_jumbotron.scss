@@ -1,20 +1,17 @@
 
 #jumbotron {
-    position: relative;
+    display: flex;
+    justify-content: space-between;
     height: 400px;
-    img {
-        height: 100%;
-        display: inline-block;
-    }
-    h1 {
-        position: absolute;
-        bottom: 200px;
-        right: 15%;
-    }
-    h2 {
-        position: absolute;
-        bottom: 50px;
-        right: 15%;
-        color: #00a0b7;
+    margin-bottom: 300px;
+    #text-jumbotron {
+        padding-top: 200px;
+        h1 {
+            color: #fff;
+        }
+        h2 {
+            color: #fff;
+            margin-top: 100px;
+        }
     }
 }

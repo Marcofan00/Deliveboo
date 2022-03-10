@@ -18,6 +18,8 @@ Route::get('/logout', 'Auth\LoginController@logout') -> name('logout');
 
 Route::get('/success/{id}', 'PageController@success')->name('success');
 
+Route::get('/error', 'PageController@error')->name('error');
+
 // UR routes (protected)
 
 Route::middleware('auth')->group(function() {
