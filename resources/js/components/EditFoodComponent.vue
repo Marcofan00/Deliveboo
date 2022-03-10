@@ -150,6 +150,10 @@
                     try {
                         let response = await fetch('http://localhost:8000/api/dashboard/edit/'+this.food_edit.id,{
                             method : 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
                             body : data
                         });
 
@@ -226,7 +230,7 @@
             },
             validateFileType() {
 
-                if (this.file && !this.file.type.includes('/image/')) {
+                if (this.file && !this.file.type.includes('image')) {
 
                     this.errors.fileError = 'Formato file non valido. Inserisci una immagine';
                     return false;

@@ -101,6 +101,10 @@
                     try {
                         let response = await fetch('http://localhost:8000/api/dashboard/create',{
                             method : 'POST',
+                            headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                            },
                             body : data,
                             
                         });
@@ -178,7 +182,9 @@
             },
             validateFileType() {
 
-                if (!this.file || !this.file.type.includes('/image/')) {
+                if (!this.file || !this.file.type.includes('image')) {
+
+                    console.log(this.file.type)
 
                     this.errors.fileError = 'File non caricato o formato non valido. Inserisci una immagine';
                     return false;
