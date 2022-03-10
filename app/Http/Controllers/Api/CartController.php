@@ -155,7 +155,9 @@ class CartController extends Controller {
             foreach($this->foods as $food) {
                 $tot += $food['subtotal'];
             }
-            $this->total = round($tot, 2);
+
+            $this->total = round($tot,2);
+
         }
     }
 
