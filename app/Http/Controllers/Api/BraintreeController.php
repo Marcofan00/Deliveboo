@@ -39,7 +39,7 @@ class BraintreeController extends Controller
         $sessionCart = session()->get('cart');
 
         if (!$sessionCart) {
-            return response()->json(['errors' => ['emptyCart' => ['Impossibile procedere con il pagamento. Carrello vuoto']]]);
+            return response()->json(['errors' => ['emptyCart' => ['Impossibile procedere con il pagamento. Carrello vuoto']]], 400);
         }
 
         $foodId = $sessionCart['foods'][0]['id'];
@@ -75,7 +75,7 @@ class BraintreeController extends Controller
         $validatedData->validate();
 
         if ($validatedData->fails()) {
-            return response('failed', 422)->json(['errors' => $validatedData->errors()]);
+            return response()->json(['errors' => $validatedData->errors()]);
         }
 
         $gateway = $this->configGateway();
@@ -124,6 +124,6 @@ class BraintreeController extends Controller
             return response()->json($newOrder);
         }
 
-        return response()->json(['errors' => ['paymentFailed' => ['Pagamento non andato a buon fine. Riprovare']]]);
+        return response()->json(['errors' => ['paymentFailed' => ['Pagamento non andato a buon fine. Riprovare']]], 400);
     }
 }

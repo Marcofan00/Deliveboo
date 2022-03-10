@@ -1,6 +1,7 @@
 <template>
     <div>
-        Ooops! Qualcosa è andato storto! 
+        Ooops! Qualcosa è andato storto! <br>
+        Controlla i dati inseriti perché la transazione non è andata a buon fine
     </div>
 </template>
 

@@ -71,7 +71,7 @@
                     if (!response.ok) {
 
                         if (responseToJson.errors.email) {
-                        this.emailError = responseToJson.errors.email.toString();
+                            this.emailError = responseToJson.errors.email.toString();
                         }
 
                         if (responseToJson.errors.password) {

@@ -281,7 +281,7 @@
 
                         let responseToJson = await response.json();
 
-                        if (responseToJson.errors) {
+                        if (!response.ok) {
 
                             if (responseToJson.errors.emptyCart) {
                                 this.errors.emptyCartError = responseToJson.errors.emptyCart.toString();
@@ -307,7 +307,7 @@
                                 this.errors.phoneError = responseToJson.errors.buyer_phone.toString();
                             }
 
-                            if (responseToJsonerrors.paymentFailed) {
+                            if (responseToJson.errors.paymentFailed) {
                                 window.location.href = 'http://localhost:8000/error';
                             }
                         } else {

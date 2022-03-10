@@ -63,7 +63,7 @@ class RestaurantController extends Controller
             $validator->validate();
 
             if ($validator->fails()) {
-                return response('failed', 422)->json(['errors' => $validator->errors()]);
+                return response()->json(['errors' => $validator->errors()]);
             }
     
             $imageFile = $data['food_img'];
@@ -114,7 +114,7 @@ class RestaurantController extends Controller
             $validator->validate();
 
             if ($validator->fails()) {
-                return response('failed', 422)->json(['errors' => $validator->errors()]);
+                return response()->json(['errors' => $validator->errors()]);
             }
 
             if ($data['food_img']) {
