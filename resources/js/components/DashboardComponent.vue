@@ -118,8 +118,9 @@
                             <!-- <div class="col-1">
                                 {{ order.transaction_id }}
                             </div> -->
-                            <div class="col-1">
-                                <a href=""> <i class="fas fa-info info_order"></i></a>
+                            <div class="col-1" >
+
+                                <a :href="'/dashboard/order/' + order.id"> <i class="fas fa-info info_order"></i></a>
                             </div>
                             <!-- <div class="col-1">
                                 {{ order.transaction_status }}
@@ -244,6 +245,9 @@
             .catch(e => console.error(e));
         },
         methods : {
+            info_order(id){
+                console.log(id);
+            },
             visibility_statistic(){
                 this.orders_visibility = false;
                 this.foods_visibility = false;
