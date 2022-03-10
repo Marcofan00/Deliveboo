@@ -24,7 +24,7 @@
                 <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
 
                 <label class="hosted-fields--label" for="postalcode">CAP</label>
-                <input class="hosted-field" type="number" name="postalcode" v-model="postalCode">
+                <input class="hosted-field" type="text" name="postalcode" v-model="postalCode">
                 <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
 
                 <label class="hosted-fields--label" for="city">Citt&agrave;</label>
@@ -50,6 +50,7 @@
 
                 <label class="hosted-fields--label" for="cvv">CVV</label>
                 <div type="text" class="hosted-field" id="cvv"></div>
+                <div class="error" v-if="errors.creditCardData">{{ errors.creditCardData }}</div>
             </div>
 
             <div class="button-container">
@@ -87,7 +88,8 @@
                     phoneError: '',
                     streetNumberPostalCodeError: '',
                     cityError: '',
-                    addressError: ''
+                    addressError: '',
+                    creditCardData: ''
                 },
                 namesRegex: /^[a-z\s]+$/i
             }
@@ -212,8 +214,6 @@
                             // salva hostedFieldsInstance in this.hostedFieldsInstance nei data() di Vue
                             self.hostedFieldsInstance = hostedFieldsInstance;
 
-                            console.log(self.hostedFieldsInstance);
-
                         })
                 });
             },
@@ -226,12 +226,9 @@
 
                 hostedFieldsInstance.tokenize(function(err, payload) {
                     if (err) {
-                        alert('Something went wrong. Check your card details and try again.');
+                        self.errors.creditCardData = 'Ooops! Qualcosa è andato storto...Controlla i dati della carta inseriti';
                         return;
                     }
-
-                    // stampa in console il paymentMethodNonce
-                    console.log(payload.nonce);
 
                     self.sendPaymentData(payload.nonce);
                 })
