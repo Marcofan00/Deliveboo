@@ -66,9 +66,9 @@
                         body: data
                     });
 
+                    let responseToJson = await response.json();
                     
                     if (!response.ok) {
-                        let responseToJson = await response.json();
 
                         if (responseToJson.errors.email) {
                         this.emailError = responseToJson.errors.email.toString();
@@ -77,6 +77,8 @@
                         if (responseToJson.errors.password) {
                             this.emailError = responseToJson.errors.password.toString();
                         }
+                    } else {
+                        window.location.href = '/dashboard/';
                     }
 
                 }

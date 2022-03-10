@@ -18,7 +18,7 @@ class PageController extends Controller
     public function dashboard() {
         $check =  Auth::User() -> id;
         
-        return view('pages.dashboard',compact('check'));
+        return view('pages.dashboard', compact('check'));
     }
 
     public function statistics() {
