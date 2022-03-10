@@ -277,6 +277,8 @@
                             if (responseToJson.errors.categories) {
                                 this.errors.categoryError = responseToJson.errors.categories.toString();
                             }
+                        } else {
+                            window.location.href = '/dashboard/';
                         }
 
                     } catch(err) {
