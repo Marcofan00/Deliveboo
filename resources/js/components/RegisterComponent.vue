@@ -36,11 +36,11 @@
 
                     <label for="streetnumber">Numero Civico</label>
                     <input type="number" name="streetnumber" v-model.trim="streetNumber" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
+                    <div class="error" v-if="errors.streetNumberError">{{ errors.streetNumberError }}</div>
 
                     <label for="postalcode">CAP</label>
                     <input type="number" name="postalcode" v-model.trim="postalCode" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
+                    <div class="error" v-if="errors.postalCodeError">{{ errors.postalCodeError }}</div>
 
                     <label for="city">Città</label>
                     <input type="text" name="city" v-model.trim="city" :class="errors.cityError ? 'red' : 'green' "><br>
@@ -150,11 +150,11 @@
             },
             streetNumber(value) {
                 this.streetNumber = value;
-                this.validateStreetNumberPostalCode(value);
+                this.validateStreetNumber(value);
             },
             postalCode(value) {
                 this.postalCode = value;
-                this.validateStreetNumberPostalCode(value);
+                this.validatePostalCode(value);
             },
             city(value) {
                 this.city = value;
@@ -197,8 +197,8 @@
                     validPasswordConfirmed = this.validatePasswordConfirm(this.passwordConfirmed),
                     validRestaurantAddress = this.validateRestaurantAddress(this.restaurantAddress),
                     validRestaurantName = this.validateRestaurantName(this.restaurantName),
-                    validStreetNumber = this.validateStreetNumberPostalCode(this.streetNumber),
-                    validPostalCode = this.validateStreetNumberPostalCode(this.postalCode),
+                    validStreetNumber = this.validateStreetNumber(this.streetNumber),
+                    validPostalCode = this.validatePostalCode(this.postalCode),
                     validVatNumber = this.validateVatNumber(this.vatNumber);
 
                 if (
@@ -358,14 +358,24 @@
                 this.errors.restaurantAddressError = '';
                 return true;  
             },
-            validateStreetNumberPostalCode(number) {
+            validateStreetNumber(number) {
 
                 if (!number || !/^\d+$/.test(number)) {
-                    this.errors.streetNumberPostalCodeError = 'Numero civico o CAP non validi';
+                    this.errors.streetNumberError = 'Numero civico non valido';
                     return false;
                 }
 
-                    this.errors.streetNumberPostalCodeError = '';
+                    this.errors.streetNumberError = '';
+                    return true;                
+            },
+            validatePostalCode(number) {
+
+                if (!number || !/^\d+$/.test(number)) {
+                    this.errors.postalCodeError = 'CAP non valido';
+                    return false;
+                }
+
+                    this.errors.postalCodeError = '';
                     return true;                
             },
             validateCity(city) {

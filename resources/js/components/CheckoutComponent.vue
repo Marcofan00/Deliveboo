@@ -21,11 +21,11 @@
 
                 <label class="hosted-fields--label" for="streetnumber">Numero Civico</label>
                 <input class="hosted-field" type="number" name="streetnumber" v-model="streetNumber">
-                <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
+                <div class="error" v-if="errors.streetNumberError">{{ errors.streetNumberError }}</div>
 
                 <label class="hosted-fields--label" for="postalcode">CAP</label>
                 <input class="hosted-field" type="text" name="postalcode" v-model="postalCode">
-                <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
+                <div class="error" v-if="errors.postalCodeError">{{ errors.postalCodeError }}</div>
 
                 <label class="hosted-fields--label" for="city">Citt&agrave;</label>
                 <input class="hosted-field" type="text" name="city" v-model="city">
@@ -86,7 +86,8 @@
                     firstNameError: '',
                     lastNameError: '',
                     phoneError: '',
-                    streetNumberPostalCodeError: '',
+                    streetNumberError: '',
+                    postalCodeError: '',
                     cityError: '',
                     addressError: '',
                     creditCardData: ''
@@ -121,11 +122,11 @@
             },
             streetNumber(value) {
                 this.streetNumber = value;
-                this.validateStreetNumberPostalCode(value);
+                this.validateStreetNumber(value);
             },
             postalCode(value) {
                 this.postalCode = value;
-                this.validateStreetNumberPostalCode(value);
+                this.validatePostalCode(value);
             },
             city(value) {
                 this.city = value;
@@ -250,8 +251,8 @@
                     validFirstName = this.validateFirstName(this.firstName),
                     validLastName = this.validateLastName(this.lastName),
                     validAddress = this.validateAddress(this.buyerAddress),
-                    validStreetNumber = this.validateStreetNumberPostalCode(this.streetNumber),
-                    validPostalCode = this.validateStreetNumberPostalCode(this.postalCode),
+                    validStreetNumber = this.validateStreetNumber(this.streetNumber),
+                    validPostalCode = this.validatePostalCode(this.postalCode),
                     validPhone = this.validatePhone(this.buyerPhone);
 
                 if (
@@ -291,7 +292,8 @@
 
                             if (responseToJson.errors.buyer_address) {
                                 this.errors.addressError = responseToJson.errors.buyer_address.toString();
-                                this.errors.streetNumberPostalCodeError = responseToJson.errors.buyer_address.toString();
+                                this.errors.streetNumberError = responseToJson.errors.buyer_address.toString();
+                                this.errors.postalCodeError = responseToJson.errors.buyer_address.toString();
                                 this.errors.cityError = responseToJson.errors.buyer_address.toString();
                             }
 
@@ -356,14 +358,24 @@
                 this.errors.addressError = '';
                 return true;  
             },
-            validateStreetNumberPostalCode(number) {
+            validateStreetNumber(number) {
 
                 if (!number || !/^\d+$/.test(number)) {
-                    this.errors.streetNumberPostalCodeError = 'Numero civico o CAP non validi';
+                    this.errors.streetNumberError = 'Numero civico non valido';
                     return false;
                 }
 
-                this.errors.streetNumberPostalCodeError = '';
+                this.errors.streetNumberError = '';
+                return true;                
+            },
+            validatePostalCode(number) {
+
+                if (!number || !/^\d+$/.test(number)) {
+                    this.errors.postalCodeError = 'CAP non valido';
+                    return false;
+                }
+
+                this.errors.postalCodeError = '';
                 return true;                
             },
             validateCity(city) {
