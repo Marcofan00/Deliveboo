@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Order;
 use App\Mail\OrderReceived;
+use App\Mail\OrderReceivedRestaurant;
+
 use Illuminate\Support\Facades\Mail;
 
 use App\Models\Food;
@@ -117,7 +119,7 @@ class BraintreeController extends Controller
 
         if ($result->success) {
             Mail::to($data['buyer_email'])->send(new OrderReceived($newOrder, $user));
-            Mail::to($user->email)->send(new OrderReceived($newOrder, $user));
+            Mail::to($user->email)->send(new OrderReceivedRestaurant($newOrder, $user));
 
             session()->flush();
 
@@ -125,5 +127,6 @@ class BraintreeController extends Controller
         }
 
         return response()->json(['errors' => ['paymentFailed' => ['Pagamento non andato a buon fine. Riprovare']]], 400);
+
     }
 }

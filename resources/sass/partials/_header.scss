@@ -18,6 +18,8 @@ header{
     }
     .action_user{
         position: relative;
+        display: flex;
+        align-items: center;
         .go_checkout{
             background: white;
             color: #009FB7;
@@ -36,8 +38,13 @@ header{
             transform: scale(1.5);
         }
     }
-    
-
+    // pulsante dashboard 
+    .go_dashboard{
+        display: inline-block;
+        color: #009FB7;
+        font-size: 1.5rem;
+        margin-right: 40px;
+    }
     // accedi e logout pulsante 
     .accedi_logout_btn{
         background: #009FB7;
@@ -49,7 +56,7 @@ header{
         height: 50px;
         a{
             font-family: 'Rubik', sans-serif;
-            font-size: 32px;
+            font-size: 1.5rem;
             color: white;
             display: inline-block;
             width: 100%;
@@ -87,6 +94,9 @@ header{
         position: absolute;
         z-index: 4;
         width: 100%;
+        top: 40px;
+        border-radius: 18px;
+        border: 3px solid white;
     
         .viewcart{
             background-color: #009FB7;
@@ -167,14 +177,15 @@ header{
 // mobile gestione 
 @media all and (max-width:576px){
     
-    .action_user{
-        display: none;
-    }
+    
     #accedi_btn{
         display: block;
     }
     // hamburger menu 
     header {
+        .action_user{
+            display: none;
+        }
         .mobile_header{
             margin-bottom: 100vh;
         }
@@ -282,6 +293,7 @@ header{
             z-index: 4;
             width: 100%;
             margin-bottom: 30px;
+            top: 0;
         
             .viewcart{
                 background-color: white;

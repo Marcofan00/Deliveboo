@@ -1,12 +1,12 @@
 #dashboard{
     display: flex;
-    // border: 1px solid black;
-    height: 100vh;
-    margin: 20px 0;
+    max-height: 650px;
+    min-height: 100vh;
+    margin: 40px 0;
+    border: 20px solid #009FB7;
 
     #menu_select{
         width: 30%;
-        height: 100%;
         padding: 16px;
         background-color: #009FB7;
         color: white;
@@ -17,39 +17,251 @@
             display: block;
             margin-bottom: 16px;
             width: 100%;
+            font-size: 1.2rem;
         }
         .img_restaurant{
             max-width: 100%;
             height: auto;
+            margin-bottom: 32px;
         }
 
     }
     #view{
         width: 70%;
-        padding: 16px;
-        height: 100vh;
+        padding: 0 16px;
         overflow-y: scroll;
+        h2{
+            color: #009FB7;
+            margin-top: 16px;
+        }
+        .riga_ordine{
+            border-bottom: 1px solid #009FB7;
+            padding: 8px 0;
+        }
+        .riga_ordine_head{
+            background-color: #009FB7;
+            // border: 3px solid white;
+            align-items: center;
+        }
+        .head_table{
+            color: white;
+            font-size: 1.2rem;
+        }
+        .info_order{
+            color: #009FB7;
+        }
+        #orders-mobile{
+            display: none;
+        }
     }
     ul{
         display: flex;
         flex-wrap: wrap;
         li{
+            width: 48%;
             list-style: none;
             margin-right: 10px;
             margin-bottom: 20px;
+            border: 6px solid #009FB7;
+            position: relative;
+
             #action_food{
                 display: flex;
                 justify-content: space-between;
                 background-color: #009FB7;
                 color: white;
                 padding: 0 8px;
+
                 a{
                     color: white;
                 }
-                #nascondi{
+                .nascondi{
+                    cursor: pointer;
+                }
+                .pubblica{
                     cursor: pointer;
                 }
             }
+            .card-body_food{
+                padding: 8px;
+                
+            }
+            .card-img-food{
+                width: 100%;
+                height: auto;
+            }
+            .card-title_food{
+                color: #009FB7;
+                font-size: 1.5rem;
+            }
+            .card-text_food{
+                color: #6A6A6A;
+
+            }
+            .cart-food-price{
+                color:#009FB7 ;
+                font-size: 1rem;
+                position: absolute;
+                bottom: 8px;
+                right: 8px;
+            }
+            .tab_order{
+                border: 1px solid #009FB7;
+            }
+        }
+        
+    }
+}
+
+// Mobile 
+@media all and (max-width:576px){
+    #orders{
+        display: none;
+    }
+    #dashboard{
+        display: flex;
+        flex-direction: column;
+        max-height: 50000px;
+        min-height: 0;
+        margin: 40px 0;
+        border: 20px solid #009FB7;
+    
+        #menu_select{
+            width: 100%;
+            padding: 0;
+            background-color: #009FB7;
+            color: white;
+            .dashboard_action{
+                background-color: white;
+                padding: 8px;
+                color: #009FB7;
+                display: block;
+                margin-bottom: 16px;
+                width: 100%;
+                font-size: 1.6rem;
+            }
+            .img_restaurant{
+                max-width: 100%;
+                height: auto;
+                margin-bottom: 32px;
+            }
+    
+        }
+        #view{
+            width: 100%;
+            padding: 0;
+            overflow-y: scroll;
+            background-color: #009FB7;
+            h2{
+                color: white;
+                margin-top: 16px;
+                text-align: center;
+            }
+            .riga_ordine{
+                border-bottom: 1px solid #009FB7;
+                padding: 8px 0;
+            }
+            .riga_ordine_head{
+                background-color: #009FB7;
+                margin: 32px 0;
+                border: 8px solid white;
+                padding: 0;
+            }
+            .number_order{
+                color: white;
+                padding: 8px;
+                text-align: end;
+                width: 100%;
+            }
+            .intestazione{
+                background-color: white;
+                color: #009FB7;
+                padding: 8px;
+            }
+            .ordine_selected{
+                padding: 8px;
+                font-size: .8rem;
+            }
+            .head_table{
+                color: white;
+                font-size: 1.2rem;
+                padding-left: 0;
+                padding-right: 0px;
+                a{
+                    color: #009FB7;
+                }
+                .info_btn{
+                    width: 100%;
+                    display: inline-block;
+                }
+            }
+            .info_order{
+                color: #009FB7;
+                margin-right: 8px;
+            }
+            #foods{
+                margin-top: 60px;
+            }
+            #orders-mobile{
+                display: block;
+            }
+        }
+        ul{
+            display: flex;
+            flex-wrap: wrap;
+            li{
+                width: 100%;
+                list-style: none;
+                margin-right: 0;
+                margin-bottom: 20px;
+                border: 6px solid white;
+                position: relative;
+    
+                #action_food{
+                    display: flex;
+                    justify-content: space-between;
+                    background-color: white;
+                    color: #009FB7;
+                    padding: 0 8px;
+    
+                    a{
+                        color: #009FB7;
+                    }
+                    .nascondi{
+                        cursor: pointer;
+                    }
+                    .pubblica{
+                        cursor: pointer;
+                    }
+                }
+                .card-body_food{
+                    padding: 8px;
+                    border-top: 8px solid white;
+                }
+                .card-img-food{
+                    width: 100%;
+                    height: auto;
+                }
+                .card-title_food{
+                    color: white;
+                    font-size: 1.5rem;
+                }
+                .card-text_food{
+                    color: white;
+    
+                }
+                .cart-food-price{
+                    color: white ;
+                    font-size: 1rem;
+                    position: absolute;
+                    bottom: 8px;
+                    right: 8px;
+                }
+                .tab_order{
+                    border: 1px solid #009FB7;
+                }
+            }
+            
         }
     }
 }

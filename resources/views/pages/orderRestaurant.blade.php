@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <title>Mail</title>
     <style>
         *{
@@ -60,28 +59,34 @@
     
         <ul>
             <li>
-                Ordine Inviato da : {{$order -> buyer_fullname}}
+                Ordine effettutato da {{$order -> buyer_fullname}} presso il tuo ristorante.
             </li>
     
             <li>
-                Indirizzo : {{$order -> buyer_address}}
+                Indirizzo  : {{$order -> buyer_address}}
             </li>
     
             <li>
                 Transazione : avventuta con successo !
             </li>
-    
+            <li>
+                Numero di telefono cliente : {{$order -> buyer_phone}}
+            </li>
+           
+            <li>
+                Note aggiuntive inviate dal cliente : {{$order -> note}}
+            </li>
+
             <li>
                 Totale ordine : {{$order -> bill}} &euro;
             </li>
         </ul>
         
         <div id="ringraziamento">
-            Lo staff di DeeBoo ti ringrazia , Buon appetito {{$order -> buyer_fullname}}
+            Lo staff di DeeBoo ti ringrazia per far parte del nostro team.
         </div>    
     </div>
     
     {{-- {{$order}} --}}
 </body>
 </html>
-

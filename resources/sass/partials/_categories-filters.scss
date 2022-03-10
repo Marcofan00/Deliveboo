@@ -1,22 +1,49 @@
 #categories-filters {
-    li {
-        position: relative;
-        height: 100px;
-        width: 200px;
-        display: inline-block;
-        margin-right: 10px;
-        border-radius: 10px;
-        border: 1px solid #000;
-        background-color: #fff;
-        cursor: pointer;
-        img {
-            height: 100%;
-            width: 100%;
+    margin-bottom: 30px;
+    h1 {
+        color: #fff;
+    }
+    #categories-cards {
+        list-style-type: none;
+        overflow: auto;
+        white-space: nowrap;
+        li {
+            position: relative;
+            height: 90px;
+            width: 180px;
+            display: inline-block;
+            margin-right: 10px;
+            border-radius: 10px;
+            color: #fff;
+            background-color: #fff;
+            cursor: pointer;
+            h1 {
+                color: #fff;
+            }
+            img {
+                height: 100%;
+                width: 100%;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+            h3 {
+                position: absolute;
+                top: 10%;
+                left: 5%;
+                color: #ff5e49;
+                background-color: rgba(255, 255, 255, 0.863);
+                border-radius: 10px;
+                padding: 3px;
+            }
         }
-        h3 {
-            position: absolute;
-            top: 20px;
-            left: 10px;
+        .active {
+            h3 {
+                color: #fff;
+                background-color: #ff5e49;
+            }
+            img {
+                filter: brightness(0.5);
+            }
         }
     }
 }
