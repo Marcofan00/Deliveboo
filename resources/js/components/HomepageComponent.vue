@@ -1,16 +1,20 @@
 <template>
-    <div class="container"> 
+    <div class="container container_xxl_"> 
         <section id="jumbotron">
-            <img :src="`/storage/img/deliverooDefault.png`" alt="">
-            <h1>I piatti che ami, a domicilio.</h1>
-            <h2>#aCasaTuaConDeliveboo</h2>
+            <div id="img-jumbotron">
+                <img src="/storage/img/delivebooDefault.png" alt="">
+            </div>
+            <div id="text-jumbotron">
+                <h1>I piatti che ami, a domicilio.</h1>
+                <h2>#aCasaTuaConDeliveboo</h2>
+            </div>
         </section>
 
         <section id="categories-filters">
             <h1>Filtra per</h1>
             <ul id="categories-cards">
                 <li class="category-card" v-for="category in categories" :key="category.id">
-                    <img src="https://www.donnamoderna.com/content/uploads/2021/01/sushi-nigiri-830x625.jpg" alt="category_img">
+                    <img :src="category.category_img" alt="category_img">
                     <h3>{{ category.name }}</h3>
                 </li>
             </ul>
@@ -22,9 +26,10 @@
             <ul id="users-cards">
                 <li class="user-card" v-for="user in users" :key="user.id">
                     <a :href="`restaurant/` + user.id">
-                        <img src="https://static.gamberorosso.it/2022/01/sushi-1024x683.jpeg" alt="logo">
+                        <img src="/storage/img/delivebooDefault.png" alt="logo">
                         <h3>{{ user.restaurant_name }}</h3>
                         <h5>{{ user.address }}</h5>
+                        <h6>{{ user.category_name }}</h6>
                     </a>
                 </li>
             </ul>
@@ -75,6 +80,7 @@ export default {
                 console.log(err);
             }
         },
+
         getAllRestaurants() {
             axios.get('/api/restaurants')
             .then(r => this.users = r.data)
