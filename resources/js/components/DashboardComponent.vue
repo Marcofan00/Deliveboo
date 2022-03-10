@@ -29,8 +29,8 @@
                     I miei piatti
                 </h2>
             
-                <ul v-for="food, i in foods" :key="i">
-                    <li>
+                <ul>
+                    <li v-for="food, i in foods" :key="i">
                         <div id="action_food">
 
                             <a :href="`/food/edit/${food.id}`" target="_blank">
@@ -42,17 +42,17 @@
 
                             <div>
                             
-                                 <div v-if="food.visible" id="nascondi" @click="hideCard(food.id)">
+                                 <div v-if="food.visible" id="nascondi" @click="toggleVisibility(food.id)">
                                    <i class="far fa-eye-slash"></i> Hide  
                                 </div>
                                 <div v-else >
-                                    <button @click="MakeVisibleFood(food.id)">Rendi dinyovo visibile</button>
+                                    <button @click="toggleVisibility(food.id)">Rendi dinyovo visibile</button>
                                 </div>
                             
                             </div>
                         </div>
                         <div class="card" style="width: 14rem;">
-                            <img src="/storage/img/deliverooDefault.png" class="card-img-top" alt="">
+                            <img :src="`/storage/img/${food.food_img}`" class="card-img-top" alt="">
                             <div class="card-body">
                                 <h5 class="card-title">{{food.name}}</h5>
                                 <p class="card-text">{{food.description_ingredients}}</p>
@@ -67,7 +67,30 @@
                 </ul>
              </div>
             <div v-if="orders_visibility" id="orders">
-                prova
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Numero ordine</th>
+                            <th>Nome acquirente</th>
+                            <th>Email acquirente</th>
+                            <th>Totale ordine</th>
+                            <th>Data ordine</th>
+                            <th>ID transazione</th>
+                            <th>Stato della transazione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="order, i in orders" :key="order.id">
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.buyer_fullname }}</td>
+                            <td>{{ order.buyer_email }}</td>
+                            <td>{{ order.bill }}</td>
+                            <td>{{ order.order_date }}</td>
+                            <td>{{ order.transaction_id }}</td>
+                            <td>{{ order.transaction_status }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
          </div>
       </div>
@@ -86,6 +109,7 @@
                 foods : [],
                 orders_visibility : false,
                 hidebtn : true,
+                orders: []
             }
         },
         created(){
@@ -97,10 +121,12 @@
             }).catch(err=>{
                 console.error(err);
             });
+
+            this.getAllOrders();
             
         },
         mounted() {
-
+            // test 
         },
         methods : {
             visibility_foods(){
@@ -115,57 +141,32 @@
 
                 
             },
-            hideCard(id){
+            toggleVisibility(id){
                     axios.post('http://localhost:8000/api/dashboard/delete/'+ id)
-                .then(res => {
-                    console.log(res.data);
-                    (res.data);
-                    // let food = res.data;
-                    // console.log(food.id);
-                    // for ( let i = 0 ; i < this.foods.length; i++){
-                    //     element = this.foods[i];
-                        
-                    //     if( element.id === id){
-                    //         element.visible = 0;
-                    //         element = food;
-                    //     }
-                    // }
-
-
+                .then((res) => {
+                    this.foods.forEach((food) => {
+                        if (food.id === res.data.id) {
+                            food.visible = res.data.visible;
+                        }
+                    })
                 }).catch(err=>{
                     console.error(err);
                 });
-                // let data = id;
-                // try {
-                //     let response = await fetch('http://localhost:8000/api/dashboard/delete/'+ id,{
-                //         method : 'POST',
-                //         body : data
-                //     })
-                // } catch (err) {
-                //     console.log(err);
-                // }
             },
-            MakeVisibleFood(id){
-                 axios.post('http://localhost:8000/api/dashboard/delete/'+ id)
-                .then(res => {
+            getAllOrders: async function() {
+                try {
 
-                    let food = res.data;
-                    console.log(food);
-                    // console.log(food.id);
-                    // for ( let i = 0 ; i < this.foods.length; i++){
-                    //     element = this.foods[i];
-                        
-                    //     if( element.id === id){
-                    //         element.visible = 1;
-                    //         element = food;
-                    //     }
-                    // }
+                    let response = await fetch('http://localhost:8000/api/dashboard/orders/' + this.logincheck);
 
+                    if (response.ok) {
+                        let responseToJson = await response.json();
+                        console.log(responseToJson);
+                        this.orders = responseToJson;
+                    }
 
-
-                }).catch(err=>{
-                    console.error(err);
-                });
+                } catch(err) {
+                    console.log(err);
+                }
             }
         }
     }

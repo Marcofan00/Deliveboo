@@ -1,4 +1,4 @@
 @extends('layouts.main-layout')
 @section('content')
-    <homepage-component></homepage-component>
+    <checkout-component></checkout-component>
 @endsection

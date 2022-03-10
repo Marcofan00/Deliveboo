@@ -103,10 +103,33 @@
                             method : 'POST',
                             body : data,
                             
-                            })
+                        });
+
+                        if (!response.ok) {
+                            let responseToJson = await response.json();
+
+                            if (responseToJson.errors.name) {
+                                this.errors.nameError = responseToJson.errors.name.toString();
+                            }
+
+                            if (responseToJson.errors.description_ingredients) {
+                                this.errors.descriptionError = responseToJson.errors.description_ingredients.toString();
+                            }
+
+                            if (responseToJson.errors.price) {
+                                this.errors.priceError = responseToJson.errors.price.toString();
+                            }
+
+                            if (responseToJson.errors.visible) {
+                                this.errors.visibilityError = responseToJson.errors.visible.toString();
+                            }
+
+                            if (responseToJson.errors.food_img) {
+                                this.errors.fileError = responseToJson.errors.food_img.toString();
+                            }
+                        }
                             
                     } catch (err) {
-
                         console.log(err);
                     }
                 }

@@ -49,7 +49,7 @@ class CartController extends Controller {
 
     // Getter and setter for total
     public function setTotal($value) {
-        $this->total = $value;
+        $this->total = round($value, 2);
     }
 
     public function getTotal() {
@@ -63,7 +63,7 @@ class CartController extends Controller {
             foreach($this->foods as &$food)  {
                 if($product->id == $food['id']) {
                     $food['quantity'] += 1;
-                    $food['subtotal'] = ($product->price * $food['quantity']);
+                    $food['subtotal'] = round(($product->price * $food['quantity']), 2);
                     $this->calculateTotal();
                 }
             }
@@ -78,7 +78,7 @@ class CartController extends Controller {
                     if ($food['quantity'] === 0) {
                         $this->removeFromCart($product);
                     } else {
-                        $food['subtotal'] = ($product->price * $food['quantity']);
+                        $food['subtotal'] = round(($product->price * $food['quantity']), 2);
                     }
                     
                     $this->calculateTotal();
@@ -116,7 +116,7 @@ class CartController extends Controller {
             'price' => $product->price,
             'food_img' => $product->food_img,
             'quantity' => $quantity,
-            'subtotal' => ($product->price * $quantity),
+            'subtotal' => round(($product->price * $quantity), 2),
         ];
         $this->foods[] = $food;
         $this->calculateTotal();
@@ -155,7 +155,7 @@ class CartController extends Controller {
             foreach($this->foods as $food) {
                 $tot += $food['subtotal'];
             }
-            $this->total = $tot;
+            $this->total = round($tot, 2);
         }
     }
 
@@ -207,7 +207,13 @@ class CartController extends Controller {
         $cart->setFoods($sessionCart['foods']);
         $cart->setTotal($sessionCart['total']);
         $cart->removeFromCart($product);
-        $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+
+        if (count($cart->foods)) {
+            $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+        } else {
+            $request->session()->flush();
+        }
+        
         return response()->json($request->session()->get('cart'));
     }
 
@@ -267,7 +273,13 @@ class CartController extends Controller {
 
         $cart->decrementQty($product, $quantity);
 
-        $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+        if (count($cart->foods)) {
+            $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+        } else {
+            $request->session()->flush();
+        }
+
+        
         return response()->json($request->session()->get('cart'));
 
     }
@@ -278,10 +290,11 @@ class CartController extends Controller {
 
         $request->session()->flush();
 
-        return response()->json($request->session()->get('cart'));
+        return response()->json(session()->get('cart'));
     }
 
     public function getCart() {
+
         $sessionCart = session()->get('cart');
 
         if (!$sessionCart) {
@@ -290,4 +303,8 @@ class CartController extends Controller {
 
         return response()->json($sessionCart);
     }
+  
 }
+
+
+

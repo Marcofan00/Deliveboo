@@ -36,11 +36,11 @@
 
                     <label for="streetnumber">Numero Civico</label>
                     <input type="number" name="streetnumber" v-model.trim="streetNumber" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
+                    <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
 
                     <label for="postalcode">CAP</label>
                     <input type="number" name="postalcode" v-model.trim="postalCode" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.streetNumberPostalCordeError">{{ errors.streetNumberPostalCordeError }}</div>
+                    <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
 
                     <label for="city">Città</label>
                     <input type="text" name="city" v-model.trim="city" :class="errors.cityError ? 'red' : 'green' "><br>
@@ -105,7 +105,7 @@
                     vatNumberError: '',
                     categoryError: ''
                 },
-                namesRegex: /^[a-z]+$/gi
+                namesRegex: /^[a-z\s]+$/i
             }
         },
         mounted() {
@@ -233,10 +233,51 @@
                         let response = await fetch('http://localhost:8000/register', {
                             method: 'POST',
                             headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                'X-Requested-With': 'XMLHttpRequest'
                             },
                             body: data
                         });
+
+                        if (!response.ok) {
+                            let responseToJson = await response.json();
+
+                            if (responseToJson.errors.email) {
+                                this.errors.emailError = responseToJson.errors.email.toString();
+                            }
+
+                            if (responseToJson.errors.logo) {
+                                this.errors.fileError = responseToJson.errors.logo.toString();
+                            }
+                            
+                            if (responseToJson.errors.password) {
+                                this.errors.passwordError = responseToJson.errors.password.toString();
+                            }
+                            
+                            if (responseToJson.errors.full_name) {
+                                this.errors.firstNameError = responseToJson.errors.full_name.toString();
+                                this.errors.lastNameError = responseToJson.errors.full_name.toString();
+                            }
+
+                            if (responseToJson.errors.restaurant_name) {
+                                this.errors.restaurantNameError = responseToJson.errors.restaurant_name.toString();
+                            }
+                            
+                            if (responseToJson.errors.address) {
+                                this.errors.restaurantAddressError = responseToJson.errors.address.toString();
+                                this.errors.streetNumberPostalCodeError = responseToJson.errors.address.toString();
+                                this.errors.cityError = responseToJson.errors.address.toString();
+                            }
+                            
+                            if (responseToJson.errors.vat_number) {
+                                this.errors.vatNumberError = responseToJson.errors.vat_number.toString();
+                            }
+                            
+                            if (responseToJson.errors.categories) {
+                                this.errors.categoryError = responseToJson.errors.categories.toString();
+                            }
+                        }
 
                     } catch(err) {
                         console.log(err)
@@ -319,12 +360,12 @@
             },
             validateStreetNumberPostalCode(number) {
 
-                if (!number || typeof Number(number) !== 'number') {
-                    this.errors.streetNumberPostalCordeError = 'Numero civico o CAP non validi';
+                if (!number || !/^\d+$/.test(number)) {
+                    this.errors.streetNumberPostalCodeError = 'Numero civico o CAP non validi';
                     return false;
                 }
 
-                    this.errors.streetNumberPostalCordeError = '';
+                    this.errors.streetNumberPostalCodeError = '';
                     return true;                
             },
             validateCity(city) {
