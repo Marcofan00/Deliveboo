@@ -179,6 +179,8 @@
                             if (responseToJson.errors.food_image) {
                                 this.errors.fileError = responseToJson.errors.food_image.toString();
                             }
+                        } else {
+                            window.location.href = 'http://localhost:8000/dashboard/';
                         }
 
                     } catch (err) {
