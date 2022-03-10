@@ -203,9 +203,9 @@
             },
             validateDescription() {
 
-                if (!this.descriptionIngredients || this.descriptionIngredients.length < 150) {
+                if (!this.descriptionIngredients || this.descriptionIngredients.length < 100) {
 
-                    this.errors.descriptionError = 'Inserire una descrizione di almeno 150 caratteri';
+                    this.errors.descriptionError = 'Inserire una descrizione di almeno 100 caratteri';
                     return false;
 
                 } else {
