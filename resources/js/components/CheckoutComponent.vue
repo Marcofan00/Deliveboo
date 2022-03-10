@@ -58,6 +58,7 @@
                 <input type="button" class="button button--small button--green" value="Purchase" id="submit" @click="tokenize(hostedFieldsInstance)"/>
             </div>
         </form>
+        <div class="error" v-if="errors.emptyCartError">{{ errors.emptyCartError }}</div>
     </div>  
 
 </template>
@@ -90,7 +91,8 @@
                     postalCodeError: '',
                     cityError: '',
                     addressError: '',
-                    creditCardData: ''
+                    creditCardData: '',
+                    emptyCartError: ''
                 },
                 namesRegex: /^[a-z\s]+$/i
             }
@@ -279,7 +281,11 @@
 
                         let responseToJson = await response.json();
 
-                        if (!response.ok) {
+                        if (responseToJson.errors) {
+
+                            if (responseToJson.errors.emptyCart) {
+                                this.errors.emptyCartError = responseToJson.errors.emptyCart.toString();
+                            }
 
                             if (responseToJson.errors.buyer_email) {
                                 this.errors.emailError = responseToJson.errors.buyer_email.toString();
@@ -300,8 +306,12 @@
                             if (responseToJson.errors.buyer_phone) {
                                 this.errors.phoneError = responseToJson.errors.buyer_phone.toString();
                             }
+
+                            if (responseToJsonerrors.paymentFailed) {
+                                window.location.href = 'http://localhost:8000/error';
+                            }
                         } else {
-                            window.location.href = '/success/' + responseToJson.id;
+                            window.location.href = 'http://localhost:8000/success/' + responseToJson.id;
                         }
 
                     } catch(err) {
