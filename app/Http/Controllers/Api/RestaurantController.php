@@ -41,7 +41,7 @@ class RestaurantController extends Controller
             'name.required' => 'Questo campo è obbligatorio',
             'name.max' => 'Questo campo deve contenere massimo 60 caratteri',
             'description_ingredients.required' => 'Questo campo è obbligatorio',
-            'description_ingredients.min' => 'Questo campo deve contenere minimo 150 caratteri',
+            'description_ingredients.min' => 'Questo campo deve contenere minimo 100 caratteri',
             'price.required' => 'Questo campo è obbligatorio',
             'price.numeric' => 'Questo campo deve essere di tipo numerico',
             'visible.required' => 'Questo campo è obbligatorio',
@@ -51,30 +51,30 @@ class RestaurantController extends Controller
 
         if (User::find($data['user_id'])) {
 
-            $validatedData = Validator::make($data, [
+            $validator = Validator::make($data, [
                 'user_id' => ['required', 'numeric'],
                 'name' => ['required', 'string', 'max:60'],
-                'description_ingredients' => ['required', 'string'],
+                'description_ingredients' => ['required', 'string', 'min:100'],
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['required', 'image']
             ], $messages);
 
-            $validatedData->validate();
+            $validator->validate();
 
-            if ($validatedData->fails()) {
-                return response('failed', 422)->json(['errors' => $validatedData->errors()]);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()]);
             }
     
-            $imageFile = $validatedData['food_img'];
+            $imageFile = $data['food_img'];
     
-            $fileName = rand(100000, 999999) . '_' . time().'.'.$validatedData['food_img']->extension();
+            $fileName = rand(100000, 999999) . '_' . time().'.'.$data['food_img']->extension();
     
             $imageFile -> storeAs('img', $fileName, 'public');
     
-            $validatedData['food_img'] = $fileName;
+            $data['food_img'] = $fileName;
     
-            return Food::create($validatedData);
+            return Food::create($data);
 
         }
 
@@ -95,45 +95,45 @@ class RestaurantController extends Controller
                 'name.required' => 'Questo campo è obbligatorio',
                 'name.max' => 'Questo campo deve contenere massimo 60 caratteri',
                 'description_ingredients.required' => 'Questo campo è obbligatorio',
-                'description_ingredients.min' => 'Questo campo deve contenere minimo 150 caratteri',
+                'description_ingredients.min' => 'Questo campo deve contenere minimo 100 caratteri',
                 'price.required' => 'Questo campo è obbligatorio',
                 'price.numeric' => 'Questo campo deve essere di tipo numerico',
                 'visible.required' => 'Questo campo è obbligatorio',
                 'food_image.image' => 'Il file caricato deve essere di tipo immagine'
             ];
 
-            $validatedData = Validator::make($data, [
+            $validator = Validator::make($data, [
                 'user_id' => ['required', 'numeric'],
                 'name' => ['required', 'string', 'max:60'],
-                'description_ingredients' => ['required', 'string', 'min:150'],
+                'description_ingredients' => ['required', 'string', 'min:100'],
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['nullable', 'image']
             ], $messages);
 
-            $validatedData->validate();
+            $validator->validate();
 
-            if ($validatedData->fails()) {
-                return response('failed', 422)->json(['errors' => $validatedData->errors()]);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()]);
             }
 
-            if ($validatedData['food_img']) {
+            if ($data['food_img']) {
 
-                $imageFile = $validatedData['food_img'];
+                $imageFile = $data['food_img'];
 
-                $fileName = rand(100000, 999999) . '_' . time().'.'.$validatedData['food_img']->extension();
+                $fileName = rand(100000, 999999) . '_' . time().'.'.$data['food_img']->extension();
         
                 $imageFile -> storeAs('img', $fileName, 'public');
         
-                $validatedData['food_img'] = $fileName;
+                $data['food_img'] = $fileName;
 
             } else {
 
-                $validatedData['food_img'] = $foodToEdit['food_img'];
+                $data['food_img'] = $foodToEdit['food_img'];
 
             }
 
-            $foodToEdit -> update($validatedData);
+            $foodToEdit -> update($data);
     
         }
     }

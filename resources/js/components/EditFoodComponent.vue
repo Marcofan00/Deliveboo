@@ -150,6 +150,10 @@
                     try {
                         let response = await fetch('http://localhost:8000/api/dashboard/edit/'+this.food_edit.id,{
                             method : 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
                             body : data
                         });
 
@@ -175,6 +179,8 @@
                             if (responseToJson.errors.food_image) {
                                 this.errors.fileError = responseToJson.errors.food_image.toString();
                             }
+                        } else {
+                            window.location.href = 'http://localhost:8000/dashboard/';
                         }
 
                     } catch (err) {
@@ -199,9 +205,9 @@
             },
             validateDescription() {
 
-                if (!this.descriptionIngredients || this.descriptionIngredients.length < 150) {
+                if (!this.descriptionIngredients || this.descriptionIngredients.length < 100) {
 
-                    this.errors.descriptionError = 'Inserire una descrizione di almeno 150 caratteri';
+                    this.errors.descriptionError = 'Inserire una descrizione di almeno 100 caratteri';
                     return false;
 
                 } else {
@@ -226,7 +232,7 @@
             },
             validateFileType() {
 
-                if (this.file && !this.file.type.includes('/image/')) {
+                if (this.file && !this.file.type.includes('image')) {
 
                     this.errors.fileError = 'Formato file non valido. Inserisci una immagine';
                     return false;

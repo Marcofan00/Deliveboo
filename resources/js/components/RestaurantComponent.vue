@@ -13,7 +13,7 @@
                     <p>{{ food.description_ingredients }}</p>
                     <h4>{{ food.price }}&euro;</h4>
 
-                    <button class="btn btn-primary"  @click="addToCart(food.id, food.user_id)">Aggiungi al Carrello</button>     
+                    <button class="btn btn-primary"  @click="addToCart(food.id)">Aggiungi al Carrello</button>     
 
                 </li>
             </ul>
@@ -33,7 +33,10 @@
                 cartArray : [],
                 quantity : 1,
                 hamburgermenu : false,
-
+                errors: {
+                    itemError: '',
+                    userError: ''
+                }
             };
         },
 
@@ -58,26 +61,30 @@
         },
         
         methods: {
-            addToCart: async function(id, userId) {
-                   
-                let data = JSON.stringify({
-                    id,
-                    userId,
-                    // quantity: this.quantity
-                });
+            addToCart: async function(id) {
 
                 try {
 
                     let response = await fetch('http://localhost:8000/api/add/' + id, {
                         method: 'POST',
                         headers: {
+                            'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                        },
-                        body: data
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
                     });
 
-                    if (response.ok) {
-                        console.log(await response.json());
+                    if (!response.ok) {
+                        let responseToJson = await response.json();
+
+                        if (responseToJson.errors.itemError) {
+                            this.errors.itemError = responseToJson.errors.itemError.toString();
+                        }
+
+                        if (responseToJson.errors.userError) {
+                            this.errors.userError = responseToJson.errors.userError.toString();
+                        }
+
                     }
 
                 } catch(err) {

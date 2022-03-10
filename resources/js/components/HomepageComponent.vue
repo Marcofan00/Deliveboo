@@ -69,7 +69,12 @@ export default {
     },
     methods: {
         getCategoryId(id) {
-            this.selectedCategories.push(id);
+            if (this.selectedCategories.includes(id)) {
+                let categoryIndex = this.selectedCategories.indexOf(id);
+                this.selectedCategories.splice(categoryIndex, 1);
+            } else {
+                this.selectedCategories.push(id);
+            } 
         },
         searchResults: async function() {
             try {
