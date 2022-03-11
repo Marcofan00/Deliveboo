@@ -44,7 +44,43 @@
 
 // Restaurant page
 @import 'partials/foods-cards';
+.swal-footer{
+    background-color:  #FE5E49;;
+}
+.swal-text{
+    color: #FE5E49;
+    font-size: 1.5rem;
+}
+.swal-button-container{
+    background-color: white;
+    color: #FE5E49;
+    .swal-button .swal-button--confirm{
+        background-color: white;
+        color: #FE5E49 ;
+    }
+}
 
+.swal-modal{
+    background-color: white;
+    .swal-button-container{
+        .swal-button {
+            background-color: white;
+            color: #FE5E49 ;
+        }
+    }
+}
+.popup{
+    display: none;
+}
+.popup_layout{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #ccc;
+    margin: 0;
+}
 .if_open{
     display: none;
 }
