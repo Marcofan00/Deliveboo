@@ -19,6 +19,10 @@ class RestaurantController extends Controller
 
         $allRestaurants = User::all()->take(12);
 
+        foreach($allRestaurants as $restaurant) {
+            $restaurant['categories'] = $restaurant->categories;
+        }
+
         return response()->json($allRestaurants);
     }
 
