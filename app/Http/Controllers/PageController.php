@@ -11,6 +11,14 @@ use App\Models\Order;
 
 class PageController extends Controller
 {
+    public function orderinfo($id){
+        $ordineinfo = Order::findOrFail($id);
+        $ordine = Order::FindOrFail($id);
+        $foods = $ordine->foods;
+        // $food = Food::all()->order;
+
+        return view('pages.order-info',compact('foods','ordineinfo'));
+    }
     public function homepage() {
         return view('pages.homepage');
     }

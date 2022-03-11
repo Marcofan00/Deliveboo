@@ -3,9 +3,9 @@
       <div id="dashboard">
           <div id="menu_select">
               <h2>
-                  {{nomeRistorante}}
+                  {{ristorante.restaurant_name}}
               </h2>
-                <img class="img_restaurant" src="/storage/img/deliverooDefault.png" alt="immagine_ristorante">
+                <img class="img_restaurant" :src="'/storage/img/'+ristorante.logo" alt="immagine_ristorante">
 
               <button class="btn dashboard_action" @click="visibility_foods">Visualizza i miei Piatti</button>
 
@@ -49,23 +49,24 @@
                                  <div v-if="food.visible" class="nascondi" @click="toggleVisibility(food.id)">
                                    <i class="far fa-eye-slash"></i> Nascondi  
                                 </div>
-                                <div v-else >
-                                    <button @click="toggleVisibility(food.id)">Rendi visibile</button>
+                                <div v-else class="rendi_visibile" >
+                                   <i class="fas fa-globe-europe"></i> <span @click="toggleVisibility(food.id)">Rendi visibile</span>
                                 </div>
                             
                             </div>
                         </div>
-                        <div class="card_food">
+                        <!-- <div class="card_food"> -->
                             <img v-if="`/storage/img/${food.food_img}`" :src="`/storage/img/${food.food_img}`" class="card-img-food" alt="">
                             <img v-else src="/storage/img/deliverooDefault.png" alt="default">
                             <div class="card-body_food">
                                 <h5 class="card-title_food">{{food.name}}</h5>
                                 <p class="card-text_food">{{food.description_ingredients}}</p>
-                                <span class="cart-food-price">
-                                    {{food.price}} &euro;
-                                </span>
                             </div>
-                        </div>
+
+                             <div class="cart-food-price">
+                                {{food.price}} &euro;
+                            </div>
+                        <!-- </div> -->
                     </li>
 
 
@@ -177,7 +178,7 @@
                             </div>
                             <div class="col-sm-12 head_table">
                                 <div class="intestazione text-center">
-                                     <a class="info_btn" href=""> <i class="fas fa-info info_order"></i>info</a>
+                                     <a class="info_btn" :href="'/dashboard/order/' + order.id"> <i class="fas fa-info info_order"></i>info</a>
                                 </div>
                                 
                             </div>
@@ -208,8 +209,8 @@
         data () {
             
             return {
-                nomeRistorante : "",
-                foods_visibility : false,
+                ristorante : {},
+                foods_visibility : true,
                 foods : [],
                 orders_visibility : false,
                 statistic_visibility : false,
@@ -223,7 +224,7 @@
                this.hamburgermenu = value;
             });
 
-            console.log(this.logincheck);
+            // console.log(this.logincheck);
              axios.get('http://localhost:8000/api/dashboard/restaurant/'+ this.logincheck)
             .then(res => {
                 console.log(res.data);
@@ -239,7 +240,7 @@
              axios.get('/api/restaurant/' + this.logincheck)
             .then((r) => {
                 
-                this.nomeRistorante = r.data.user.restaurant_name;
+                this.ristorante = r.data.user;
                 
             })
             .catch(e => console.error(e));
@@ -251,19 +252,19 @@
             visibility_statistic(){
                 this.orders_visibility = false;
                 this.foods_visibility = false;
-                this.statistic_visibility = !this.statistic_visibility;
+                this.statistic_visibility = true;
             },
             visibility_foods(){
                 this.orders_visibility = false;
                 this.statistic_visibility = false;
 
-                this.foods_visibility = !this.foods_visibility;
+                this.foods_visibility = true;
             },
             visibility_orders(){
                
                 this.foods_visibility = false;
                 this.statistic_visibility = false;
-                this.orders_visibility =! this.orders_visibility;
+                this.orders_visibility = true;
 
                 
             },

@@ -17,7 +17,7 @@
             <section id="categories-filters">
                 <h1>Filtra per</h1>
                 <ul id="categories-cards">
-                    <li class="category-card" v-for="category in categories" :key="category.id" @click="getCategoryId(category.id)">
+                    <li @click="getCategoryId(category.id)" class="category-card" v-for="category in categories" :key="category.id">
                         <img :src="category.category_img" alt="category_img">
                         <h3>{{ category.name }}</h3>
                     </li>
@@ -79,6 +79,7 @@ export default {
             console.log(this.selectedCategories);
         },
         searchResults: async function() {
+            // console.log(this.selectedCategories);
             try {
 
                 let response = await fetch('http://localhost:8000/api/search', {

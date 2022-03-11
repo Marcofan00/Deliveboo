@@ -1,6 +1,6 @@
 <template>
 <!-- struttura del form -->
-    <div class="demo-frame">  
+    <div class="demo-frame container container_xxl_">  
         <form id="cardForm" >
             <div class="data">
                 <label class="hosted-fields--label" for="firstname">Nome</label>
@@ -55,7 +55,7 @@
 
             <div class="button-container">
                 <!-- usate type="button" per evitare che la pagina venga refreshata ogni volta che si mandano i dati -->
-                <input type="button" class="button button--small button--green" value="Purchase" id="submit" @click="tokenize(hostedFieldsInstance)"/>
+                <input type="button"  class="button button--small" value="Conferma Pagamento" id="submit" @click="tokenize(hostedFieldsInstance)"/>
             </div>
         </form>
         <div class="error" v-if="errors.emptyCartError">{{ errors.emptyCartError }}</div>
