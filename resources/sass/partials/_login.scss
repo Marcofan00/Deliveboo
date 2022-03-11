@@ -1,0 +1,77 @@
+#login_deeboo{
+    padding: 32px 0;
+    .data_accesso{
+        width: 100%;
+        display: flex;
+        margin: 30px 0 10px;
+        justify-content: center;
+    }
+    .error{
+        font-size: 1.6rem;
+        text-align: center;
+        color: #ff5e49;
+    }
+    label{
+        height: 100%;
+        color: #009FB7;
+        padding: 8px 16px;
+        margin-bottom: 0;
+        width: 10%;
+        font-weight: bold;
+        border-bottom: 2px solid #009FB7;
+        font-size: 1.2rem;
+    }
+    .form_login{
+        width: 30%;
+    }
+    input[type="text"]{
+        width: 100%;
+        height: 100%;
+        color: #009FB7;
+        border: 2px solid #009FB7;
+        padding-left: 8px;
+    }
+    input[type="password"]{
+        width: 100%;
+        height: 100%;
+        color: #009FB7;
+        border: 2px solid #009FB7;
+        padding-left: 8px;
+    }
+    #btn{
+        margin: 40px 0 20px;
+        text-align: center;
+    }
+   .login_btn{
+       background-color: white;
+       color: #009FB7;
+       border: 2px solid #009FB7;
+       padding: 8px 56px;
+       font-weight: bold;
+       font-size: 1.4rem;
+   }
+   #register{
+       text-align: center;
+       color: #009FB7;
+   }
+}
+@media all and (max-width:576px){
+    #login_deeboo{
+        .data_accesso{
+            flex-direction: column;
+            align-items: center;
+        }
+        label{
+            width: 100%;
+            border-bottom: none;
+        }
+        .form_login{
+            width: 100%;
+            padding: 8px 16px;
+            height: 66px;
+        }
+    }
+}
+
+
+
