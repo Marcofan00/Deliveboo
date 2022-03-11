@@ -14,9 +14,9 @@
                 <!-- Social  -->
             <div id="social_logo">
                 <div id="social">
-                    <a href="#"><i class="social_icon fab fa-instagram"></i></a>
-                    <a href="#"><i class="social_icon fab fa-facebook"></i></a>
-                    <a href="#"><i class="social_icon fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/boolean.careers/?hl=it"><i class="social_icon fab fa-instagram"></i></a>
+                    <a href="https://it-it.facebook.com/boolean.careers/"><i class="social_icon fab fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/school/boolean-careers/mycompany/"><i class="social_icon fab fa-linkedin"></i></a>
                 </div>
             
                 <div class="logo_footer">
