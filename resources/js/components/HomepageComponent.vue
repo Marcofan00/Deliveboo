@@ -90,6 +90,7 @@ export default {
                 if (response.ok) {
                     
                     this.users = await response.json();
+                    console.log(this.users);
                     this.selectedCategories = [];
                 }
 

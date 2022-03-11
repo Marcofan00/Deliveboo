@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Food;
@@ -195,7 +196,9 @@ class RestaurantController extends Controller
             $collection = $user->categories->whereIn('pivot.category_id', $selectedCategories)->groupBy('pivot.user_id')->collapse();
             
             if (count($collection->all()) === count($selectedCategories)) {
-                $searchResults[] = User::findOrFail($collection->unique('pivot.user_id')->pluck('pivot.user_id'))->toArray()[0];               
+                $result = User::findOrFail($collection->unique('pivot.user_id')->pluck('pivot.user_id'))->all()[0];
+                $result['categories'] = $result->categories;
+                $searchResults[] = $result;              
             }
         }
         
