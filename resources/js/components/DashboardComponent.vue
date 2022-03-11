@@ -37,7 +37,7 @@
                         <div id="action_food">
 
                             <a :href="`/food/edit/${food.id}`" target="_blank">
-                                 <div>
+                                 <div id="edit_pulsante">
                                     <i class="fas fa-edit"></i> Edit
                                 </div>
                             </a>
@@ -61,11 +61,12 @@
                             <div class="card-body_food">
                                 <h5 class="card-title_food">{{food.name}}</h5>
                                 <p class="card-text_food">{{food.description_ingredients}}</p>
+                                <div class="cart-food-price">
+                                    {{food.price}} &euro;
+                                </div>
                             </div>
 
-                             <div class="cart-food-price">
-                                {{food.price}} &euro;
-                            </div>
+                            
                         <!-- </div> -->
                     </li>
 
@@ -176,7 +177,7 @@
                                     {{ order.order_date }}
                                 </div>
                             </div>
-                            <div class="col-sm-12 head_table">
+                            <div class="col-sm-12 head_table" id="info_last">
                                 <div class="intestazione text-center">
                                      <a class="info_btn" :href="'/dashboard/order/' + order.id"> <i class="fas fa-info info_order"></i>info</a>
                                 </div>

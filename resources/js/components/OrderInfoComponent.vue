@@ -1,5 +1,5 @@
 <template>
-    <div class="container container_xxl_" id="info_ordine_ristorante">
+    <div :class="hamburgermenu? 'if_open' : ''" class="container container_xxl_" id="info_ordine_ristorante">
         <h2>
             Informazione sull ordine
         </h2>
@@ -75,8 +75,14 @@ import moment from "moment";
             
             return {
                 ordineInfo : [],
-                moment: moment
+                moment: moment,
+                hamburgermenu : false
             }
+        },
+        created(){
+            this.$root.$on('openHambMenu',(value)=>{
+               this.hamburgermenu = value;
+            });
         },
         mounted() {
             this.ordineInfo = this.ordine;
