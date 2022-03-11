@@ -3,9 +3,9 @@
       <div id="dashboard">
           <div id="menu_select">
               <h2>
-                  {{nomeRistorante}}
+                  {{ristorante.restaurant_name}}
               </h2>
-                <img class="img_restaurant" src="/storage/img/deliverooDefault.png" alt="immagine_ristorante">
+                <img class="img_restaurant" :src="'/storage/img/'+ristorante.logo" alt="immagine_ristorante">
 
               <button class="btn dashboard_action" @click="visibility_foods">Visualizza i miei Piatti</button>
 
@@ -209,7 +209,7 @@
         data () {
             
             return {
-                nomeRistorante : "",
+                ristorante : {},
                 foods_visibility : true,
                 foods : [],
                 orders_visibility : false,
@@ -224,7 +224,7 @@
                this.hamburgermenu = value;
             });
 
-            console.log(this.logincheck);
+            // console.log(this.logincheck);
              axios.get('http://localhost:8000/api/dashboard/restaurant/'+ this.logincheck)
             .then(res => {
                 console.log(res.data);
@@ -240,7 +240,7 @@
              axios.get('/api/restaurant/' + this.logincheck)
             .then((r) => {
                 
-                this.nomeRistorante = r.data.user.restaurant_name;
+                this.ristorante = r.data.user;
                 
             })
             .catch(e => console.error(e));
