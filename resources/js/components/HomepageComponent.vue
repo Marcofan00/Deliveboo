@@ -74,7 +74,9 @@ export default {
                 this.selectedCategories.splice(categoryIndex, 1);
             } else {
                 this.selectedCategories.push(id);
-            } 
+            }
+
+            console.log(this.selectedCategories);
         },
         searchResults: async function() {
             // console.log(this.selectedCategories);
