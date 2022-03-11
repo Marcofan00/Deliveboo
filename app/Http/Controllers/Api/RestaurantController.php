@@ -147,7 +147,7 @@ class RestaurantController extends Controller
             return $food->orders->toArray();
         });
 
-        $result = $orders->collapse()->values()->unique('id')->sortByDesc('order_date');
+        $result = $orders->collapse()->values()->unique('id')->sortByDesc('created_at');
 
         return response()->json($result->values()->all());
     }

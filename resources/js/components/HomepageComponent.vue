@@ -17,7 +17,7 @@
             <section id="categories-filters">
                 <h1>Filtra per</h1>
                 <ul id="categories-cards">
-                    <li class="category-card" v-for="category in categories" :key="category.id">
+                    <li class="category-card" v-for="category in categories" :key="category.id" @click="getCategoryId(category.id)">
                         <img :src="category.category_img" alt="category_img">
                         <h3>{{ category.name }}</h3>
                     </li>
@@ -74,7 +74,9 @@ export default {
                 this.selectedCategories.splice(categoryIndex, 1);
             } else {
                 this.selectedCategories.push(id);
-            } 
+            }
+
+            console.log(this.selectedCategories);
         },
         searchResults: async function() {
             try {
