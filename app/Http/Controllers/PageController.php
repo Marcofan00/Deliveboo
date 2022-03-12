@@ -31,7 +31,7 @@ class PageController extends Controller
 
     public function statistics() {
 
-        return view('pages.statistics');
+        return view('pages.charts');
     }
 
     public function create() {
