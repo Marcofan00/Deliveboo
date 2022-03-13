@@ -11,6 +11,12 @@ use App\Models\Order;
 
 class PageController extends Controller
 {
+    public function contatti(){
+        return view('pages.contatti');
+    }
+    public function chisiamo(){
+        return view('pages.chisiamo');
+    }
     public function orderinfo($id){
         $ordineinfo = Order::findOrFail($id);
         $ordine = Order::FindOrFail($id);
