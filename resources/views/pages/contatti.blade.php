@@ -55,69 +55,69 @@
     
             <div class="contatto">
                 <div class="img_contatto">
-                    <img src="{{asset('storage/img/io.jpg')}}" alt="">
-                    <h2>Andrea Scarpa</h2>
+                    <img src="{{asset('storage/img/tommaso.jpg')}}" alt="">
+                    <h2>Tommaso Passarotto</h2>
     
                 </div>
     
                 <div class="descrizione_contatto">
                     <div class="contact">
-                        <i class="icon fas fa-phone-alt"></i> : 3466206298
+                        <i class="icon fas fa-phone-alt"></i> : 3494466477
                     </div>
                     <div class="contact">
-                        <i class="icon fas fa-envelope"></i> : scarpandrea.1996@hotmail.com
+                        <i class="icon fas fa-envelope"></i> : passarotto13@gmail.com
                     </div>
                     <div class="contact">
-                        <i class="icon fab fa-linkedin"></i> : <a href="https://github.com/Andrea1302">https://github.com/Andrea1302</a>
+                        <i class="icon fab fa-linkedin"></i> : <a href="https://bit.ly/37s939q">https://bit.ly/37s939q</a>
                     </div>
                     <div class="contact">
-                        <i class="icon fab fa-github"></i> : <a href="https://bit.ly/3J7hmoN">https://bit.ly/3J7hmoN</a>
+                        <i class="icon fab fa-github"></i> : <a href="https://github.com/Passa69">https://github.com/Passa69</a>
                     </div>
                 </div>
             </div>
     
             <div class="contatto">
                 <div class="img_contatto">
-                    <img src="{{asset('storage/img/io.jpg')}}" alt="">
-                    <h2>Andrea Scarpa</h2>
+                    <img src="{{asset('storage/img/domenico.jpg')}}" alt="">
+                    <h2>Domenico Cristo</h2>
     
                 </div>
     
                 <div class="descrizione_contatto">
                     <div class="contact">
-                        <i class="icon fas fa-phone-alt"></i> : 3466206298
+                        <i class="icon fas fa-phone-alt"></i> : 3923163481
                     </div>
                     <div class="contact">
-                        <i class="icon fas fa-envelope"></i> : scarpandrea.1996@hotmail.com
+                        <i class="icon fas fa-envelope"></i> : cristo.domenico@gmail.com
                     </div>
                     <div class="contact">
-                        <i class="icon fab fa-linkedin"></i> : <a href="https://github.com/Andrea1302">https://github.com/Andrea1302</a>
+                        <i class="icon fab fa-linkedin"></i> : <a href="https://bit.ly/3CCcLZq">https://bit.ly/3CCcLZq</a>
                     </div>
                     <div class="contact">
-                        <i class="icon fab fa-github"></i> : <a href="https://bit.ly/3J7hmoN">https://bit.ly/3J7hmoN</a>
+                        <i class="icon fab fa-github"></i> : <a href="https://github.com/domenicocristo">https://github.com/domenicocristo</a>
                     </div>
                 </div>
             </div>
     
             <div class="contatto">
                 <div class="img_contatto">
-                    <img src="{{asset('storage/img/io.jpg')}}" alt="">
-                    <h2>Andrea Scarpa</h2>
+                    <img src="{{asset('storage/img/deliverooDefault.png')}}" alt="">
+                    <h2>Micaela Milano</h2>
     
                 </div>
     
                 <div class="descrizione_contatto">
                     <div class="contact">
-                        <i class="icon fas fa-phone-alt"></i> : 3466206298
+                        <i class="icon fas fa-phone-alt"></i> : 3427993642
                     </div>
                     <div class="contact">
-                        <i class="icon fas fa-envelope"></i> : scarpandrea.1996@hotmail.com
+                        <i class="icon fas fa-envelope"></i> : prova
                     </div>
                     <div class="contact">
-                        <i class="icon fab fa-linkedin"></i> : <a href="https://github.com/Andrea1302">https://github.com/Andrea1302</a>
+                        <i class="icon fab fa-linkedin"></i> : <a href="">https://github.com/Andrea1302</a>
                     </div>
                     <div class="contact">
-                        <i class="icon fab fa-github"></i> : <a href="https://bit.ly/3J7hmoN">https://bit.ly/3J7hmoN</a>
+                        <i class="icon fab fa-github"></i> : <a href="">https://bit.ly/3J7hmoN</a>
                     </div>
                 </div>
             </div>
