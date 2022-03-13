@@ -35,11 +35,6 @@ class PageController extends Controller
         return view('pages.dashboard', compact('check'));
     }
 
-    public function statistics() {
-
-        return view('pages.statistics');
-    }
-
     public function create() {
         return view('pages.create');
     }

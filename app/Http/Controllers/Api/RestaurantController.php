@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Food;
@@ -18,6 +19,10 @@ class RestaurantController extends Controller
     public function getAllRestaurants() {
 
         $allRestaurants = User::all()->take(12);
+
+        foreach($allRestaurants as $restaurant) {
+            $restaurant['categories'] = $restaurant->categories;
+        }
 
         return response()->json($allRestaurants);
     }
@@ -54,7 +59,7 @@ class RestaurantController extends Controller
             $validator = Validator::make($data, [
                 'user_id' => ['required', 'numeric'],
                 'name' => ['required', 'string', 'max:60'],
-                'description_ingredients' => ['required', 'string', 'min:100'],
+                'description_ingredients' => ['required', 'string', 'min:50'],
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['required', 'image']
@@ -95,7 +100,7 @@ class RestaurantController extends Controller
                 'name.required' => 'Questo campo è obbligatorio',
                 'name.max' => 'Questo campo deve contenere massimo 60 caratteri',
                 'description_ingredients.required' => 'Questo campo è obbligatorio',
-                'description_ingredients.min' => 'Questo campo deve contenere minimo 100 caratteri',
+                'description_ingredients.min' => 'Questo campo deve contenere minimo 50 caratteri',
                 'price.required' => 'Questo campo è obbligatorio',
                 'price.numeric' => 'Questo campo deve essere di tipo numerico',
                 'visible.required' => 'Questo campo è obbligatorio',
@@ -191,7 +196,9 @@ class RestaurantController extends Controller
             $collection = $user->categories->whereIn('pivot.category_id', $selectedCategories)->groupBy('pivot.user_id')->collapse();
             
             if (count($collection->all()) === count($selectedCategories)) {
-                $searchResults[] = User::findOrFail($collection->unique('pivot.user_id')->pluck('pivot.user_id'))->toArray()[0];               
+                $result = User::findOrFail($collection->unique('pivot.user_id')->pluck('pivot.user_id'))->all()[0];
+                $result['categories'] = $result->categories;
+                $searchResults[] = $result;              
             }
         }
         

@@ -205,7 +205,7 @@
 
             <!-- statistiche  -->
             <div v-if="statistic_visibility">
-                Statistiche
+                <line-chart-component :user="logincheck"></line-chart-component>
             </div>
          </div>
       </div>

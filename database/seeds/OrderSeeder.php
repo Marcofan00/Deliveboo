@@ -16,7 +16,7 @@ class OrderSeeder extends Seeder
         $orders = [
             [
                 'bill' => 20.00,
-                'order_date' => date("Y-m-d"),
+                'order_date' => now(),
                 'buyer_fullname' => 'Gioacchino Rossini',
                 'buyer_email' => 'giacchino@mail.com',
                 'buyer_address' => 'Via delle Crociate, 74, 70100, Bari',
@@ -25,7 +25,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'bill' => 15.98,
-                'order_date' => date("Y-m-d"),
+                'order_date' => now(),
                 'buyer_fullname' => 'Phil Anselmo',
                 'buyer_email' => 'phil@mail.com',
                 'buyer_address' => 'Via Trieste, 15, 70024, Gravina in Puglia',
@@ -34,7 +34,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'bill' => 9.00,
-                'order_date' => date("Y-m-d"),
+                'order_date' => now(),
                 'buyer_fullname' => 'Ozzy Osbourne',
                 'buyer_email' => 'ozzy@mail.com',
                 'buyer_address' => 'Via Milano, 36, 70022, Altamura',

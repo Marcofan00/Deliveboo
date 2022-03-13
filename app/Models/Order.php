@@ -18,6 +18,10 @@ class Order extends Model
         'transaction_status'
     ];
 
+    protected $dates = [
+        'order_date'
+    ];
+
     public function foods() {
         return $this -> belongsToMany('App\Models\Food')->withPivot('food_qty');
     }
