@@ -1,0 +1,138 @@
+
+#register_deeboo{
+    .container_deeboo{
+        display: flex;
+        margin-top: 40px;
+        border: 5px solid #ff5e49;
+        background-color: #ff5e49;
+    }
+    .dati_register{
+        width: 34%;
+        background: #ff5e49;
+        padding-bottom: 16px;
+        padding-top: 0;
+        color: white;
+        font-weight: bold;
+        h3{
+            background-color: white;
+            color: #ff5e49;
+            padding: 16px;
+            font-size: 1.8rem;
+        }
+    }
+    label{
+        padding-left: 16px;
+        font-size: 1.2rem;
+    }
+    input{
+        margin-left: 16px;
+        padding-left: 16px;
+        width: 86%;
+        display: block;
+        color: #ff5e49;
+    }
+    .error_register{
+        color: white;
+        padding-left: 16px;
+        margin-bottom: 40px;
+    }
+    input[type="file"]{
+        margin-left: 0;
+    }
+    .categories_register{
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    .checkbox_register{
+        height: 30px;
+        width: 10%;
+    }
+    .label_categories{
+        margin-bottom: 0;
+        flex-grow: 1;
+    }
+    #logo{
+        margin-top: 40px;
+        width: 100%;
+        background: white;
+        color: #ff5e49;
+        flex-grow: 1;
+        margin-right: 16px;
+        #label_img{
+            border-bottom: 5px solid #ff5e49;
+            width: 100%;
+            padding: 8px 16px;
+        }
+        // padding: 16px;
+    }
+    .column_category{
+        display: flex;
+        flex-direction: column;
+    }
+    .btn_registra{
+        text-align: center;
+        margin: 16px 0;
+    }
+    #btn_reg{  
+        background-color: #009FB7;
+        color: white;
+        padding: 8px 32px;
+        font-weight: bold;
+        &:hover{
+            background-color: #ff5e49;
+        }
+    }
+    #errore_img{
+        color: #ff5e49;
+    }
+}   
+
+@media all and (max-width:576px){
+    #register_deeboo{
+        .container_deeboo{
+            display: flex;
+            flex-direction: column;
+            margin-top: 40px;
+            border: 5px solid #ff5e49;
+            background-color: #ff5e49;
+        }
+        .dati_register{
+            width: 100%;
+            background: #ff5e49;
+            padding-bottom: 16px;
+            padding-top: 0;
+            color: white;
+            font-weight: bold;
+            h3{
+                background-color: white;
+                color: #ff5e49;
+                padding: 16px;
+                font-size: 1.8rem;
+            }
+        }
+       input{
+           padding: 8px;
+       }
+        #logo{
+            margin-top: 40px;
+            width: 100%;
+            background: #ff5e49;
+            color: white;
+            flex-grow: 1;
+            margin-right: 16px;
+            #label_img{
+                border-bottom: none;
+                width: 100%;
+                padding: 0 8px;
+            }
+            // padding: 16px;
+        }
+        .checkbox_register{
+            height: 30px;
+            width: 10%;
+            padding: 0;
+            margin-left: 0;
+        }
+    } 
+}

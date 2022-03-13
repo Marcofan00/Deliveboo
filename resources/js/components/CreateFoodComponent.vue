@@ -14,7 +14,7 @@
 
         <div class="data">
             <label for="description_ingredients">Descrizione/Ingredienti</label>
-            <textarea name="description_ingredients" id="" rows="10" v-model="descriptionIngredients" required placeholder="Min 100 caratteri"></textarea>
+            <textarea name="description_ingredients" id="" rows="10" v-model="descriptionIngredients" required placeholder="Min 50 caratteri"></textarea>
             <div v-if="descriptionIngredients">Numero caratteri digitati: {{ descriptionLength }}</div>
             <div class="error" v-if="errors.descriptionError">Campo obbligatorio. {{ errors.descriptionError }}</div>
         </div>

@@ -27,17 +27,21 @@
              <!-- <div v-for="food, i in foods" :key="i">
                  {{food.name}}
              </div> -->
+            
              <div v-if="foods_visibility" id="foods">
                  <h2>
                     I miei piatti
                 </h2>
-            
+
+                <div class="msg_foods_empty" v-if="foods.length === 0">
+                    Nessun piatto inserito, Crea un nuovo piatto e fai conoscere a tutti i tuoi fantastici prodotti !
+                </div>
                 <ul>
                     <li v-for="food, i in foods" :key="i" >
                         <div id="action_food">
 
                             <a :href="`/food/edit/${food.id}`" target="_blank">
-                                 <div>
+                                 <div id="edit_pulsante">
                                     <i class="fas fa-edit"></i> Edit
                                 </div>
                             </a>
@@ -61,11 +65,12 @@
                             <div class="card-body_food">
                                 <h5 class="card-title_food">{{food.name}}</h5>
                                 <p class="card-text_food">{{food.description_ingredients}}</p>
+                                <div class="cart-food-price">
+                                    {{food.price}} &euro;
+                                </div>
                             </div>
 
-                             <div class="cart-food-price">
-                                {{food.price}} &euro;
-                            </div>
+                            
                         <!-- </div> -->
                     </li>
 
@@ -99,7 +104,10 @@
                                 Stato della transazione
                             </div> -->
                         </div>
-                
+                        
+                         <div class="msg_foods_empty" v-if="orders.length === 0">
+                                Nessun ordine trovato !
+                        </div>
                         <div class="row riga_ordine" v-for="order,i in orders" :key="order.id">
                             <!-- <div class="col-1">
                                 {{ order.id }}
@@ -137,6 +145,9 @@
 
             <!-- order mobile-->
             <div v-if="orders_visibility" id="orders-mobile">
+                        <div class="msg_foods_empty" v-if="orders.length === 0">
+                                Nessun ordine trovato !
+                        </div>
                     <div class="row riga_ordine_head" v-for="order,i in orders" :key="order.id">
                             <div class="number_order">
                                 Ordine n° {{ i + 1}}
@@ -176,7 +187,7 @@
                                     {{ order.order_date }}
                                 </div>
                             </div>
-                            <div class="col-sm-12 head_table">
+                            <div class="col-sm-12 head_table" id="info_last">
                                 <div class="intestazione text-center">
                                      <a class="info_btn" :href="'/dashboard/order/' + order.id"> <i class="fas fa-info info_order"></i>info</a>
                                 </div>
