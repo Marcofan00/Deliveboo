@@ -33,6 +33,18 @@
                 color: #000;
             }
         }
+        .div_categ{
+            margin-top: 32px;
+            padding: 0 10px ;
+        }
+        .category_name{
+            color: #ff5e49;
+            font-weight: bold;
+            margin-right: 16px;
+        }
+        .star_icon{
+            color: #00a0b7 ;
+        }
         li:hover {
             border: 2px solid #00a0b7;
             transition: 0.3s;

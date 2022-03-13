@@ -18,7 +18,7 @@
                 <h1>Filtra per</h1>
                 <ul id="categories-cards">
                     <li class="category-card" @click="getCategoryId(category.id)"  :class="selectedCategories.includes(category.id) ? 'click-category':'' " v-for="category in categories" :key="category.id">
-                        <img :src="category.category_img" alt="category_img">
+                        <img :src="'/storage/img/'+category.category_img" alt="category_img">
                         <h3>{{ category.name }}</h3>
                     </li>
                 </ul>
@@ -33,7 +33,14 @@
                             <img :src="`/storage/img/` + user.logo" alt="logo">
                             <h3>{{ user.restaurant_name }}</h3>
                             <h5>{{ user.address }}</h5>
-                            <span v-for="category, i in user.categories" class="category">{{ category.name }}</span>
+                            <div class="div_categ">
+                                <span v-for="category, i in user.categories" :key="i" class="category_name">{{ category.name }} 
+                                    <i class="star_icon fas fa-star"></i>
+
+                                </span>
+                            </div>
+                           
+
                         </a>
                     </li>
                 </ul>
