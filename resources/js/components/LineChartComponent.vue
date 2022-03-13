@@ -29,7 +29,7 @@ export default {
         getAllOrders: async function(id) {
             try {
 
-                let response = await fetch('http://localhost:8000/api/dashboard/statistics/' + 5);
+                let response = await fetch('http://localhost:8000/api/dashboard/statistics/' + id);
 
                 if (response.ok) {
                     let responseToJson = await response.json();
