@@ -12,15 +12,19 @@
             width: 30%;
             margin: 10px;
             border-radius: 10px;
-            background-color: #fff;
+            background: rgba(255, 255, 255, 0.8);
+            overflow: auto;
+            box-shadow: 0px 5px 10px 3px rgba(115, 115, 115, 0.05);
             img {
                 height: 50%;
                 width: 100%;
                 border-radius: 10px 10px 0 0;
                 object-fit: cover;
+                object-position: top;
             }
             h3 {
                 color: #ff5e49;
+                font-weight: bold;
                 margin-left: 10px;
                 margin-top: 10px;
             }
@@ -29,6 +33,9 @@
                 color: #000;
             }
         }
-        
+        li:hover {
+            border: 2px solid #00a0b7;
+            transition: 0.3s;
+        }
     }
 }

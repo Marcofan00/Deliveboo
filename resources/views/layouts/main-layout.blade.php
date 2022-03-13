@@ -9,7 +9,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="/storage/img/delivebooDefault.png">
-    <title>Deliveboo</title>
+    <title>Deeboo</title>
 </head>
 <body>
     <div id="app">
