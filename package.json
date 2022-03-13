@@ -26,6 +26,8 @@
     "dependencies": {
         "braintree-web": "^3.85.2",
         "moment": "^2.29.1",
-        "sweetalert": "^2.1.2"
+        "sweetalert": "^2.1.2",
+        "chart.js": "^3.7.1",
+        "vue-chartjs": "^3.5.1"
     }
 }
