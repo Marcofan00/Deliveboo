@@ -26,8 +26,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/dashboard', 'PageController@dashboard') -> name('dashboard');
     Route::get('/dashboard/order/{id}', 'PageController@orderinfo') -> name('order.info');
 
-    Route::get('/statistics', 'PageController@statistics') -> name('statistics');
-
     Route::get('/food/create', 'PageController@create') -> name('create');
     Route::get('/food/edit/{id}', 'PageController@edit') -> name('edit');
 });

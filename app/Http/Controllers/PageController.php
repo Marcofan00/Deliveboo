@@ -29,11 +29,6 @@ class PageController extends Controller
         return view('pages.dashboard', compact('check'));
     }
 
-    public function statistics() {
-        $userId = Auth::User() -> id;
-        return view('pages.charts', ['userId' => $userId]);
-    }
-
     public function create() {
         return view('pages.create');
     }
