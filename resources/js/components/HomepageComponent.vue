@@ -33,7 +33,7 @@
                             <img :src="`/storage/img/` + user.logo" alt="logo">
                             <h3>{{ user.restaurant_name }}</h3>
                             <h5>{{ user.address }}</h5>
-                            <h6>{{ user.category_name }}</h6>
+                            <span v-for="category, i in user.categories" class="category">{{ category.name }}</span>
                         </a>
                     </li>
                 </ul>
@@ -74,7 +74,7 @@ export default {
                 this.selectedCategories.splice(categoryIndex, 1);
             } else {
                 this.selectedCategories.push(id);
-            } 
+            }
         },
         searchResults: async function() {
             try {
@@ -90,6 +90,7 @@ export default {
                 if (response.ok) {
                     
                     this.users = await response.json();
+                    console.log(this.users);
                     this.selectedCategories = [];
                 }
 
@@ -106,3 +107,15 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .category {
+        display: inline-block;
+        padding: 0.2rem 1rem;
+        margin: 0.1rem 0.3rem 0.1rem 0.5rem;
+        font-size: 1rem;
+        color: white;
+        background-color: #62c1d0;
+        border-radius: 1rem;
+    }
+</style>

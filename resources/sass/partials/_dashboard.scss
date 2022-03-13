@@ -3,13 +3,16 @@
     max-height: 650px;
     min-height: 100vh;
     margin: 40px 0;
-    border: 20px solid #009FB7;
 
     #menu_select{
         width: 30%;
         padding: 16px;
         background-color: #009FB7;
         color: white;
+        overflow-y: scroll;
+        h2{
+            font-size: 3rem;
+        }
         .dashboard_action{
             background-color: white;
             padding: 8px;
@@ -20,9 +23,10 @@
             font-size: 1.2rem;
         }
         .img_restaurant{
-            max-width: 100%;
+            width: 100%;
             height: auto;
             margin-bottom: 32px;
+            border: 5px solid white;
         }
 
     }
@@ -30,13 +34,24 @@
         width: 70%;
         padding: 0 16px;
         overflow-y: scroll;
+        .msg_foods_empty{
+            color: #686767;
+            margin-top: 30px;
+            font-family: 'rubik'sans-serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
         h2{
-            color: #009FB7;
+            color: #FE5E49;
+            font-size: 2rem;
             margin-top: 16px;
+            font-family: 'rubik'sans-serif;
+            font-weight: bold;
         }
         .riga_ordine{
             border-bottom: 1px solid #009FB7;
             padding: 8px 0;
+            color: #686767;
         }
         .riga_ordine_head{
             background-color: #009FB7;
@@ -48,7 +63,7 @@
             font-size: 1.2rem;
         }
         .info_order{
-            color: #009FB7;
+            color: #FE5E49;
         }
         #orders-mobile{
             display: none;
@@ -57,20 +72,23 @@
     ul{
         display: flex;
         flex-wrap: wrap;
+        list-style-type: none;
+        width: 100%;
+        justify-content: space-evenly;
         li{
-            width: 48%;
-            list-style: none;
-            margin-right: 10px;
-            margin-bottom: 20px;
-            border: 6px solid #009FB7;
-            position: relative;
+            height: 500px;
+            width: 40%;
+            margin: 20px 20px 0 0;
+            border-radius: 15px;
+            box-shadow: 0px 0px 30px 6px #b5b5b5;
 
             #action_food{
                 display: flex;
                 justify-content: space-between;
-                background-color: #009FB7;
+                background-color: #FE5E49;
                 color: white;
-                padding: 0 8px;
+                padding:  8px;
+                height: 8%;
 
                 a{
                     color: white;
@@ -78,32 +96,48 @@
                 .nascondi{
                     cursor: pointer;
                 }
+                .rendi_visibile{
+                    cursor: pointer;
+                }
                 .pubblica{
                     cursor: pointer;
                 }
             }
             .card-body_food{
-                padding: 8px;
-                
+                padding: 16px 10px;
+                height: 57%;
+                display: flex;
+                flex-direction: column;
+                background-color: white;
+                color: #009FB7;
+                border-bottom-right-radius: 15px;
+                border-bottom-left-radius: 15px;
             }
             .card-img-food{
+                height: 35%;
                 width: 100%;
-                height: auto;
+                -o-object-fit: cover;
+                object-fit: cover;
+                box-shadow: none;
+                margin-bottom: 0;
             }
             .card-title_food{
-                color: #009FB7;
+                color: #FE5E49;
+                font-weight: bold;
                 font-size: 1.5rem;
             }
             .card-text_food{
-                color: #6A6A6A;
+                color: #686767;
+                flex-grow: 1;
+                overflow-y: scroll;
+                font-size: 1.1rem;
 
             }
             .cart-food-price{
-                color:#009FB7 ;
+                color:#FE5E49 ;
                 font-size: 1rem;
-                position: absolute;
-                bottom: 8px;
-                right: 8px;
+                text-align: end;
+                padding-right: 8px;
             }
             .tab_order{
                 border: 1px solid #009FB7;
@@ -131,6 +165,7 @@
             padding: 0;
             background-color: #009FB7;
             color: white;
+            overflow-y: none;
             .dashboard_action{
                 background-color: white;
                 padding: 8px;
@@ -150,8 +185,11 @@
         #view{
             width: 100%;
             padding: 0;
-            overflow-y: scroll;
+            overflow-y: none;
             background-color: #009FB7;
+            .msg_foods_empty{
+                color: white;
+            }
             h2{
                 color: white;
                 margin-top: 16px;
@@ -160,10 +198,11 @@
             .riga_ordine{
                 border-bottom: 1px solid #009FB7;
                 padding: 8px 0;
+                color: #686767;
             }
             .riga_ordine_head{
                 background-color: #009FB7;
-                margin: 32px 0;
+                margin: 64px 0;
                 border: 8px solid white;
                 padding: 0;
             }
@@ -187,6 +226,7 @@
                 font-size: 1.2rem;
                 padding-left: 0;
                 padding-right: 0px;
+                margin: 16px 0;
                 a{
                     color: #009FB7;
                 }
@@ -195,8 +235,11 @@
                     display: inline-block;
                 }
             }
+            #info_last{
+                margin-bottom: 0;
+            }
             .info_order{
-                color: #009FB7;
+                color: #FE5E49;
                 margin-right: 8px;
             }
             #foods{
@@ -209,20 +252,23 @@
         ul{
             display: flex;
             flex-wrap: wrap;
+            flex-direction: column;
             li{
                 width: 100%;
                 list-style: none;
                 margin-right: 0;
                 margin-bottom: 20px;
-                border: 6px solid white;
-                position: relative;
     
                 #action_food{
                     display: flex;
                     justify-content: space-between;
-                    background-color: white;
-                    color: #009FB7;
-                    padding: 0 8px;
+                    background-color: #FE5E49;
+                    color: white;
+                    padding: 8px;
+                    height: 8%;
+                    #edit_pulsante{
+                        color: white;
+                    }
     
                     a{
                         color: #009FB7;
@@ -235,27 +281,35 @@
                     }
                 }
                 .card-body_food{
-                    padding: 8px;
-                    border-top: 8px solid white;
+                    height: 57%;
+                    display: flex;
+                    flex-direction: column;
+                    background-color: white;
+                    color: #009FB7;
+                    border-bottom-right-radius: 15px;
+                    border-bottom-left-radius: 15px;
+                    padding: 16px 10px;
                 }
                 .card-img-food{
                     width: 100%;
-                    height: auto;
+                    height: 35%;
+                    object-fit: cover;
                 }
                 .card-title_food{
-                    color: white;
+                    color: #FE5E49;
                     font-size: 1.5rem;
                 }
                 .card-text_food{
-                    color: white;
+                    flex-grow: 1;
+                    overflow-y: scroll;
+                    font-size: 1.1rem;
     
                 }
                 .cart-food-price{
-                    color: white ;
+                    color: #FE5E49 ;
                     font-size: 1rem;
-                    position: absolute;
-                    bottom: 8px;
-                    right: 8px;
+                    text-align: end;
+                    font-size: 2rem;
                 }
                 .tab_order{
                     border: 1px solid #009FB7;

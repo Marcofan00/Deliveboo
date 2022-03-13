@@ -11,6 +11,20 @@ use App\Models\Order;
 
 class PageController extends Controller
 {
+    public function contatti(){
+        return view('pages.contatti');
+    }
+    public function chisiamo(){
+        return view('pages.chisiamo');
+    }
+    public function orderinfo($id){
+        $ordineinfo = Order::findOrFail($id);
+        $ordine = Order::FindOrFail($id);
+        $foods = $ordine->foods;
+        // $food = Food::all()->order;
+
+        return view('pages.order-info',compact('foods','ordineinfo'));
+    }
     public function homepage() {
         return view('pages.homepage');
     }
@@ -19,11 +33,6 @@ class PageController extends Controller
         $check =  Auth::User() -> id;
         
         return view('pages.dashboard', compact('check'));
-    }
-
-    public function statistics() {
-
-        return view('pages.statistics');
     }
 
     public function create() {

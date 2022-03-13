@@ -1,75 +1,79 @@
 <template>
-    <div id="register">
+    <div id="register_deeboo" class="container container_xxl_">
+
+
         <form>
-            <div class="container-flex">
-                <div class="data">
+            <div class="container_deeboo">
+                <div class="data dati_register">
                     <h3>Dati personali</h3>
                     <label for="email">E-mail</label>
                     <input type="email" name="email" v-model.trim="email" :class="errors.emailError ? 'red' : 'green' " placeholder="email@example.com"><br>
-                    <div class="error" v-if="errors.emailError">{{ errors.emailError }}</div>
+                    <div class="error_register" v-if="errors.emailError">{{ errors.emailError }}</div>
 
                     <label for="password">Password</label>
                     <input type="password" name="password" v-model.trim="password" :class="errors.passwordError ? 'red' : 'green' " placeholder="Password1!"><br>
-                    <div class="error" v-if="errors.passwordError">{{ errors.passwordError }}</div>
+                    <div class="error_register" v-if="errors.passwordError">{{ errors.passwordError }}</div>
 
                     <label for="password_confirmation">Conferma Password</label>
                     <input type="password" name="password_confirmation" v-model.trim="passwordConfirmed" :class="errors.passwordConfirmError ? 'red' : 'green' " placeholder="Password1!"><br>
-                    <div class="error" v-if="errors.passwordConfirmError">{{ errors.passwordConfirmError }}</div>
+                    <div class="error_register" v-if="errors.passwordConfirmError">{{ errors.passwordConfirmError }}</div>
 
                     <label for="firstame">Nome</label>
                     <input type="text" name="firstname" v-model.trim="firstName" :class="errors.firstNameError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.firstNameError">{{ errors.firstNameError }}</div>
+                    <div class="error_register" v-if="errors.firstNameError">{{ errors.firstNameError }}</div>
 
                     <label for="lastname">Cognome</label>
                     <input type="text" name="lastname" v-model.trim="lastName" :class="errors.lastNameError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.lastNameError">{{ errors.lastNameError }}</div>
+                    <div class="error_register" v-if="errors.lastNameError">{{ errors.lastNameError }}</div>
                 </div>
-                <div class="data">
+                <div class="data dati_register">
                     <h3>Dati Ristorante</h3>
                     <label for="restaurant_name">Nome Ristorante</label>
                     <input type="text" name="restaurant_name" v-model.trim="restaurantName" :class="errors.restaurantNameError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.restaurantNameError">{{ errors.restaurantNameError }}</div>
+                    <div class="error_register" v-if="errors.restaurantNameError">{{ errors.restaurantNameError }}</div>
 
                     <label for="street">Indirizzo Ristorante</label>
                     <input type="text" name="street" v-model.trim="restaurantAddress" :class="errors.restaurantAddressError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.restaurantAddressError">{{ errors.restaurantAddressError }}</div>
+                    <div class="error_register" v-if="errors.restaurantAddressError">{{ errors.restaurantAddressError }}</div>
 
                     <label for="streetnumber">Numero Civico</label>
                     <input type="number" name="streetnumber" v-model.trim="streetNumber" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.streetNumberError">{{ errors.streetNumberError }}</div>
+                    <div class="error_register" v-if="errors.streetNumberError">{{ errors.streetNumberError }}</div>
 
                     <label for="postalcode">CAP</label>
                     <input type="number" name="postalcode" v-model.trim="postalCode" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.postalCodeError">{{ errors.postalCodeError }}</div>
+                    <div class="error_register" v-if="errors.postalCodeError">{{ errors.postalCodeError }}</div>
 
                     <label for="city">Città</label>
                     <input type="text" name="city" v-model.trim="city" :class="errors.cityError ? 'red' : 'green' "><br>
-                    <div class="error" v-if="errors.cityError">{{ errors.cityError }}</div>
+                    <div class="error_register" v-if="errors.cityError">{{ errors.cityError }}</div>
 
                     <label for="vat_number">Partita IVA</label>
                     <input type="text" name="vat_number" v-model.trim="vatNumber" :class="errors.vatNumberError ? 'red' : 'green' " placeholder="IT12345678901234">
-                    <div class="error" v-if="errors.vatNumberError">{{ errors.vatNumberError }}</div>
+                    <div class="error_register" v-if="errors.vatNumberError">{{ errors.vatNumberError }}</div>
                 </div>
-                <div class="data">
+                <div class="data dati_register column_category">
                     <h3>Categorie</h3>
-                    <span class="categories" v-for="category in categories" :key="category.id">
-                        <input type="checkbox" :value="category.id" v-model="categoriesChecked">
-                        <label for="categories">{{ category.name }}</label>
-                    </span>
-                    <div class="error" v-if="errors.categoryError">{{ errors.categoryError }}</div>
+                    <div class="categories_register" v-for="category in categories" :key="category.id">
+                        <label class="label_categories" for="categories">{{ category.name }}</label>
+                        <input class="checkbox_register" type="checkbox" :value="category.id" v-model="categoriesChecked">
+                    </div>
+                    <div class="error_register" v-if="errors.categoryError">{{ errors.categoryError }}</div>
 
-                    <label id="logo" for="logo">Immagine</label>
-                    <input type="file" name="logo" @change="getFile">
-                    <div class="error" v-if="errors.fileError">{{ errors.fileError }}</div>
+                    <div id="logo">
+                        <label id="label_img"  for="logo">Immagine di copertina</label>
+                        <input type="file" name="logo" @change="getFile">
+                        <div id="errore_img" class="error_register" v-if="errors.fileError">{{ errors.fileError }}</div>
+                    </div>
+                    
                 </div>
             </div>
-            <div class="btn-container">
-                <button type="button" class="btn register-btn" @click="sendData">Registrami</button>
+            <div class="btn_registra">
+                <button id="btn_reg" type="button" class="btn register-btn" @click="sendData">Registrami</button>
             </div>
             
         </form>
 
-        <a href="http://localhost:8000/" class="btn btn-secondary">Torna alla Home</a>
     </div>
 </template>
 

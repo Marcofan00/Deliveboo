@@ -20,11 +20,17 @@ Route::get('/success/{id}', 'PageController@success')->name('success');
 
 Route::get('/error', 'PageController@error')->name('error');
 
+// Contatti 
+Route::get('/contatti','PageController@contatti')->name('contatti');
+Route::get('/chisiamo','PageController@chisiamo')->name('chisiamo');
+
+
+
 // UR routes (protected)
 
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard', 'PageController@dashboard') -> name('dashboard');
-    Route::get('/statistics', 'PageController@statistics') -> name('statistics');
+    Route::get('/dashboard/order/{id}', 'PageController@orderinfo') -> name('order.info');
 
     Route::get('/food/create', 'PageController@create') -> name('create');
     Route::get('/food/edit/{id}', 'PageController@edit') -> name('edit');

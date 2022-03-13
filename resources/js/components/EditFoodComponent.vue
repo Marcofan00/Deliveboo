@@ -1,17 +1,19 @@
 <template>
-    <div id="edit">
+    <div :class="hamburgermenu? 'if_open' : ''" id="edit_food" class="container container_xxl_">
         <h2>Modifica i dati del piatto corrente</h2>
 
         <form >
-            <div class="data">
-                <label for="name">Nome</label>
-                <input type="text" name="name" v-model.trim="nameFood" required id="name">
+            <div class="data nome_piatto">
+                <label class="name_"  for="name">Nome</label>
+                <div id="name">
+                    <input type="text" name="name" v-model.trim="nameFood" required id="name">
+                </div>
                 <div class="error" v-if="errors.nameError">Campo obbligatorio. {{ errors.nameError }}</div>
             </div>
 
             <div class="data">
                 <label for="description_ingredients">Descrizione/Ingredienti</label>
-                <textarea name="description_ingredients" id="" rows="10" v-model.trim="descriptionIngredients" required placeholder="Min 150 caratteri"></textarea>
+                <textarea name="description_ingredients" id="" rows="10" v-model.trim="descriptionIngredients" required placeholder="Min 50 caratteri"></textarea>
                 <div v-if="descriptionIngredients">Numero caratteri digitati: {{ descriptionLength }}</div>
                 <div class="error" v-if="errors.descriptionError">Campo obbligatorio. {{ errors.descriptionError }}</div>
             </div>
@@ -36,7 +38,9 @@
                 <div class="error" v-if="errors.fileError">{{ errors.fileError }}</div>
             </div>
 
-            <button class="btn save-btn" @click="sendFood" type="button">Salva</button>
+            <div class="text-center">
+                <button class="btn" id="submit" @click="sendFood" type="button">Salva</button>
+            </div>
 
         </form>
     </div>
@@ -53,6 +57,7 @@
 
                 file : "",
                 foodData: this.food_edit,
+                hamburgermenu : false,
                 errors: {
                     nameError: '',
                     descriptionError: '',
@@ -61,6 +66,11 @@
                     fileError: ''
                 },
             }
+        },
+        created(){
+            this.$root.$on('openHambMenu',(value)=>{
+               this.hamburgermenu = value;
+            });
         },
         computed: {
             nameFood: {
@@ -205,9 +215,9 @@
             },
             validateDescription() {
 
-                if (!this.descriptionIngredients || this.descriptionIngredients.length < 100) {
+                if (!this.descriptionIngredients || this.descriptionIngredients.length < 50) {
 
-                    this.errors.descriptionError = 'Inserire una descrizione di almeno 100 caratteri';
+                    this.errors.descriptionError = 'Inserire una descrizione di almeno 50 caratteri';
                     return false;
 
                 } else {

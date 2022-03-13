@@ -1,0 +1,47 @@
+#success{
+    h2{
+        color: #FE5E49;
+        font-size: 2rem;
+        margin-top: 60px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        // text-shadow: 5px 3px 4px #009FB7;
+    }
+    h3{
+        color: #009FB7;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        // font-family: cursive;
+    }
+    li{
+        list-style: none;
+    }
+    .ordine_info{
+        background-color: #009FB7;
+        color: white;
+        padding: 16px;
+        border-radius: 10px;
+        .info_answer{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 3px;
+        }
+        .info_response{
+            width: 100%;
+            background-color: white;
+            color: #009FB7;
+            font-size: 1.3rem;
+            padding-left: 8px;
+        }
+        .info_answer_sx{
+            width: 50%;
+            background-color: #009FB7;
+            color: white;
+            font-size: 1.3rem;
+            border-bottom: 1px solid white; 
+        }
+
+       
+        
+    }
+}

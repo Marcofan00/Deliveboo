@@ -1,19 +1,26 @@
 <template>
-    <div id="login">
+    <div id="login_deeboo" class="container container_xxl_">
         <form>
-            <div class="data">
+            <div class="data_accesso">
                 <label for="email">E-mail</label>
-                <input type="text" name="email" v-model.trim="email" :class="emailError ? 'red' : 'green'">
-                <div class="error" v-if="emailError">{{ emailError }}</div>
+                <div class="form_login">
+                    <input type="text" name="email" v-model.trim="email" :class="emailError ? 'red' : 'green'" placeholder="Inserire email">
+                </div>
             </div>
+            <div class="error" v-if="emailError">{{ emailError }}</div>
+
             
-            <div class="data">
+            <div class="data_accesso">
                 <label for="password">Password</label>
-                <input type="password" name="password" v-model.trim="password" :class="passwordError ? 'red' : 'green'">
-                <div class="error" v-if="passwordError">{{ passwordError }}</div>
+                <div class="form_login">
+                    <input type="password" name="password" v-model.trim="password" :class="passwordError ? 'red' : 'green'" placeholder="Inserire password">
+                </div>
             </div>
-            
-            <button type="button" class="btn login-btn" @click="logUser">Accedi</button>
+            <div class="error" v-if="passwordError">{{ passwordError }}</div>
+
+            <div id="btn">
+                <button type="button" class="btn login_btn" @click="logUser">Accedi</button>
+            </div>
 
         </form>
         <div id="register">Se non sei ancora registrato <a href="/register">Clicca qui</a></div>
@@ -21,6 +28,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert';
     export default {
         data() {
             return {
@@ -71,11 +79,13 @@
                     if (!response.ok) {
 
                         if (responseToJson.errors.email) {
-                            this.emailError = responseToJson.errors.email.toString();
+                            // this.emailError = responseToJson.errors.email.toString();
+                            swal(responseToJson.errors.email.toString())
                         }
 
                         if (responseToJson.errors.password) {
                             this.emailError = responseToJson.errors.password.toString();
+                            swal(this.emailError)
                         }
                     } else {
                         window.location.href = '/dashboard/';

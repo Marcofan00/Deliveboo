@@ -1,0 +1,165 @@
+#create_food{
+    margin-bottom: 32px;
+    h2{
+        color: #FE5E49;
+        font-size: 2rem;
+        // font-family: cursive;
+        margin-bottom: 20px;
+    }
+    input{
+        border: 1px solid #009FB7;
+    }
+    .nome_piatto{
+        display: flex;
+    }
+    .name_{
+        height: 100%;
+        background-color: #009FB7;
+        color: white;
+        padding: 8px 16px;
+        margin-bottom: 0;
+    }
+    input[type="text"]{
+        width: 40%;
+        height: 100%;
+        color: #009FB7;
+        border: 2px solid #009FB7;
+        padding-left: 8px ;
+    }
+    input[type="file"]{
+        border-style: none;
+        color: #009FB7;
+    }
+    input[type="number"]{
+        border: 2px solid #009FB7;
+        color: #009FB7;
+        padding-left:  5px;
+    }
+
+    label{
+        color: #009FB7;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    textarea{
+        padding: 16px;
+        border: 1px solid #009FB7;
+        color: #009FB7;
+        font-size: 1.2rem;
+        // font-weight: bold;
+        :focus{
+            border: 3px solid #009FB7;
+        }
+    }
+    #submit{
+        padding: 8px 60px;
+        background-color: #009FB7;
+        color: white;
+        font-weight: bold;
+        margin: 16px 0;
+        &:hover{
+            background-color: white;
+            color: #009FB7;
+            border: 1px solid #009FB7;
+        }
+    }
+}
+
+@media all and (max-width:576px){
+    #create_food{
+        .nome_piatto{
+            width: 100%;
+        }
+        input[type="text"]{
+            width: 100%;
+            height: 100%;
+            color: #009FB7;
+            border: 2px solid #009FB7;
+            padding-left: 8px ;
+        }
+    }
+    
+}
+
+#edit_food{
+    margin-bottom: 32px;
+    h2{
+        color: #FE5E49;
+        font-size: 2rem;
+        // font-family: cursive;
+        margin-bottom: 20px;
+    }
+    input{
+        border: 1px solid #009FB7;
+    }
+    .nome_piatto{
+        display: flex;
+    }
+    .name_{
+        height: 100%;
+        background-color: #009FB7;
+        color: white;
+        padding: 8px 16px;
+        margin-bottom: 0;
+    }
+    input[type="text"]{
+        width: 40%;
+        height: 100%;
+        color: #009FB7;
+        border: 2px solid #009FB7;
+        padding-left: 8px ;
+    }
+    input[type="file"]{
+        border-style: none;
+        color: #009FB7;
+    }
+    input[type="number"]{
+        border: 2px solid #009FB7;
+        color: #009FB7;
+        padding-left:  5px;
+    }
+
+    label{
+        color: #009FB7;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    textarea{
+        padding: 16px;
+        border: 1px solid #009FB7;
+        color: #009FB7;
+        font-size: 1.2rem;
+        // font-weight: bold;
+        :focus{
+            border: 3px solid #009FB7;
+        }
+    }
+    #submit{
+        padding: 8px 60px;
+        background-color: #009FB7;
+        color: white;
+        font-weight: bold;
+        margin: 16px 0;
+        &:hover{
+            background-color: white;
+            color: #009FB7;
+            border: 1px solid #009FB7;
+        }
+    }
+}
+
+@media all and (max-width:576px){
+    #edit_food{
+        .nome_piatto{
+            width: 100%;
+        }
+        input[type="text"]{
+            width: 100%;
+            height: 100%;
+            color: #009FB7;
+            border: 2px solid #009FB7;
+            padding-left: 8px ;
+        }
+    }
+    
+}

@@ -1,0 +1,15 @@
+#cardForm{
+    flex-direction: column;
+    textarea{
+        width: 100%;
+    }
+    #submit{
+        background-color: #009FB7;
+        color: white;
+        &:hover{
+            background-color: white;
+            color: #009FB7;
+            border: 1px solid #009FB7;
+        }
+    }
+}

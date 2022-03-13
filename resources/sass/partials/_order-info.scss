@@ -1,0 +1,44 @@
+#info_ordine_ristorante{
+    h2{
+        color: #686767;
+        font-size: 2rem;
+        // font-family: cursive;
+        margin: 50px 0 20px;
+    }
+    li{
+        list-style: none;
+        margin-bottom: 32px;
+    }
+    .ordine_info{
+        background-color: #FE5E49;
+        color: white;
+        padding: 16px;
+        border-radius: 10px;
+        .info_answer{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 3px;
+        }
+        .info_response{
+            width: 100%;
+            background-color: white;
+            color: #686767;
+            font-size: 1.3rem;
+            padding-left: 8px;
+        }
+        .info_answer_sx{
+            width: 50%;
+            background-color: #FE5E49;
+            color: white;
+            font-size: 1.3rem;
+            border-bottom: 1px solid white; 
+            font-weight: bold;
+        }
+        h3{
+            font-weight: bold;
+            color: white;
+        }
+       
+        
+    }
+}
