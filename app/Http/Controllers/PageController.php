@@ -18,7 +18,7 @@ class PageController extends Controller
     public function dashboard() {
         $check =  Auth::User() -> id;
         
-        return view('pages.dashboard',compact('check'));
+        return view('pages.dashboard', compact('check'));
     }
 
     public function statistics() {
@@ -34,10 +34,8 @@ class PageController extends Controller
 
         $foodEdit = Food::FindOrFail($id);
         
-        return view('pages.edit',compact('foodEdit'));
-
+        return view('pages.edit', compact('foodEdit'));
     }
-
 
     public function getRestaurantMenu($id) {
 
@@ -65,5 +63,9 @@ class PageController extends Controller
         $order = Order::findOrFail($id);
 
         return view('pages.success', compact('order'));
+    }
+
+    public function error() {
+        return view('pages.error');
     }
 }

@@ -101,6 +101,10 @@
                     try {
                         let response = await fetch('http://localhost:8000/api/dashboard/create',{
                             method : 'POST',
+                            headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                            },
                             body : data,
                             
                         });
@@ -127,6 +131,8 @@
                             if (responseToJson.errors.food_img) {
                                 this.errors.fileError = responseToJson.errors.food_img.toString();
                             }
+                        } else {
+                            window.location.href = 'http://localhost:8000/dashboard/';
                         }
                             
                     } catch (err) {
@@ -151,9 +157,9 @@
             },
             validateDescription() {
 
-                if (!this.descriptionIngredients || this.descriptionIngredients.length < 150) {
+                if (!this.descriptionIngredients || this.descriptionIngredients.length < 100) {
 
-                    this.errors.descriptionError = 'Inserire una descrizione di almeno 150 caratteri';
+                    this.errors.descriptionError = 'Inserire una descrizione di almeno 100 caratteri';
                     return false;
 
                 } else {
@@ -178,7 +184,9 @@
             },
             validateFileType() {
 
-                if (!this.file || !this.file.type.includes('/image/')) {
+                if (!this.file || !this.file.type.includes('image')) {
+
+                    console.log(this.file.type)
 
                     this.errors.fileError = 'File non caricato o formato non valido. Inserisci una immagine';
                     return false;

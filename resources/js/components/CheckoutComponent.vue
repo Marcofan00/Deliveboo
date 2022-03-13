@@ -21,11 +21,11 @@
 
                 <label class="hosted-fields--label" for="streetnumber">Numero Civico</label>
                 <input class="hosted-field" type="number" name="streetnumber" v-model="streetNumber">
-                <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
+                <div class="error" v-if="errors.streetNumberError">{{ errors.streetNumberError }}</div>
 
                 <label class="hosted-fields--label" for="postalcode">CAP</label>
-                <input class="hosted-field" type="number" name="postalcode" v-model="postalCode">
-                <div class="error" v-if="errors.streetNumberPostalCodeError">{{ errors.streetNumberPostalCodeError }}</div>
+                <input class="hosted-field" type="text" name="postalcode" v-model="postalCode">
+                <div class="error" v-if="errors.postalCodeError">{{ errors.postalCodeError }}</div>
 
                 <label class="hosted-fields--label" for="city">Citt&agrave;</label>
                 <input class="hosted-field" type="text" name="city" v-model="city">
@@ -50,6 +50,7 @@
 
                 <label class="hosted-fields--label" for="cvv">CVV</label>
                 <div type="text" class="hosted-field" id="cvv"></div>
+                <div class="error" v-if="errors.creditCardData">{{ errors.creditCardData }}</div>
             </div>
 
             <div class="button-container">
@@ -57,6 +58,7 @@
                 <input type="button" class="button button--small button--green" value="Purchase" id="submit" @click="tokenize(hostedFieldsInstance)"/>
             </div>
         </form>
+        <div class="error" v-if="errors.emptyCartError">{{ errors.emptyCartError }}</div>
     </div>  
 
 </template>
@@ -85,9 +87,12 @@
                     firstNameError: '',
                     lastNameError: '',
                     phoneError: '',
-                    streetNumberPostalCodeError: '',
+                    streetNumberError: '',
+                    postalCodeError: '',
                     cityError: '',
-                    addressError: ''
+                    addressError: '',
+                    creditCardData: '',
+                    emptyCartError: ''
                 },
                 namesRegex: /^[a-z\s]+$/i
             }
@@ -119,11 +124,11 @@
             },
             streetNumber(value) {
                 this.streetNumber = value;
-                this.validateStreetNumberPostalCode(value);
+                this.validateStreetNumber(value);
             },
             postalCode(value) {
                 this.postalCode = value;
-                this.validateStreetNumberPostalCode(value);
+                this.validatePostalCode(value);
             },
             city(value) {
                 this.city = value;
@@ -212,8 +217,6 @@
                             // salva hostedFieldsInstance in this.hostedFieldsInstance nei data() di Vue
                             self.hostedFieldsInstance = hostedFieldsInstance;
 
-                            console.log(self.hostedFieldsInstance);
-
                         })
                 });
             },
@@ -226,12 +229,9 @@
 
                 hostedFieldsInstance.tokenize(function(err, payload) {
                     if (err) {
-                        alert('Something went wrong. Check your card details and try again.');
+                        self.errors.creditCardData = 'Ooops! Qualcosa è andato storto...Controlla i dati della carta inseriti';
                         return;
                     }
-
-                    // stampa in console il paymentMethodNonce
-                    console.log(payload.nonce);
 
                     self.sendPaymentData(payload.nonce);
                 })
@@ -253,8 +253,8 @@
                     validFirstName = this.validateFirstName(this.firstName),
                     validLastName = this.validateLastName(this.lastName),
                     validAddress = this.validateAddress(this.buyerAddress),
-                    validStreetNumber = this.validateStreetNumberPostalCode(this.streetNumber),
-                    validPostalCode = this.validateStreetNumberPostalCode(this.postalCode),
+                    validStreetNumber = this.validateStreetNumber(this.streetNumber),
+                    validPostalCode = this.validatePostalCode(this.postalCode),
                     validPhone = this.validatePhone(this.buyerPhone);
 
                 if (
@@ -283,6 +283,10 @@
 
                         if (!response.ok) {
 
+                            if (responseToJson.errors.emptyCart) {
+                                this.errors.emptyCartError = responseToJson.errors.emptyCart.toString();
+                            }
+
                             if (responseToJson.errors.buyer_email) {
                                 this.errors.emailError = responseToJson.errors.buyer_email.toString();
                             }
@@ -294,15 +298,20 @@
 
                             if (responseToJson.errors.buyer_address) {
                                 this.errors.addressError = responseToJson.errors.buyer_address.toString();
-                                this.errors.streetNumberPostalCodeError = responseToJson.errors.buyer_address.toString();
+                                this.errors.streetNumberError = responseToJson.errors.buyer_address.toString();
+                                this.errors.postalCodeError = responseToJson.errors.buyer_address.toString();
                                 this.errors.cityError = responseToJson.errors.buyer_address.toString();
                             }
 
                             if (responseToJson.errors.buyer_phone) {
                                 this.errors.phoneError = responseToJson.errors.buyer_phone.toString();
                             }
+
+                            if (responseToJson.errors.paymentFailed) {
+                                window.location.href = 'http://localhost:8000/error';
+                            }
                         } else {
-                            window.location.href = '/success/' + responseToJson.id;
+                            window.location.href = 'http://localhost:8000/success/' + responseToJson.id;
                         }
 
                     } catch(err) {
@@ -359,14 +368,24 @@
                 this.errors.addressError = '';
                 return true;  
             },
-            validateStreetNumberPostalCode(number) {
+            validateStreetNumber(number) {
 
                 if (!number || !/^\d+$/.test(number)) {
-                    this.errors.streetNumberPostalCodeError = 'Numero civico o CAP non validi';
+                    this.errors.streetNumberError = 'Numero civico non valido';
                     return false;
                 }
 
-                this.errors.streetNumberPostalCodeError = '';
+                this.errors.streetNumberError = '';
+                return true;                
+            },
+            validatePostalCode(number) {
+
+                if (!number || !/^\d+$/.test(number)) {
+                    this.errors.postalCodeError = 'CAP non valido';
+                    return false;
+                }
+
+                this.errors.postalCodeError = '';
                 return true;                
             },
             validateCity(city) {

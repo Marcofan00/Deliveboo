@@ -105,9 +105,9 @@ class CartController extends Controller {
 
     // // Add to cart
     public function addToCart(Food $product, $quantity) {
-        if($quantity < 1 || $this->isInCart($product)) {
-            return;
-        }
+        // if($quantity < 1 || $this->isInCart($product)) {
+        //     return false;
+        // }
         $food = [
             'id' => $product->id,
             'user_id' => $product-> user_id,
@@ -170,10 +170,10 @@ class CartController extends Controller {
     public function add(Request $request, $id = '0') {
         $product_id = $id;
         $quantity = 1;
-        if ($request->has(['id', 'quantity'])) {
-            $product_id = $request->input('id');
-            $quantity = (int) $request->input('quantity');
-        }
+        // if ($request->has(['id', 'quantity'])) {
+        //     $product_id = $request->input('id');
+        //     $quantity = (int) $request->input('quantity');
+        // }
         $product = Food::find($product_id);
         if(is_null($product)) {
             return redirect()->route('home');
@@ -186,14 +186,19 @@ class CartController extends Controller {
         } else {
             $cart->setFoods($sessionCart['foods']);
             $cart->setTotal($sessionCart['total']);
-            if ($cart->isSameUser($product)) {
+            if ($cart->isSameUser($product) && !$cart->isInCart($product)) {
                 $cart->addToCart($product, $quantity);
                 $request->session()->put(['cart' => ['foods' => $cart->getFoods(), 'total' => $cart->getTotal()]]);
+            } else if ($cart->isInCart($product)) {
+                return response()->json(['errors' => ['itemError' => ['Il prodotto è già nel carrello']]], 400);
+            } else if (!$cart->isSameUser($product)) {
+                return response()->json(['errors' => ['userError' => ['Spiacenti, non puoi acquistare da ristoranti differenti']]], 400);
             }
+            
+
             
         }
 
-        $cartAlive = $cart->getFoods();
         return response()->json($request->session()->get('cart'));
     }
 
