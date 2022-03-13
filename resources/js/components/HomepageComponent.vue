@@ -10,27 +10,27 @@
                 </div>
                 <div id="text-jumbotron">
                     <h1>I piatti che ami, a domicilio.</h1>
-                    <h2>#aCasaTuaConDeliveboo</h2>
+                    <h2>#aCasaTuaConDeeboo</h2>
                 </div>
             </section>
 
             <section id="categories-filters">
                 <h1>Filtra per</h1>
                 <ul id="categories-cards">
-                    <li class="category-card" v-for="category in categories" :key="category.id">
+                    <li class="category-card" @click="getCategoryId(category.id)"  :class="selectedCategories.includes(category.id) ? 'click-category':'' " v-for="category in categories" :key="category.id">
                         <img :src="category.category_img" alt="category_img">
                         <h3>{{ category.name }}</h3>
                     </li>
                 </ul>
-                <button class="btn btn-secondary" @click="searchResults()">Filtra</button><button class="btn btn-secondary" @click="getAllRestaurants()">Reset</button>
+                <button id="btn-filter" @click="searchResults()">Filtra</button><button id="btn-reset" @click="getAllRestaurants()">Reset</button>
             </section>
 
             <section id="users">
-                <h1>I tuoi piatti preferiti, consegnati da noi.</h1>
+                <h1>Ristoranti</h1>
                 <ul id="users-cards">
                     <li class="user-card" v-for="user in users" :key="user.id">
                         <a :href="`restaurant/` + user.id">
-                            <img src="/storage/img/delivebooDefault.png" alt="logo">
+                            <img :src="`/storage/img/` + user.logo" alt="logo">
                             <h3>{{ user.restaurant_name }}</h3>
                             <h5>{{ user.address }}</h5>
                             <h6>{{ user.category_name }}</h6>

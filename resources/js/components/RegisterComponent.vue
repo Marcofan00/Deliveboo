@@ -390,7 +390,7 @@
             },
             validateFileType() {
 
-                if (this.file && !this.file.type.includes('/image/')) {
+                if (this.file && !this.file.type.includes('image')) {
                     this.errors.fileError = 'Formato file non valido. Inserisci una immagine';
                     return false;
                 }
