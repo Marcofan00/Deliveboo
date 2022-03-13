@@ -59,7 +59,7 @@ class RestaurantController extends Controller
             $validator = Validator::make($data, [
                 'user_id' => ['required', 'numeric'],
                 'name' => ['required', 'string', 'max:60'],
-                'description_ingredients' => ['required', 'string', 'min:100'],
+                'description_ingredients' => ['required', 'string', 'min:50'],
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['required', 'image']
@@ -100,7 +100,7 @@ class RestaurantController extends Controller
                 'name.required' => 'Questo campo è obbligatorio',
                 'name.max' => 'Questo campo deve contenere massimo 60 caratteri',
                 'description_ingredients.required' => 'Questo campo è obbligatorio',
-                'description_ingredients.min' => 'Questo campo deve contenere minimo 100 caratteri',
+                'description_ingredients.min' => 'Questo campo deve contenere minimo 50 caratteri',
                 'price.required' => 'Questo campo è obbligatorio',
                 'price.numeric' => 'Questo campo deve essere di tipo numerico',
                 'visible.required' => 'Questo campo è obbligatorio',
