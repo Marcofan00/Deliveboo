@@ -23,7 +23,7 @@
             font-size: 1.2rem;
         }
         .img_restaurant{
-            max-width: 100%;
+            width: 100%;
             height: auto;
             margin-bottom: 32px;
             border: 5px solid white;
@@ -34,6 +34,13 @@
         width: 70%;
         padding: 0 16px;
         overflow-y: scroll;
+        .msg_foods_empty{
+            color: #686767;
+            margin-top: 30px;
+            font-family: 'rubik'sans-serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
         h2{
             color: #FE5E49;
             font-size: 2rem;
@@ -119,7 +126,7 @@
                 font-size: 1.5rem;
             }
             .card-text_food{
-                color: #333333;
+                color: #686767;
                 flex-grow: 1;
                 overflow-y: scroll;
                 font-size: 1.1rem;
