@@ -8,8 +8,8 @@ export default {
     },
     data() {
         return {
-            orderTotal: [],
-            orderDate: [],
+            orderTotal: [200.00],
+            orderDate: ['2021-01'],
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -47,7 +47,7 @@ export default {
                         labels: this.orderDate,
                         datasets: [{
                             label: 'Vendite',
-                            backgroundColor: '#009900',
+                            backgroundColor: '#FE5E49',
                             data: this.orderTotal
                         }]
                     }, this.options)
