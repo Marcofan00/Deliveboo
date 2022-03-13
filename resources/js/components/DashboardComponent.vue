@@ -145,6 +145,9 @@
 
             <!-- order mobile-->
             <div v-if="orders_visibility" id="orders-mobile">
+                        <div class="msg_foods_empty" v-if="orders.length === 0">
+                                Nessun ordine trovato !
+                        </div>
                     <div class="row riga_ordine_head" v-for="order,i in orders" :key="order.id">
                             <div class="number_order">
                                 Ordine n° {{ i + 1}}
