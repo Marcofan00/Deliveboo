@@ -1,16 +1,64 @@
 <script>
-import { Line } from 'vue-chartjs';
+import { Bar } from 'vue-chartjs';
 
 export default {
-    extends: Line,
+    extends: Bar,
+    props: {
+        user: Number
+    },
+    data() {
+        return {
+            orderTotal: [],
+            orderDate: [],
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+    },
     mounted() {
-        this.renderChart({
-               labels: [2021, 2022, 2023],
-               datasets: [{
-                  label: 'Vendite',
-                  backgroundColor: '#FC2525',
-                  data: [100, 200, 300]
-            }]}, {responsive: true, maintainAspectRatio: false})
+        this.getAllOrders(this.user);
+        
+    },
+    methods: {
+        getAllOrders: async function(id) {
+            try {
+
+                let response = await fetch('http://localhost:8000/api/dashboard/statistics/' + 5);
+
+                if (response.ok) {
+                    let responseToJson = await response.json();
+
+                    console.log(responseToJson);
+
+                    let self = this;
+
+                    responseToJson.forEach(function(order) {
+                        self.orderTotal.push(order.total);
+                        self.orderDate.push(order.date);
+                    });
+
+                    this.renderChart({
+                        labels: this.orderDate,
+                        datasets: [{
+                            label: 'Vendite',
+                            backgroundColor: '#009900',
+                            data: this.orderTotal
+                        }]
+                    }, this.options)
+
+                    
+                }
+
+            } catch(err) {
+                console.log(err);
+            }
+        }
     }
 }
 </script>

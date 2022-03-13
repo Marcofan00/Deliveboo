@@ -30,8 +30,8 @@ class PageController extends Controller
     }
 
     public function statistics() {
-
-        return view('pages.charts');
+        $userId = Auth::User() -> id;
+        return view('pages.charts', ['userId' => $userId]);
     }
 
     public function create() {
