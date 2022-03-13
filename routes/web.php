@@ -20,6 +20,12 @@ Route::get('/success/{id}', 'PageController@success')->name('success');
 
 Route::get('/error', 'PageController@error')->name('error');
 
+// Contatti 
+Route::get('/contatti','PageController@contatti')->name('contatti');
+Route::get('/chisiamo','PageController@chisiamo')->name('chisiamo');
+
+
+
 // UR routes (protected)
 
 Route::middleware('auth')->group(function() {
