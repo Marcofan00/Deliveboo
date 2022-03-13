@@ -51,6 +51,7 @@
         .riga_ordine{
             border-bottom: 1px solid #009FB7;
             padding: 8px 0;
+            color: #686767;
         }
         .riga_ordine_head{
             background-color: #009FB7;
@@ -62,7 +63,7 @@
             font-size: 1.2rem;
         }
         .info_order{
-            color: #009FB7;
+            color: #FE5E49;
         }
         #orders-mobile{
             display: none;
@@ -197,6 +198,7 @@
             .riga_ordine{
                 border-bottom: 1px solid #009FB7;
                 padding: 8px 0;
+                color: #686767;
             }
             .riga_ordine_head{
                 background-color: #009FB7;
@@ -237,7 +239,7 @@
                 margin-bottom: 0;
             }
             .info_order{
-                color: #009FB7;
+                color: #FE5E49;
                 margin-right: 8px;
             }
             #foods{
