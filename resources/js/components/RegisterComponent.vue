@@ -63,7 +63,7 @@
                     <div id="logo">
                         <label id="label_img"  for="logo">Immagine di copertina</label>
                         <input type="file" name="logo" @change="getFile">
-                        <div class="error_register" v-if="errors.fileError">{{ errors.fileError }}</div>
+                        <div id="errore_img" class="error_register" v-if="errors.fileError">{{ errors.fileError }}</div>
                     </div>
                     
                 </div>
