@@ -3,12 +3,12 @@
         <div class="container container_xxl_">
                 <!-- Contatti  -->
             <div class="info">
-                <a href="#">Contatti</a>
+                <a href="/contatti">Contatti</a>
             </div>
 
                 <!-- Chi siamo  -->
             <div class="info">
-                <a href="#">Chi siamo</a>
+                <a href="/chisiamo">Chi siamo</a>
             </div>
 
                 <!-- Social  -->
