@@ -15,6 +15,57 @@ use App\Models\Category;
 
 class RestaurantController extends Controller
 {
+    // saves img file in storage/img and formats file name
+    public static function formatImageFile($image) {
+        $imageFile = $image;
+    
+        $fileName = rand(100000, 999999) . '_' . time().'.'.$image->extension();
+
+        $imageFile -> storeAs('img', $fileName, 'public');
+
+        return $fileName;
+
+    }
+
+    // validates input data
+    public static function validateInputData($data, $imgRequired) {
+        $messages = [
+            'name.required' => 'Questo campo è obbligatorio',
+            'name.max' => 'Questo campo deve contenere massimo 60 caratteri',
+            'description_ingredients.required' => 'Questo campo è obbligatorio',
+            'description_ingredients.min' => 'Questo campo deve contenere minimo 100 caratteri',
+            'price.required' => 'Questo campo è obbligatorio',
+            'price.numeric' => 'Questo campo deve essere di tipo numerico',
+            'visible.required' => 'Questo campo è obbligatorio',
+            'food_img.image' => 'Il file caricato deve essere di tipo immagine'
+        ];
+
+        if ($imgRequired) {
+            $messages['food_img.required'] = 'Questo campo è obbligatorio';
+        }
+
+        $rules = [
+            'user_id' => ['required', 'numeric'],
+            'name' => ['required', 'string', 'max:60'],
+            'description_ingredients' => ['required', 'string', 'min:50'],
+            'price' => ['required', 'numeric'],
+            'visible' => ['required', 'boolean'],
+            'food_img' => ['nullable', 'image']
+        ];
+
+        if ($imgRequired) {
+            $rules['food_img'] = ['required', 'image'];
+        }
+
+        $validator = Validator::make($data, $rules, $messages);
+
+        $validator->validate();
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
+    }
+
     // gets first 12 available restaurants
     public function getAllRestaurants() {
 
@@ -37,47 +88,16 @@ class RestaurantController extends Controller
         return response()->json(['foods' => $food->values()->all(), 'user' => $user]);
     }
 
-    // create new record in food table
+    // creates new record in food table
     public function createNewFood(Request $request) {
 
         $data = $request->all();
 
-        $messages = [
-            'name.required' => 'Questo campo è obbligatorio',
-            'name.max' => 'Questo campo deve contenere massimo 60 caratteri',
-            'description_ingredients.required' => 'Questo campo è obbligatorio',
-            'description_ingredients.min' => 'Questo campo deve contenere minimo 100 caratteri',
-            'price.required' => 'Questo campo è obbligatorio',
-            'price.numeric' => 'Questo campo deve essere di tipo numerico',
-            'visible.required' => 'Questo campo è obbligatorio',
-            'food_image.image' => 'Il file caricato deve essere di tipo immagine',
-            'food_img.required' => 'Questo campo è obbligatorio'
-        ];
-
         if (User::find($data['user_id'])) {
 
-            $validator = Validator::make($data, [
-                'user_id' => ['required', 'numeric'],
-                'name' => ['required', 'string', 'max:60'],
-                'description_ingredients' => ['required', 'string', 'min:50'],
-                'price' => ['required', 'numeric'],
-                'visible' => ['required', 'boolean'],
-                'food_img' => ['required', 'image']
-            ], $messages);
+            self::validateInputData($data, true);
 
-            $validator->validate();
-
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()]);
-            }
-    
-            $imageFile = $data['food_img'];
-    
-            $fileName = rand(100000, 999999) . '_' . time().'.'.$data['food_img']->extension();
-    
-            $imageFile -> storeAs('img', $fileName, 'public');
-    
-            $data['food_img'] = $fileName;
+            $data['food_img'] = self::formatImageFile($data['food_img']);
     
             return Food::create($data);
 
@@ -94,43 +114,11 @@ class RestaurantController extends Controller
 
             $data = $request->all();
 
-            $messages = [
-                'user_id.required' => 'Questo campo è obbligatorio',
-                'user_id.numeric' => 'Questo campo deve avere valore numerico',
-                'name.required' => 'Questo campo è obbligatorio',
-                'name.max' => 'Questo campo deve contenere massimo 60 caratteri',
-                'description_ingredients.required' => 'Questo campo è obbligatorio',
-                'description_ingredients.min' => 'Questo campo deve contenere minimo 50 caratteri',
-                'price.required' => 'Questo campo è obbligatorio',
-                'price.numeric' => 'Questo campo deve essere di tipo numerico',
-                'visible.required' => 'Questo campo è obbligatorio',
-                'food_image.image' => 'Il file caricato deve essere di tipo immagine'
-            ];
-
-            $validator = Validator::make($data, [
-                'user_id' => ['required', 'numeric'],
-                'name' => ['required', 'string', 'max:60'],
-                'description_ingredients' => ['required', 'string', 'min:50'],
-                'price' => ['required', 'numeric'],
-                'visible' => ['required', 'boolean'],
-                'food_img' => ['nullable', 'image']
-            ], $messages);
-
-            $validator->validate();
-
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()]);
-            }
+            self::validateInputData($data, false);
 
             if ($data['food_img']) {
-
-                $imageFile = $data['food_img'];
-
-                $fileName = rand(100000, 999999) . '_' . time().'.'.$data['food_img']->extension();
         
-                $imageFile -> storeAs('img', $fileName, 'public');
-        
-                $data['food_img'] = $fileName;
+                $data['food_img'] = self::formatImageFile($data['food_img']);
 
             } else {
 
