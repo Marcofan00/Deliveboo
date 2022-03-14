@@ -68,6 +68,18 @@
     let client = require('braintree-web/client');
     let hostedFields = require('braintree-web/hosted-fields');
 
+    import {
+        validateEmail,
+        validateFirstName,
+        validateLastName,
+        validateAddress,
+        validateStreetNumber,
+        validatePostalCode,
+        validateCity,
+        validatePhone,
+        errors
+    } from '../utils.js';
+
     export default {
         data() {
             return {
@@ -82,19 +94,7 @@
                 city: '',
                 buyerPhone: '',
                 notes: '',
-                errors: {
-                    emailError: '',
-                    firstNameError: '',
-                    lastNameError: '',
-                    phoneError: '',
-                    streetNumberError: '',
-                    postalCodeError: '',
-                    cityError: '',
-                    addressError: '',
-                    creditCardData: '',
-                    emptyCartError: ''
-                },
-                namesRegex: /^[a-z\s]+$/i
+                errors
             }
         },
         computed: {
@@ -108,35 +108,35 @@
         watch: {
             firstName(value) {
                 this.firstName = value;
-                this.validateFirstName(value);
+                validateFirstName(value);
             },
             lastName(value) {
                 this.lastName = value;
-                this.validateLastName(value);
+                validateLastName(value);
             },
             buyerEmail(value) {
                 this.buyerEmail = value;
-                this.validateEmail(value);
+                validateEmail(value);
             },
             buyerAddress(value) {
                 this.buyerAddress = value;
-                this.validateAddress(value);
+                validateAddress(value);
             },
             streetNumber(value) {
                 this.streetNumber = value;
-                this.validateStreetNumber(value);
+                validateStreetNumber(value);
             },
             postalCode(value) {
                 this.postalCode = value;
-                this.validatePostalCode(value);
+                validatePostalCode(value);
             },
             city(value) {
                 this.city = value;
-                this.validateCity(value);
+                validateCity(value);
             },
             buyerPhone(value) {
                 this.buyerPhone = value;
-                this.validatePhone(value);
+                validatePhone(value);
             }
         },
         mounted() {
@@ -248,14 +248,14 @@
                     paymentMethodId: nonce
                 });
 
-                let validEmail = this.validateEmail(this.buyerEmail),
-                    validCity = this.validateCity(this.city),
-                    validFirstName = this.validateFirstName(this.firstName),
-                    validLastName = this.validateLastName(this.lastName),
-                    validAddress = this.validateAddress(this.buyerAddress),
-                    validStreetNumber = this.validateStreetNumber(this.streetNumber),
-                    validPostalCode = this.validatePostalCode(this.postalCode),
-                    validPhone = this.validatePhone(this.buyerPhone);
+                let validEmail = validateEmail(this.buyerEmail),
+                    validCity = validateCity(this.city),
+                    validFirstName = validateFirstName(this.firstName),
+                    validLastName = validateLastName(this.lastName),
+                    validAddress = validateAddress(this.buyerAddress),
+                    validStreetNumber = validateStreetNumber(this.streetNumber),
+                    validPostalCode = validatePostalCode(this.postalCode),
+                    validPhone = validatePhone(this.buyerPhone);
 
                 if (
                     validEmail &&
@@ -328,86 +328,86 @@
 
                 return fullYear + '/' + month + '/' + day;
             },
-            validateEmail(email) {
+            // validateEmail(email) {
 
-                if (!email || !/^([a-zA-Z0-9\_\-\.]+)@([a-zA-Z0-9\_\-\.]+)\.([a-zA-Z]{2,5})$/g.test(email)) {
-                    this.errors.emailError = 'Email non valida';
-                    return false;
-                }
+            //     if (!email || !/^([a-zA-Z0-9\_\-\.]+)@([a-zA-Z0-9\_\-\.]+)\.([a-zA-Z]{2,5})$/g.test(email)) {
+            //         this.errors.emailError = 'Email non valida';
+            //         return false;
+            //     }
 
-                this.errors.emailError = '';
-                return true;
-            },
-            validateFirstName(firstName) {
+            //     this.errors.emailError = '';
+            //     return true;
+            // },
+            // validateFirstName(firstName) {
 
-                if (!firstName || !this.namesRegex.test(firstName)) {
-                    this.errors.firstNameError = 'Nome non valido';
-                    return false;
-                }
+            //     if (!firstName || !this.namesRegex.test(firstName)) {
+            //         this.errors.firstNameError = 'Nome non valido';
+            //         return false;
+            //     }
 
-                this.errors.firstNameError = '';
-                return true;
-            },
-            validateLastName(lastName) {
+            //     this.errors.firstNameError = '';
+            //     return true;
+            // },
+            // validateLastName(lastName) {
 
-                if (!lastName || !this.namesRegex.test(lastName)) {
-                    this.errors.lastNameError = 'Cognome non valido';
-                    return false;
-                }
+            //     if (!lastName || !this.namesRegex.test(lastName)) {
+            //         this.errors.lastNameError = 'Cognome non valido';
+            //         return false;
+            //     }
 
-                this.errors.lastNameError = '';
-                return true;                
-            },
-            validateAddress(address) {
+            //     this.errors.lastNameError = '';
+            //     return true;                
+            // },
+            // validateAddress(address) {
 
-                if (!address || !/^[-a-z ,.\'0-9]+$/gi.test(address)) {
-                    this.errors.addressError = 'Indirizzo non valido';
-                    return false;
-                }
+            //     if (!address || !/^[-a-z ,.\'0-9]+$/gi.test(address)) {
+            //         this.errors.addressError = 'Indirizzo non valido';
+            //         return false;
+            //     }
 
-                this.errors.addressError = '';
-                return true;  
-            },
-            validateStreetNumber(number) {
+            //     this.errors.addressError = '';
+            //     return true;  
+            // },
+            // validateStreetNumber(number) {
 
-                if (!number || !/^\d+$/.test(number)) {
-                    this.errors.streetNumberError = 'Numero civico non valido';
-                    return false;
-                }
+            //     if (!number || !/^\d+$/.test(number)) {
+            //         this.errors.streetNumberError = 'Numero civico non valido';
+            //         return false;
+            //     }
 
-                this.errors.streetNumberError = '';
-                return true;                
-            },
-            validatePostalCode(number) {
+            //     this.errors.streetNumberError = '';
+            //     return true;                
+            // },
+            // validatePostalCode(number) {
 
-                if (!number || !/^\d+$/.test(number)) {
-                    this.errors.postalCodeError = 'CAP non valido';
-                    return false;
-                }
+            //     if (!number || !/^\d+$/.test(number)) {
+            //         this.errors.postalCodeError = 'CAP non valido';
+            //         return false;
+            //     }
 
-                this.errors.postalCodeError = '';
-                return true;                
-            },
-            validateCity(city) {
+            //     this.errors.postalCodeError = '';
+            //     return true;                
+            // },
+            // validateCity(city) {
 
-                if (!city || !this.namesRegex.test(city)) {
-                    this.errors.cityError = 'Città non valida';
-                    return false;
-                }
+            //     if (!city || !this.namesRegex.test(city)) {
+            //         this.errors.cityError = 'Città non valida';
+            //         return false;
+            //     }
 
-                this.errors.cityError = '';
-                return true;                 
-            },
-            validatePhone(phone) {
+            //     this.errors.cityError = '';
+            //     return true;                 
+            // },
+            // validatePhone(phone) {
 
-                if (phone && !/\d{10}/.test(phone)) {
-                    this.errors.phoneError = 'Numero di telefono errato';
-                    return false;
-                }
+            //     if (phone && !/\d{10}/.test(phone)) {
+            //         this.errors.phoneError = 'Numero di telefono errato';
+            //         return false;
+            //     }
 
-                this.errors.phoneError = '';
-                return true;
-            }
+            //     this.errors.phoneError = '';
+            //     return true;
+            // }
             
         }
     }

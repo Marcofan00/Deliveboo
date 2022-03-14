@@ -47,6 +47,7 @@
 </template>
 
 <script>
+    import { validateDescription, validateName, validatePrice, validateFileType, errors } from "../utils";
     export default {
         props : {
             userid : Number,
@@ -59,13 +60,7 @@
                 price : "",
                 visible : "1",
                 hamburgermenu : false,
-                errors: {
-                    nameError: '',
-                    descriptionError: '',
-                    priceError: '',
-                    visibilityError: '',
-                    fileError: ''
-                }
+                errors
             }
         },
         created(){
@@ -87,10 +82,10 @@
             },
             sendFood: async function() {
 
-                let validFile = this.validateFileType(),
-                    validName = this.validateName(),
-                    validDescription = this.validateDescription(),
-                    validPrice = this.validatePrice();
+                let validFile = validateFileType(this.file, true),
+                    validName = validateName(this.name),
+                    validDescription = validateDescription(this.descriptionIngredients),
+                    validPrice = validatePrice(this.price);
 
                 if (
                     validFile &&
@@ -150,63 +145,6 @@
                     }
                 }
                 
-            },
-            validateName() {
-
-                if (!this.name || this.name.length < 2) {
-
-                    this.errors.nameError = 'Inserire almeno un dato valido';
-                    return false;
-
-                } else {
-
-                    this.errors.nameError = '';
-                    return true;
-
-                }
-            },
-            validateDescription() {
-
-                if (!this.descriptionIngredients || this.descriptionIngredients.length < 50) {
-
-                    this.errors.descriptionError = 'Inserire una descrizione di almeno 50 caratteri';
-                    return false;
-
-                } else {
-
-                    this.errors.descriptionError = '';
-                    return true;
-                }
-            },
-            validatePrice() {
-
-                if (!this.price || typeof Number(this.price) !== 'number') {
-
-                    this.errors.priceError = 'Inserire un prezzo valido';
-                    return false;
-
-                } else {
-
-                    this.errors.priceError = '';
-                    return true;
-
-                }
-            },
-            validateFileType() {
-
-                if (!this.file || !this.file.type.includes('image')) {
-
-                    console.log(this.file.type)
-
-                    this.errors.fileError = 'File non caricato o formato non valido. Inserisci una immagine';
-                    return false;
-
-                } else {
-
-                    this.errors.fileError = '';
-                    return true;
-
-                }
             }
         }
     }

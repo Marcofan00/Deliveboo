@@ -4,19 +4,19 @@
             <div class="data_accesso">
                 <label for="email">E-mail</label>
                 <div class="form_login">
-                    <input type="text" name="email" v-model.trim="email" :class="emailError ? 'red' : 'green'" placeholder="Inserire email">
+                    <input type="text" name="email" v-model.trim="email" :class="errors.emailError ? 'red' : 'green'" placeholder="Inserire email">
                 </div>
             </div>
-            <div class="error" v-if="emailError">{{ emailError }}</div>
+            <div class="error" v-if="errors.emailError">{{ errors.emailError }}</div>
 
             
             <div class="data_accesso">
                 <label for="password">Password</label>
                 <div class="form_login">
-                    <input type="password" name="password" v-model.trim="password" :class="passwordError ? 'red' : 'green'" placeholder="Inserire password">
+                    <input type="password" name="password" v-model.trim="password" :class="errors.passwordError ? 'red' : 'green'" placeholder="Inserire password">
                 </div>
             </div>
-            <div class="error" v-if="passwordError">{{ passwordError }}</div>
+            <div class="error" v-if="errors.passwordError">{{ errors.passwordError }}</div>
 
             <div id="btn">
                 <button type="button" class="btn login_btn" @click="logUser">Accedi</button>
@@ -29,30 +29,32 @@
 
 <script>
 import swal from 'sweetalert';
+
+import { validateEmail, validatePassword, errors } from '../utils.js';
+
     export default {
         data() {
             return {
                 email: '',
                 password: '',
-                emailError: '',
-                passwordError: ''
+                errors
             }
         },
         watch: {
             email(value) {
                 this.email = value;
-                this.validateEmail(value);
+                validateEmail(value);
             },
             password(value) {
                 this.password = value;
-                this.validatePassword(value);
+                validatePassword(value);
             }
         },
         methods: {
             logUser: async function() {
 
-                let validEmail = this.validateEmail(this.email),
-                    validPassword = true;
+                let validEmail = validateEmail(this.email),
+                    validPassword = true; // temporarly set on true to allow login with laravel seeders passwords
 
                     // this.validatePassword(this.password);
 
@@ -79,39 +81,17 @@ import swal from 'sweetalert';
                     if (!response.ok) {
 
                         if (responseToJson.errors.email) {
-                            // this.emailError = responseToJson.errors.email.toString();
-                            swal(responseToJson.errors.email.toString())
+                            swal(responseToJson.errors.email.toString());
                         }
 
                         if (responseToJson.errors.password) {
-                            this.emailError = responseToJson.errors.password.toString();
-                            swal(this.emailError)
+                            swal(responseToJson.errors.password.toString());
                         }
                     } else {
                         window.location.href = '/dashboard/';
                     }
 
                 }
-            },
-            validateEmail(email) {
-
-                if (!email || !/^([a-zA-Z0-9\_\-\.]+)@([a-zA-Z0-9\_\-\.]+)\.([a-zA-Z]{2,5})$/g.test(email)) {
-                    this.emailError = 'Email non valida';
-                    return false;
-                }
-
-                this.emailError = '';
-                return true;
-            },
-            validatePassword(password) {
-
-                if (!password || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g.test(password)) {
-                    this.passwordError = 'Password non valida';
-                    return false;
-                }
-
-                this.passwordError = '';
-                return true;
             }
         }
     }

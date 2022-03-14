@@ -34,7 +34,7 @@
 
                     <label for="street">Indirizzo Ristorante</label>
                     <input type="text" name="street" v-model.trim="restaurantAddress" :class="errors.restaurantAddressError ? 'red' : 'green' "><br>
-                    <div class="error_register" v-if="errors.restaurantAddressError">{{ errors.restaurantAddressError }}</div>
+                    <div class="error_register" v-if="errors.addressError">{{ errors.addressError }}</div>
 
                     <label for="streetnumber">Numero Civico</label>
                     <input type="number" name="streetnumber" v-model.trim="streetNumber" :class="errors.streetNumberPostalCordeError ? 'red' : 'green' "><br>
@@ -78,6 +78,23 @@
 </template>
 
 <script>
+    import { 
+        validateEmail, 
+        validatePassword, 
+        validatePasswordConfirm, 
+        validateFirstName, 
+        validateLastName, 
+        validateRestaurantName, 
+        validateAddress, 
+        validateStreetNumber, 
+        validatePostalCode, 
+        validateCity, 
+        validateVatNumber, 
+        validateFileType, 
+        validateCategory,
+        errors
+    } from "../utils";
+
     export default {
         data() {
             return {
@@ -95,21 +112,7 @@
                 postalCode: '',
                 city: '',
                 vatNumber: '',
-                errors: {
-                    emailError: '',
-                    fileError: '',
-                    passwordError: '',
-                    passwordConfirmError: '',
-                    firstNameError: '',
-                    lastNameError: '',
-                    restaurantNameError: '',
-                    restaurantAddressError: '',
-                    streetNumberPostalCordeError: '',
-                    cityError: '',
-                    vatNumberError: '',
-                    categoryError: ''
-                },
-                namesRegex: /^[a-z\s]+$/i
+                errors
             }
         },
         mounted() {
@@ -126,47 +129,47 @@
         watch: {
             email(value) {
                 this.email = value;
-                this.validateEmail(value);
+                validateEmail(value);
             },
             password(value) {
                 this.password = value;
-                this.validatePassword(value);
+                validatePassword(value);
             },
             passwordConfirmed(value) {
                 this.passwordConfirmed = value;
-                this.validatePasswordConfirm(value);
+                validatePasswordConfirm(value, this.password);
             },
             firstName(value) {
                 this.firstName = value;
-                this.validateFirstName(value);
+                validateFirstName(value);
             },
             lastName(value) {
                 this.lastName = value;
-                this.validateLastName(value);
+                validateLastName(value);
             },
             restaurantName(value) {
                 this.restaurantName = value;
-                this.validateRestaurantName(value);
+                validateRestaurantName(value);
             },
             restaurantAddress(value) {
                 this.restaurantAddress = value;
-                this.validateRestaurantAddress(value);
+                validateAddress(value);
             },
             streetNumber(value) {
                 this.streetNumber = value;
-                this.validateStreetNumber(value);
+                validateStreetNumber(value);
             },
             postalCode(value) {
                 this.postalCode = value;
-                this.validatePostalCode(value);
+                validatePostalCode(value);
             },
             city(value) {
                 this.city = value;
-                this.validateCity(value);
+                validateCity(value);
             },
             vatNumber(value) {
                 this.vatNumber = value;
-                this.validateVatNumber(value);
+                validateVatNumber(value);
             }
         },
         methods: {
@@ -187,23 +190,23 @@
             },
             getFile() {
                 this.file = event.target.files[0];
-                this.validateFileType(this.file);
+                validateFileType(this.file, false);
             },
             sendData: async function() {
 
-                let validEmail = this.validateEmail(this.email),
-                    validCategories = this.validateCategory(),
-                    validCity = this.validateCity(this.city),
-                    validFileType = this.validateFileType(),
-                    validFirstName = this.validateFirstName(this.firstName),
-                    validLastName = this.validateLastName(this.lastName),
-                    validPassword = this.validatePassword(this.password),
-                    validPasswordConfirmed = this.validatePasswordConfirm(this.passwordConfirmed),
-                    validRestaurantAddress = this.validateRestaurantAddress(this.restaurantAddress),
-                    validRestaurantName = this.validateRestaurantName(this.restaurantName),
-                    validStreetNumber = this.validateStreetNumber(this.streetNumber),
-                    validPostalCode = this.validatePostalCode(this.postalCode),
-                    validVatNumber = this.validateVatNumber(this.vatNumber);
+                let validEmail = validateEmail(this.email),
+                    validCategories = validateCategory(this.categoriesChecked),
+                    validCity = validateCity(this.city),
+                    validFileType = validateFileType(this.file, false),
+                    validFirstName = validateFirstName(this.firstName),
+                    validLastName = validateLastName(this.lastName),
+                    validPassword = validatePassword(this.password),
+                    validPasswordConfirmed = validatePasswordConfirm(this.passwordConfirmed, this.password),
+                    validAddress = validateAddress(this.restaurantAddress),
+                    validRestaurantName = validateRestaurantName(this.restaurantName),
+                    validStreetNumber = validateStreetNumber(this.streetNumber),
+                    validPostalCode = validatePostalCode(this.postalCode),
+                    validVatNumber = validateVatNumber(this.vatNumber);
 
                 if (
                     validEmail &&
@@ -214,7 +217,7 @@
                     validLastName &&
                     validPassword &&
                     validPasswordConfirmed &&
-                    validRestaurantAddress &&
+                    validAddress &&
                     validRestaurantName &&
                     validStreetNumber &&
                     validPostalCode &&
@@ -269,8 +272,9 @@
                             }
                             
                             if (responseToJson.errors.address) {
-                                this.errors.restaurantAddressError = responseToJson.errors.address.toString();
-                                this.errors.streetNumberPostalCodeError = responseToJson.errors.address.toString();
+                                this.errors.addressError = responseToJson.errors.address.toString();
+                                this.errors.streetNumberError = responseToJson.errors.address.toString();
+                                this.errors.postalCodeError = responseToJson.errors.address.toString();
                                 this.errors.cityError = responseToJson.errors.address.toString();
                             }
                             
@@ -293,136 +297,6 @@
                     console.log('errore');
                 }
 
-            },
-            validateEmail(email) {
-
-                if (!email || !/^([a-zA-Z0-9\_\-\.]+)@([a-zA-Z0-9\_\-\.]+)\.([a-zA-Z]{2,5})$/g.test(email)) {
-                    this.errors.emailError = 'Email non valida';
-                    return false;
-                }
-
-                this.errors.emailError = '';
-                return true;
-            },
-            validatePassword(password) {
-
-                if (!password || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g.test(password)) {
-                    this.errors.passwordError = 'Password non valida';
-                    return false;
-                }
-
-                this.errors.passwordError = '';
-                return true;
-            },
-            validatePasswordConfirm(passwordConfirmed) {
-
-                if (passwordConfirmed !== this.password) {
-                    this.errors.passwordConfirmError = 'Questa password non corrisponde alla prima inserita';
-                    return false;
-                }
-
-                this.errors.passwordConfirmError = '';
-                return true;
-            },
-            validateFirstName(firstName) {
-
-                if (!firstName || !this.namesRegex.test(firstName)) {
-                    this.errors.firstNameError = 'Nome non valido';
-                    return false;
-                }
-
-                this.errors.firstNameError = '';
-                return true;
-            },
-            validateLastName(lastName) {
-
-                if (!lastName || !this.namesRegex.test(lastName)) {
-                    this.errors.lastNameError = 'Cognome non valido';
-                    return false;
-                }
-
-                this.errors.lastNameError = '';
-                return true;                
-            },
-            validateRestaurantName(restaurantName) {
-
-                if (!restaurantName || !/^[-a-z ,.\'0-9]+$/gi.test(restaurantName)) {
-                    this.errors.restaurantNameError = 'Nome ristorante non valido';
-                    return false;
-                }
-
-                this.errors.restaurantNameError = '';
-                return true;                 
-            },
-            validateRestaurantAddress(restaurantAddress) {
-
-                if (!restaurantAddress || !/^[-a-z ,.\'0-9]+$/gi.test(restaurantAddress)) {
-                    this.errors.restaurantAddressError = 'Indirizzo non valido';
-                    return false;
-                }
-
-                this.errors.restaurantAddressError = '';
-                return true;  
-            },
-            validateStreetNumber(number) {
-
-                if (!number || !/^\d+$/.test(number)) {
-                    this.errors.streetNumberError = 'Numero civico non valido';
-                    return false;
-                }
-
-                    this.errors.streetNumberError = '';
-                    return true;                
-            },
-            validatePostalCode(number) {
-
-                if (!number || !/^\d+$/.test(number)) {
-                    this.errors.postalCodeError = 'CAP non valido';
-                    return false;
-                }
-
-                    this.errors.postalCodeError = '';
-                    return true;                
-            },
-            validateCity(city) {
-
-                if (!city || !this.namesRegex.test(city)) {
-                    this.errors.cityError = 'Città non valida';
-                    return false;
-                }
-
-                this.errors.cityError = '';
-                return true;                 
-            },
-            validateVatNumber(vatNumber) {
-
-                if (!vatNumber || !/^it\d{14}$/gi.test(vatNumber)) {
-                    this.errors.vatNumberError = 'Partita IVA non valida. Formato richiesto: IT seguito da 14 cifre';
-                    return false;
-                }
-
-                this.errors.vatNumberError = '';
-                return true;
-            },
-            validateFileType() {
-
-                if (this.file && !this.file.type.includes('image')) {
-                    this.errors.fileError = 'Formato file non valido. Inserisci una immagine';
-                    return false;
-                }
-
-                this.errors.fileError = '';
-                return true;
-            },
-            validateCategory() {
-
-                if (this.categoriesChecked.length === 0) {
-                    this.errors.categoryError = 'Devi scegliere almeno una categoria';
-                    return false;
-                }
-
-                this.errors.categoryError = '';
-                return true;
             }
         }
     }

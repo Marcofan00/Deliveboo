@@ -48,23 +48,18 @@
 </template>
 
 <script>
+    import { validateDescription, validatePrice, validateFileType, validateName, errors } from "../utils";
+
     export default {
         props : {
             food_edit : Object,
         },
         data(){
             return {
-
                 file : "",
                 foodData: this.food_edit,
                 hamburgermenu : false,
-                errors: {
-                    nameError: '',
-                    descriptionError: '',
-                    priceError: '',
-                    visibilityError: '',
-                    fileError: ''
-                },
+                errors
             }
         },
         created(){
@@ -131,16 +126,15 @@
             }
         },
         methods :{
-           
             getFile(){
                 this.file = event.target.files[0];
             },
             sendFood: async function() {
 
-                let validFile = this.validateFileType(),
-                    validName = this.validateName(),
-                    validDescription = this.validateDescription(),
-                    validPrice = this.validatePrice();
+                let validFile = validateFileType(this.file, false),
+                    validName = validateName(this.nameFood),
+                    validDescription = validateDescription(this.descriptionIngredients),
+                    validPrice = validatePrice(this.price);
                 
                 if (
                     validFile &&
@@ -198,61 +192,6 @@
                     }
                 }
  
-            },
-            validateName() {
-
-                if (!this.nameFood || this.nameFood.length < 2) {
-
-                    this.errors.nameError = 'Inserire almeno un dato valido';
-                    return false;
-
-                } else {
-
-                    this.errors.nameError = '';
-                    return true;
-
-                }
-            },
-            validateDescription() {
-
-                if (!this.descriptionIngredients || this.descriptionIngredients.length < 50) {
-
-                    this.errors.descriptionError = 'Inserire una descrizione di almeno 50 caratteri';
-                    return false;
-
-                } else {
-
-                    this.errors.descriptionError = '';
-                    return true;
-                }
-            },
-            validatePrice() {
-
-                if (!this.price || typeof Number(this.price) !== 'number') {
-
-                    this.errors.priceError = 'Inserire un prezzo valido';
-                    return false;
-
-                } else {
-
-                    this.errors.priceError = '';
-                    return true;
-
-                }
-            },
-            validateFileType() {
-
-                if (this.file && !this.file.type.includes('image')) {
-
-                    this.errors.fileError = 'Formato file non valido. Inserisci una immagine';
-                    return false;
-
-                } else {
-
-                    this.errors.fileError = '';
-                    return true;
-
-                }
             }
         }
     }
