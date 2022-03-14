@@ -69,7 +69,7 @@ class RestaurantController extends Controller
     // gets first 12 available restaurants
     public function getAllRestaurants() {
 
-        $allRestaurants = User::all()->take(12);
+        $allRestaurants = User::all();
 
         foreach($allRestaurants as $restaurant) {
             $restaurant['categories'] = $restaurant->categories;
