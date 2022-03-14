@@ -8,8 +8,8 @@ export default {
     },
     data() {
         return {
-            orderTotal: [200.00],
-            orderDate: ['2021-01'],
+            orderTotal: [],
+            orderDate: [],
             options: {
                 responsive: true,
                 maintainAspectRatio: false,

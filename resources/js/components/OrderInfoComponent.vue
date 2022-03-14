@@ -12,11 +12,11 @@
                    <div class="info_answer_sx">Totale conto </div>  <div class="info_response">{{ordinecheck.bill}} &euro;</div>
                 </div>
                 <div class="info_answer">
-                   <div class="info_answer_sx">Data dell' ordine </div>  <div class="info_response uno">{{ordinecheck.order_date}}</div> 
+                   <div class="info_answer_sx">Data dell' ordine </div>  <div class="info_response uno">{{ moment(ordinecheck.order_date).format('L')}}</div> 
                 </div>
-                <div class="info_answer">
+                <!-- <div class="info_answer">
                     <div class="info_answer_sx">Orario di acquisto </div>  <div class="info_response">{{ moment(ordinecheck.created_at).format("hh:mm") }}</div> 
-                </div>
+                </div> -->
                 <div class="info_answer">
                     <div class="info_answer_sx">Ordine effettuato da </div>  <div class="info_response uno">{{ordinecheck.buyer_fullname}}</div> 
                 </div>

@@ -122,7 +122,8 @@
                                 {{ order.bill }}&euro;
                             </div>
                             <div class="col-2">
-                               {{ order.order_date }}
+                                {{ moment(order.order_date).format("L") }}
+                             
                             </div>
                             <!-- <div class="col-1">
                                 {{ order.transaction_id }}
@@ -184,7 +185,7 @@
                                 </div>
                                 
                                 <div class="ordine_selected">
-                                    {{ order.order_date }}
+                                    {{ moment(order.order_date).format("L") }}
                                 </div>
                             </div>
                             <div class="col-sm-12 head_table" id="info_last">
@@ -213,6 +214,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
     export default {
         props:{
             logincheck : Number,
@@ -220,6 +223,7 @@
         data () {
             
             return {
+                moment: moment,
                 ristorante : {},
                 foods_visibility : true,
                 foods : [],

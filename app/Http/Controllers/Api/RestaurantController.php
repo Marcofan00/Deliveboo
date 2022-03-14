@@ -110,7 +110,7 @@ class RestaurantController extends Controller
             $validator = Validator::make($data, [
                 'user_id' => ['required', 'numeric'],
                 'name' => ['required', 'string', 'max:60'],
-                'description_ingredients' => ['required', 'string', 'min:100'],
+                'description_ingredients' => ['required', 'string', 'min:50'],
                 'price' => ['required', 'numeric'],
                 'visible' => ['required', 'boolean'],
                 'food_img' => ['nullable', 'image']
