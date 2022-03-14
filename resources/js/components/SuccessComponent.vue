@@ -12,7 +12,7 @@
                    <div class="info_answer_sx"> Indirizzo di consegna  </div> <div class="info_response uno"> {{ order.buyer_address }}</div> 
                 </div>
                 <div class="info_answer">
-                   <div class="info_answer_sx"> Data ordine </div> <div class="info_response uno"> {{ order.order_date }}</div> 
+                   <div class="info_answer_sx"> Data ordine </div> <div class="info_response uno"> {{ moment(order.order_date).format('L')}}</div> 
                 </div>
                 <div class="info_answer">
                    <div class="info_answer_sx"> ID transazione:  </div> <div class="info_response uno"> {{ order.transaction_id }}</div> 
@@ -27,9 +27,16 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
     props: {
         order: Object
+    },
+    data(){
+        return {
+            moment: moment,
+        }
     },
     mounted() {
         console.log(this.order);
