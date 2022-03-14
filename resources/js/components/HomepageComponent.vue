@@ -27,7 +27,7 @@
 
             <section id="users">
                 <h1>Ristoranti</h1>
-                <ul id="users-cards">
+                <ul v-if="users.length > 0" id="users-cards">
                     <li class="user-card" v-for="user in users" :key="user.id">
                         <a :href="`restaurant/` + user.id">
                             <img :src="`/storage/img/` + user.logo" alt="logo">
@@ -44,6 +44,9 @@
                         </a>
                     </li>
                 </ul>
+                <div class="ricerca_empty" v-else>
+                    La ricerca non ha prodotto risultati 
+                </div>
             </section>
         </div>
     </div>

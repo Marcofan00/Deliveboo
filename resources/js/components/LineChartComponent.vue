@@ -46,7 +46,7 @@ export default {
                     this.renderChart({
                         labels: this.orderDate,
                         datasets: [{
-                            label: 'Vendite',
+                            label: 'Fatturato in €',
                             backgroundColor: '#FE5E49',
                             data: this.orderTotal
                         }]

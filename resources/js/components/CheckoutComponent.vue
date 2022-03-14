@@ -58,13 +58,14 @@
                 <input type="button"  class="button button--small" value="Conferma Pagamento" id="submit" @click="tokenize(hostedFieldsInstance)"/>
             </div>
         </form>
-        <div class="error" v-if="errors.emptyCartError">{{ errors.emptyCartError }}</div>
+
     </div>  
 
 </template>
 
 
 <script>
+import swal from 'sweetalert';
     let client = require('braintree-web/client');
     let hostedFields = require('braintree-web/hosted-fields');
 
@@ -81,6 +82,7 @@
     } from '../utils.js';
 
     export default {
+
         data() {
             return {
                 clientToken: '',
@@ -284,7 +286,8 @@
                         if (!response.ok) {
 
                             if (responseToJson.errors.emptyCart) {
-                                this.errors.emptyCartError = responseToJson.errors.emptyCart.toString();
+                                swal(responseToJson.errors.emptyCart.toString())
+                                // this.errors.emptyCartError = responseToJson.errors.emptyCart.toString();
                             }
 
                             if (responseToJson.errors.buyer_email) {

@@ -76,7 +76,7 @@ class RegisterController extends Controller
             'vat_number.max' => 'La lunghezza massima della Partita IVA deve essere massimo di 16 caratteri compreso il prefisso',
             'vat_number.unique' => 'Questa Partita IVA è già presente nei nostri database',
             'logo.image' => 'Il formato del file caricato non è valido. Il file deve essere una immagine',
-            'logo.dimensions' => 'Il formato dell immagine dev essere di lunghezza minima 400',
+            'logo.dimensions' => 'Il formato dell immagine deve essere di lunghezza minima 400',
             'categories.required' => 'Questo campo è obbligatorio'
         ];
 

@@ -13,6 +13,9 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" v-model.trim="password" :class="errors.passwordError ? 'red' : 'green' " placeholder="Password1!"><br>
                     <div class="error_register" v-if="errors.passwordError">{{ errors.passwordError }}</div>
+                    <div class="error_register" v-else>
+                        La password deve contenere almeno 8 caratteri, una lettera maiuscola, un numero e un carattere speciale tra @ $ ! % * ? & 
+                    </div>
 
                     <label for="password_confirmation">Conferma Password</label>
                     <input type="password" name="password_confirmation" v-model.trim="passwordConfirmed" :class="errors.passwordConfirmError ? 'red' : 'green' " placeholder="Password1!"><br>

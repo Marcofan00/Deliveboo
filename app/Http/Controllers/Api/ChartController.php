@@ -22,7 +22,7 @@ class ChartController extends Controller
             $allOrders[] = $food->orders->toArray();
         }
 
-        $allOrders = $allOrders->collapse()->unique('id')->groupBy(function($item) {
+        $allOrders = $allOrders->collapse()->unique('id')->sortBy('order_date')->groupBy(function($item) {
             $orderDate = Carbon::create($item['order_date'])->format('Y-m');
             $item['order_date'] = $orderDate;
             return $item['order_date'];

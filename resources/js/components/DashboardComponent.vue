@@ -42,7 +42,7 @@
 
                             <a :href="`/food/edit/${food.id}`" target="_blank">
                                  <div id="edit_pulsante">
-                                    <i class="fas fa-edit"></i> Edit
+                                    <i class="fas fa-edit"></i> Modifica
                                 </div>
                             </a>
                            

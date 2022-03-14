@@ -78,7 +78,7 @@
     
             <div class="contatto">
                 <div class="img_contatto">
-                    <img src="{{asset('storage/img/domenico.jpg')}}" alt="">
+                    <img src="{{asset('storage/img/domeni.jpg')}}" alt="">
                     <h2>Domenico Cristo</h2>
     
                 </div>
@@ -101,7 +101,7 @@
     
             <div class="contatto">
                 <div class="img_contatto">
-                    <img src="{{asset('storage/img/deliverooDefault.png')}}" alt="">
+                    <img src="{{asset('storage/img/micaela.jpg')}}" alt="">
                     <h2>Micaela Milano</h2>
     
                 </div>
@@ -111,13 +111,13 @@
                         <i class="icon fas fa-phone-alt"></i> : 3427993642
                     </div>
                     <div class="contact">
-                        <i class="icon fas fa-envelope"></i> : prova
+                        <i class="icon fas fa-envelope"></i> : milano.micael@gmail.com
                     </div>
                     <div class="contact">
-                        <i class="icon fab fa-linkedin"></i> : <a href="">https://github.com/Andrea1302</a>
+                        <i class="icon fab fa-linkedin"></i> : <a href="https://bit.ly/3q5Detn">https://bit.ly/3q5Detn</a>
                     </div>
                     <div class="contact">
-                        <i class="icon fab fa-github"></i> : <a href="">https://bit.ly/3J7hmoN</a>
+                        <i class="icon fab fa-github"></i> : <a href="https://github.com/Micaela87">https://github.com/Micaela87</a>
                     </div>
                 </div>
             </div>
