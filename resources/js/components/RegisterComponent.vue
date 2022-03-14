@@ -1,5 +1,5 @@
 <template>
-    <div id="register_deeboo" class="container container_xxl_">
+    <div :class="hamburgermenu? 'if_open' : ''" id="register_deeboo" class="container container_xxl_">
 
 
         <form>
@@ -101,6 +101,7 @@
     export default {
         data() {
             return {
+                hamburgermenu : false,
                 categories: [],
                 categoriesChecked: [],
                 file: '',
@@ -117,6 +118,11 @@
                 vatNumber: '',
                 errors
             }
+        },
+        created(){
+             this.$root.$on('openHambMenu',(value)=>{
+               this.hamburgermenu = value;
+            });
         },
         mounted() {
             this.getAllCategories();

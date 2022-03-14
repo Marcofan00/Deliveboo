@@ -1,5 +1,5 @@
 <template>
-    <div class="container container_xxl_" id="success">
+    <div :class="hamburgermenu? 'if_open' : ''" class="container container_xxl_" id="success">
         <h2>Ordine inviato con successo</h2>
         <h3>Di seguito il riepilogo del tuo ordine:</h3>
 
@@ -36,10 +36,14 @@ export default {
     data(){
         return {
             moment: moment,
+            hamburgermenu : false
+
         }
     },
     mounted() {
-        console.log(this.order);
+        this.$root.$on('openHambMenu',(value)=>{
+               this.hamburgermenu = value;
+            });
     }
 }
 </script>
